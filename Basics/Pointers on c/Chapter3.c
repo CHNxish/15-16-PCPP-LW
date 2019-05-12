@@ -20,5 +20,5 @@ wchar.h:wchar_t wscanf wprintf wchar_t wstr[]=L"something"; wprintf(L"%ls\n",wst
 设置地域环境,locale.h：设置语言和货币等等，setlocale(LC_ALL,"zh_CH.UTF-8");
 在使用wscanf等函数直接必须用setlocale设置本地环境，设置完成后，不能再使用scanf函数，必须使用wscanf函数
 ！！！wchar_t只能在linux中使用，不能再windows中使用，因为linux中wchar_t占4个字节，在windows中占2个字节
-！！！在windows使用中文可以使用DWORD，使用TEXT("something");
+！！！在windows使用中文可以使用tchar.h DWORD TEXT("something");
 */
