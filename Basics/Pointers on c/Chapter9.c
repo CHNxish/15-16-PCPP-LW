@@ -48,4 +48,20 @@ char *my_strrstr(char const *s1,char const *s2){
 
 ##
 
+size_t strspn(char const *str,char const *group);
+size_t strcspn(char const *str,char const *group);
+
+char *strtok(char *str,char const *sep);
+
+char *strerror(int error_number);
+
+<ctype.h>
+对于字符串中单个字符进行判断或者转换
+
+对于内存的操作，可以用于任何类型
+void *memcpy(void *dst,void const *src,size_t length);
+void *memmove(void *dst,void const *src,size_t length);
+void *memcmp(void *a,void const *b,size_t length);
+void *memchr(void *a,int ch,size_t length);
+void *memset(void *dst,int ch,size_t length);
 */
