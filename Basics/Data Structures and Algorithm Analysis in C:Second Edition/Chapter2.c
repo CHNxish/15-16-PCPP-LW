@@ -91,4 +91,12 @@ MaxSubsequenceSum(const int A[], int N){
 }
 ##
 
+在线（联机）算法（on line algorithm）：
+对于数据只要读入一次且不需要存储的不知道准确数量的算法
+离线算法（off line algorithm）：
+对于数据需要知道准确数量的算法
+
+完美算法：
+只需要常量空间和线性处理速度的算法
+
 */
