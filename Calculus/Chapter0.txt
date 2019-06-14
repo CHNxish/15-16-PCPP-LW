@@ -81,3 +81,6 @@ n>0 增长 n<0 衰减
 y=loga x(a>0 & a≠1)
 
 aˣ = e⁽ˣlna ⁾
+
+对数的换底公式：
+loga x= ln x / ln a = logb x / logb a（更一般情况）
