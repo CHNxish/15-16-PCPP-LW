@@ -26,4 +26,50 @@ T1(N)*T2(N)=O(F(N)*G(N))
 
 考虑情况：往往情况下Tavg(N)≦Tworst(N)，我们在考虑问题的时候应该考虑最坏情况，而不是考虑平均情况
 ，相对而言，分析平均的这个“平均”是一个非常不好规定的词语。
+
+最大子串的值：
+
+分治法：
+##
+static int
+MaxSubSum(const int A[], int Left, int Right){
+	int MaxLeftSum,MaxRightSum;
+	int MaxLeftBorderSum,MaxRightBorderSum;
+	int LeftBorderSum,RightBorderSum;
+	int Center,i;
+	
+	if(Left == Right)
+		if(A[Left] > 0)
+			return A[Left];
+		else
+			return 0;
+		
+	Center = (Left + Right) / 2;
+	MaxLeftSum = MaxSubSum( A, Left, Center);
+	MaxRightSum = MaxSubSum( A, Center + 1, Right);
+	
+	MaxLeftBorderSum = 0, LeftBorderSum = 0;
+	for( i = Center; i >= Left; i-- ){
+		LeftBorderSum += A[i];
+		if(LeftBorderSum > MaxLeftBorderSum)
+			MaxLeftBorderSum = LeftBorderSum;
+	}
+	
+	MaxRightBorderSum = 0, RightBorderSum = 0;
+	for( i = Center + 1; i < Left; i++ ){
+		RightBorderSum += A[i];
+		if(RightBorderSum > MaxRightBorderSum)
+			MaxRightBorderSum = RightBorderSum;
+	}
+	
+	return Max3( MaxLeftSum, MaxRightSum, MaxLeftBorderSum+MaxRightBorder);
+}
+
+int
+MaxSubsequenceSum(const int A[], int N){
+	return MaxSubSum( A, 0, N-1);
+}
+##
+线性方法：
+
 */
