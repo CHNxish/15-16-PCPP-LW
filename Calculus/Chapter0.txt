@@ -84,3 +84,23 @@ aˣ = e⁽ˣlna ⁾
 
 对数的换底公式：
 loga x= ln x / ln a = logb x / logb a（更一般情况）
+
+sin x cos x tan x cot x sec x csc x
+
+三角函数的移位，伸缩，反射
+y = a f(b (x - c)) + d
+a:垂直的伸缩和反射
+b:水平的伸缩和反射
+c:水平的移位
+d:垂直的移位
+
+毕达哥拉斯定理在三角函数中的应用:
+sin²θ + cos²θ = 1
+和角公式:
+sin(a + b) = sinacosb + cosasinb
+cos(a + b) = cosacosb - sinasinb
+余弦定理:
+c² = a² + b² - 2abcosθ
+
+arcsin x arccos x arctan x
+arcsin x + arccos x = π / 2
