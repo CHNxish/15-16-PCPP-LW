@@ -99,6 +99,9 @@ sin²θ + cos²θ = 1
 和角公式:
 sin(a + b) = sinacosb + cosasinb
 cos(a + b) = cosacosb - sinasinb
+tan(a + b) = tana + tanb / 1 - tanatanb
+正弦公式：
+sin a / a = sin b / b = sin c / c
 余弦定理:
 c² = a² + b² - 2abcosθ
 
