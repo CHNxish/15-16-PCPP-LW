@@ -119,4 +119,34 @@ BinarySearch(const ElementType A[], ElementType X, int N){
 }
 ##
 
+欧几里得算法
+##
+unsigned int
+Gcd(unsigned int M, unsigned int N){
+	unsigned int Rem;
+	
+	while(N > 0){
+		Rem = M % N;
+		M = N;
+		N= Rem;
+	}
+	
+	return M;
+}
+##
+
+Xⁿ
+##
+int
+Pow(int X, int N){
+	if(N == 0)
+	 return 1;
+	
+	if(IsEven(N))
+	 return Pow(X * X, N / 2);
+	else
+		return Pow(X * X, N / 2) * X;
+}
+##
+
 */
