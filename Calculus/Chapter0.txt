@@ -107,3 +107,10 @@ c² = a² + b² - 2abcosθ
 
 arcsin x arccos x arctan x
 arcsin x + arccos x = π / 2
+
+参数方程
+x = f(t) y = g(x)
+参数方程 参数曲线
+t称为参数 t的区间称为参数区间
+
+实际问题-（简化）->模型-（分析）->数学结论-（翻译）->预测-(检验)->实际问题
