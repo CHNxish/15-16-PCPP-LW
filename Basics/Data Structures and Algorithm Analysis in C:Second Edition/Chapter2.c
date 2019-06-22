@@ -143,9 +143,9 @@ Pow(int X, int N){
 	 return 1;
 	
 	if(IsEven(N))
-	 return Pow(X * X, N / 2);
+	        return Pow(X * X, N / 2);
 	else
-		return Pow(X * X, N / 2) * X;
+	        return Pow(X * X, N / 2) * X;
 }
 ##
 
