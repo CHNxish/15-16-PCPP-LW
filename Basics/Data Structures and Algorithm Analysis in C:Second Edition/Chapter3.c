@@ -214,11 +214,33 @@ void PrintLots(List L, int A[]){
 }
 
 void SwapWithNext(Position BeforeP, List L){
-	
+	Position P, AfterP;
+	if(BeforeP != NULL){
+		P = Advance(BeforeP);
+		if(P != NULL){
+			AfterP = Advance(P);
+			if(AfterP != NULL){
+				BeforeP->next = AfterP;
+				P->next = AfterP->next;
+				AfterP->next = P;
+			}
+		}
+	}
 }
 
 List IntersectList(List L1, List L2){
-
+	List ResultList;
+	Position L1Pos, L2Pos, ResultPos, ResultNextPos;
+	ResultList = MakeEmpty(NULL);
+	L1Pos = First(L1);
+	L2Pos = First(L2);
+	ResultPos = Header(ResultList);
+	while(L1Pos != NULL && L2Pos != NULL){
+		if(L1Pos->Element < L2Pos->Element)
+			L1Pos = Advance(L1Pos);
+		else if(L1Pos->Element > L2Pos->Element)
+			L2Pos = Advance(L2Pos);
+	}
 }
 
 List UnionList(Position L1, Position L2){
