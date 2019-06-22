@@ -10,3 +10,12 @@ struct Node{
   ElementType Element;
   Position Next;
 };
+
+双链表（Doubly Linked List）
+struct Node{
+  ElementType Element;
+  Position Prev;
+  Position Next;
+};
+循环链表（A1的Prev和An的Next指针不为0）
+
