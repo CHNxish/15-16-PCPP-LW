@@ -20,6 +20,7 @@ struct Node{
 循环链表（A1的Prev和An的Next指针不为0）
 
 ##list.h
+
 #ifndef _LIST_H_
 #define _LIST_H_
 
@@ -47,4 +48,5 @@ struct Node{
 };
 
 #endif
+
 ##
