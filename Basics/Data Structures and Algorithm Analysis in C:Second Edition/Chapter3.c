@@ -228,6 +228,7 @@ void SwapWithNext(Position BeforeP, List L){
 	}
 }
 
+//求交集
 List IntersectList(List L1, List L2){
 	List ResultList;
 	Position L1Pos, L2Pos, ResultPos, ResultNextPos;
@@ -240,15 +241,76 @@ List IntersectList(List L1, List L2){
 			L1Pos = Advance(L1Pos);
 		else if(L1Pos->Element > L2Pos->Element)
 			L2Pos = Advance(L2Pos);
+		else{
+			ResultPos->next = InitListNode();
+			ResultPos = ResultPos->next;
+			ResultPos->Element = L1Pos->Element;
+			L1Pos = Advance(L1Pos);
+			L2Pos = Advance(L2Pos);
+		}
 	}
+	return ResultList;
 }
 
+//求并集
 List UnionList(Position L1, Position L2){
-
+	List ResultList;
+	Element InsertElement;
+	Position L1Pos, L2Pos, ResultPos, ResultNextPos;
+	ResultList = MakeEmpty(NULL);
+	L1Pos = First(L1);
+	L2Pos = First(L2);
+	ResultPos = Header(ResultList);
+	while(L1Pos != NULL && L2Pos != NULL){
+		if(L1Pos->Element < L2Pos->Element)
+			InsertElement = L1Pos->Element;
+			L1Pos = Advance(L1Pos);
+		else if(L1Pos->Element > L2Pos->Element)
+			InsertElement = L2Pos->Element;
+			L2Pos = Advance(L2Pos);
+		else{
+			InsertElement = L2Pos->Element;
+			L1Pos = Advance(L1Pos);
+			L2Pos = Advance(L2Pos);
+		}
+		ResultPos->next = InitListNode();
+		ResultPos = ResultPos->next;
+		ResultPos->Element = InsertElement;
+	}
+	
+	while(L1Pos != NULL){
+		ResultPos->next = InitListNode();
+		ResultPos = ResultPos->next;
+		ResultPos->Element = L1Pos->Element;
+		L1Pos = Advance(L1Pos);
+	}
+	
+	while(L2Pos != NULL){
+		ResultPos->next = InitListNode();
+		ResultPos = ResultPos->next;
+		ResultPos->Element = L2Pos->Element;
+		L2Pos = Advance(L2Pos);
+	}
+	
+	return ResultList;
 }
 
+//反顺
 void ReverseList(List L){
-
+	if(IsEmpty(L) || L->next->next == NULL)
+		return;
+	Position CurrentPos, PreviousPos, NextPos;
+	CurrentPos = First(L);
+	PreviousPos = NULL;
+	NextPos = L->next->next;
+	while(NextPos != NULL){
+		CurrentPos->next = PreviousPos;
+		PreviousPos = CurrentPos;
+		CurrentPos = NextPos;
+		NextPos = Advance(NextPos);
+	}
+	CurrentPos->next = PreviousPos;
+	L->next = CurrentPos;
 }
 
 ##
