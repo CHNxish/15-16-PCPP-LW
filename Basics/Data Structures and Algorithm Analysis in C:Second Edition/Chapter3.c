@@ -24,6 +24,7 @@ struct Node{
 #ifndef _LIST_H_
 #define _LIST_H_
 
+//声明
 struct Node;
 typedef int ElementType;
 typedef struct Node *PtrToNode;
@@ -82,13 +83,18 @@ fprintf(stderr,"%s\n",str),exit(1);
 #include "List.h"
 #include "FalatError.h"
 
-//初始化表聊节点
+//初始化链表节点
 List InitListNode(){
+	//声明Node指针
 	struct Node L;
+	//分配堆空间
 	L = (struct Node *)malloc(sizeof(struct Node));
+	//空间分配失败，FalatError
 	if(L == NULL)
 		FalatError("Out of memory!");
+	//next指针赋值NULL
 	L->next = NULL;
+	//返回Node指针
 	return L;
 }
 //如果L非空就删除原本的链表，如果是空就重新分配空间
@@ -100,15 +106,18 @@ List MakeEmpty(List L){
 	return L;	
 }
 
+//判断链表是否是空
 int IsEmpty(List L){
+	//判断头指针的next的指针是否是NULL
 	return L->next == NULL;
 }
 
+//判断P指针是否是尾指针
 int IsLast(Position P, List L){
 	return P->next == NULL;
 }
 
-//找到返回Position，如果没有找到返回NULL
+//返回相同元素的指针
 Position Find(ElementType X, List L){
 	Position P;
 
@@ -213,7 +222,12 @@ void PrintLots(List L, int A[]){
 	}
 }
 
+//交换指针
 void SwapWithNext(Position BeforeP, List L){
+	/*
+	**传入BeforeP指针
+	**交换P和AfterP指针
+	*/
 	Position P, AfterP;
 	if(BeforeP != NULL){
 		P = Advance(BeforeP);
@@ -236,6 +250,11 @@ List IntersectList(List L1, List L2){
 	L1Pos = First(L1);
 	L2Pos = First(L2);
 	ResultPos = Header(ResultList);
+	/**
+	**两个Position都不是NULL
+	**当某一个指针指向的元素小于另一个指针指向的元素时，该指针指向next
+	**如果相同就将该Node的元素给ResultPos
+	**/
 	while(L1Pos != NULL && L2Pos != NULL){
 		if(L1Pos->Element < L2Pos->Element)
 			L1Pos = Advance(L1Pos);
@@ -278,6 +297,9 @@ List UnionList(Position L1, Position L2){
 		ResultPos->Element = InsertElement;
 	}
 	
+	/*
+	**在原有基础上将比原本大的所有元素导入ResultPos
+	*/
 	while(L1Pos != NULL){
 		ResultPos->next = InitListNode();
 		ResultPos = ResultPos->next;
@@ -297,6 +319,7 @@ List UnionList(Position L1, Position L2){
 
 //反顺
 void ReverseList(List L){
+	//没有节点或者只有一个节点
 	if(IsEmpty(L) || L->next->next == NULL)
 		return;
 	Position CurrentPos, PreviousPos, NextPos;
@@ -314,3 +337,208 @@ void ReverseList(List L){
 }
 
 ##
+
+Example 1 Polynomial ADT
+
+//使用数组表
+typedef struct{
+	int CoeffArray[MaxDegree + 1];
+	int HighPower;
+}* Polynomial;
+
+void
+ZeroPolynomial(Polynomial Poly){
+	int i;
+	
+	for(i = 0; i <= MaxDegree; i++)
+		Polynomial -> CoeffArray[i] = 0;
+	Polynomial -> HighPower = 0;
+}
+
+void
+AddPolynomial(const Polynomial Poly1, const Polynomial Poly2, Polynomial PolySum){
+	int i;
+	
+	ZeroPolynomial(PolySum);
+	PolySum -> HighPower = Max(Poly1 -> HighPower, Poly2 -> HighPower);
+	for(i = 0; i <= HighPower; i++){
+		PolySum -> CoeffArray[i] = Poly1 -> CoeffArray[i] + Poly2 -> CoeffArray[i];
+	}
+}
+
+void
+MultPolynomial(const Polynomial Poly1, const Polynomial Poly2, Polynomial PolyProd){
+	int i, j;
+	
+	PolyProd -> HighPower = Poly1 -> HighPower + Poly2 -> HighPower;
+	if(PolyProd -> HighPower > MaxDegree)
+		Error("Exceeded array size!");
+	else{
+		for(i = 0; i <= MaxDegree; i++)
+			for(j = 0; j <= MaxDegree; j++){
+				PolyProd[i + j] += Poly1[i] * Poly2[j];
+			}
+	}
+}
+
+//使用单链表
+struct node;
+typedef struct node *PtrToNode;
+struct node{
+	int Coefficient;
+	int Exponent;
+	PtrToNode next;
+};
+typedef PtrToNode Polynomial;
+
+void
+ZeroPolynomial(Polynomial Poly){
+	PtrToNode Pos, TmpCell;
+	
+	Pos = Poly -> next;
+	Poly -> next = NULL;
+	while(Pos){
+		TmpCell = Pos;
+		Pos = Pos -> next;
+		free(TmpCell);
+		TmpCell = NULL;
+	}
+}
+
+void
+AddPolynomial(const Polynomial Poly1, const Polynomial Poly2, Polynomial PolySum){
+	PtrToNode P1Pos, P2Pos, PSPos, TmpPos;
+	
+	P1Pos = Poly1 -> next;
+	P2Pos = Poly2 -> next;
+	ZeroPolynomial(PolySum);
+	PSPos = PolySum;
+	
+	while(P1Pos != NULL && P2Pos !=NULL){
+		if(P1Pos -> Exponent > P2Pos -> Exponent){
+			TmpPos = InitNode();
+			TmpPos -> Coefficient = P1Pos -> Coefficient;
+			TmpPos -> Exponent = P1Pos -> Exponent;
+			PSPos -> next = TmpPos;
+			PSPos = PSPos -> next;
+			TmpPos = NULL;
+			P1Pos = P1Pos -> next;
+		}
+		else if(P1Pos -> Exponent < P2Pos -> Exponent){
+			TmpPos = InitNode();
+			TmpPos -> Coefficient = P2Pos -> Coefficient;
+			TmpPos -> Exponent = P2Pos -> Exponent;
+			PSPos -> next = TmpPos;
+			PSPos = PSPos -> next;
+			TmpPos = NULL;
+			P2Pos = P2Pos ->next;
+		}
+		else{
+			TmpPos = InitNode();
+			TmpPos -> Coefficient = P1Pos -> Coefficient;
+			TmpPos -> Exponent = P1Pos -> Exponent;
+			PSPos -> next = TmpPos;
+			PSPos = PSPos -> next;
+			TmpPos = NULL;
+			P1Pos = P1Pos -> next;
+			P2Pos = P2Pos ->next;
+		}
+	}
+	
+	while(P1Pos != NULL){
+		TmpPos = InitNode();
+		TmpPos -> Coefficient = P1Pos -> Coefficient;
+		TmpPos -> Exponent = P1Pos -> Exponent;
+		PSPos -> next = TmpPos;
+		PSPos = PSPos -> next;
+		TmpPos = NULL;
+		P1Pos = P1Pos -> next;
+	}
+	
+	while(P2Pos != NULL){
+		TmpPos = InitNode();
+		TmpPos -> Coefficient = P2Pos -> Coefficient;
+		TmpPos -> Exponent = P2Pos -> Exponent;
+		PSPos -> next = TmpPos;
+		PSPos = PSPos -> next;
+		TmpPos = NULL;
+		P2Pos = P2Pos ->next;
+	}
+}
+
+void
+MultPolynomial(const Polynomial Poly1, const Polynomial Poly2, Polynomial PolyProd){
+	PtrToNode P1Pos, P2Pos, PPPos, TmpPos, PPNextPos;
+	
+	if(Poly1 -> next == NULL){
+		P2Pos = Poly2 -> next;
+		while(P2Pos){
+			TmpPos = InitNode();
+			TmpPos -> Coefficient = P2Pos -> Coefficient;
+			TmpPos -> Exponent = P2Pos -> Exponent;
+			PPPos -> next = TmpPos;
+			PPPos = PPPos -> next;
+			TmpPos = NULL;
+			P2Pos = P2Pos ->next;
+		}
+	}
+	else if(Poly1 -> next == NULL){
+		P1Pos = Poly1 -> next;
+		while(P1Pos){
+			TmpPos = InitNode();
+			TmpPos -> Coefficient = P1Pos -> Coefficient;
+			TmpPos -> Exponent = P1Pos -> Exponent;
+			PPPos -> next = TmpPos;
+			PPPos = PPPos -> next;
+			TmpPos = NULL;
+			P1Pos = P1Pos ->next;
+		}
+	}
+	else{
+		P1Pos = Poly1 -> next;
+		while(P1Pos){
+			P2Pos = Poly2 -> next;
+			while(P2Pos){
+				TmpPos = InitNode();
+				TmpPos -> Coefficient = P1Pos -> Coefficient * P2Pos -> Coefficient;
+				TmpPos -> Exponent = TmpPos -> Exponent + TmpPos -> Exponent;
+				
+				//找到相同指数或者比这个指数大的第一个指数
+				PPPos = PolyProd;
+				while(PPPos -> next != NULL && PPPos -> next -> Exponent > TmpPos -> Exponent){
+					PPPos = PPPos -> next;
+				}
+				
+				if(PPPos -> next == NULL || PPPos -> next -> Exponent < TmpPos -> Exponent){
+					PPNextPos = PPPos -> next;
+					PPPos -> next = TmpPos;
+					TmpPos -> next = PPNextPos;
+					TmpPos = NULL;
+				}
+				else{
+ 					PPPos -> next -> Coefficient += TmpPos -> Coefficient;
+				}
+				
+				P2Pos = P2Pos -> next;
+			}
+			P1Pos = P1Pos ->next;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
