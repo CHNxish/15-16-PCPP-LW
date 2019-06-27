@@ -527,7 +527,154 @@ MultPolynomial(const Polynomial Poly1, const Polynomial Poly2, Polynomial PolyPr
 }
 
 
+//对正数进行基数排序
+#include <stdio.h>
+#include <stdlib.h>
+#define ARRAY_SIZE 10
+#define INPUT_SIZE 5
+#define Error(str) FalatError(str)
+#define FalatError(str) \
+fprintf(stderr,"%s",str),exit(1);
 
+struct node;
+typedef struct node *PtrToNode;
+typedef PtrToNode List;
+typedef PtrToNode Position;
+struct node{
+	int element;
+	Position next;
+};
+
+int getMaxNumber(const List L){
+	int maxNumber;
+	Position P;
+	
+	maxNumber = 0;
+	P = L -> next;
+	while(P){
+		if(P -> element > maxNumber)
+			maxNumber = P -> element;
+		P = P -> next;
+	}
+	
+	return maxNumber;
+}
+
+Position initNode(){
+	Position P;
+	P = (Position)malloc(sizeof(struct node));
+	if(P == NULL)
+		Error("Out of memory!");
+	P -> next = NULL;
+	return P;
+}
+
+void destroyList(List L){
+	Position P, Tmp;
+	
+	P = L;
+	while(P){
+		Tmp = P;
+		P = P -> next;
+		free(Tmp);
+		Tmp = NULL;
+	}
+}
+
+void addBackList(List L, Position Pos){
+	Position P;
+	
+	P = L;
+	while(P -> next != NULL){
+		P = P -> next;
+	}
+	
+	P -> next = Pos;
+}
+
+void inputLinkedList(List L){
+	int number;
+	Position P;
+	P = L;
+	
+	while(P -> next != NULL)
+		P = P -> next;
+	
+	while(scanf("%d", &number) && number >= 0){
+		P -> next = initNode();
+		P -> next -> element = number;
+		P = P -> next;
+	}
+}
+
+void radixSortList(List L, int maxNumber){
+	int exp;
+	
+	for(exp = 1; maxNumber / exp > 1; exp *= 10){
+		int i;
+		List LArray[ARRAY_SIZE];
+		Position P, Tmp;
+		
+		for(i = 0; i < ARRAY_SIZE; i++)
+			LArray[i] = initNode();
+			
+		P = L -> next;
+		L ->next = NULL;
+		while(P){
+			Tmp = P;
+			P = P ->next;
+			Tmp -> next = NULL;
+			addBackList(LArray[Tmp -> element / exp % ARRAY_SIZE], Tmp);
+		}
+			
+		for(i = 0; i < ARRAY_SIZE; i++){
+			P = LArray[i] -> next;
+			while(P){
+				Tmp = P;
+				P = P ->next;
+				Tmp -> next = NULL;
+				addBackList(L, Tmp);
+			}
+		}
+		
+		for(i = 0; i < ARRAY_SIZE; i++)
+			free(LArray[i]);
+	}
+	
+}
+
+void outputLinkedList(List L){
+	int count;
+	Position P;
+	
+	P = L -> next;
+	count = 0;
+	while(P){
+		printf("%d ", P -> element);
+		count +=1;
+		if(count % INPUT_SIZE == 0)
+			printf("\n");
+		P = P -> next;
+	}
+}
+
+int main(){
+	int maxNumber;
+	List L;
+	
+	L = initNode();
+	//输入
+	inputLinkedList(L);
+	//获取最大数
+	maxNumber = getMaxNumber(L);
+	//排序
+	radixSortList(L, maxNumber);
+	//输出
+	outputLinkedList(L);
+	
+	destroyList(L);
+	return 0;
+}
 
 
 
