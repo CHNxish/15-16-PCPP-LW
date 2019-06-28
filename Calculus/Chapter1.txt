@@ -12,5 +12,41 @@ limx->x0 f(x) = L
 对于任意的ε>0，存在δ>0，使得x∈{x|0<|x-x0|<δ}时，有         //依据
 |f(x) - L| < ε
 
+求极限和单侧极限
 
+lim f(x) = L , lim g(x) = M
+和法则     lim ( f(x) + g(x) ) = L + M
+差法则     lim ( f(x) - g(x) ) = L - M
+积法则     lim ( f(x) * g(x) ) = L * M
+乘常数法则  lim ( k * f(x) ) = k * L（k是常数）
+商法则     lim ( f(x) / g(x) ) = L / M （M ≠ 0）
+幂法则     lim ( f(x) )ˣʸ = L ˣʸ  角标x是常数，y是常数的倒数，y的倒数不能为0
+
+
+代数多项式表达式：
+如果P(x) = anxⁿ + an-1xⁿ⁻¹ + ... + a0
+那么lim x->c P(x) = P(c) = ancⁿ + an-1xⁿ⁻¹ + ... + a0
+
+如果P(x)和Q(x)都是多项式且lim Q(x) ≠ 0，那么
+lim x->c P(x) / Q(x) = P(c) / Q(c)
+
+代数消除法：当lim Q(x) = 0时（即分母极限为0），则利用分子分母有理化，
+已知定理和已知公式
+
+三明治定理（夹逼）定理：
+当f(x)在x0的某去心邻域内有定义，若g(x) ≤ f(x) ≤ g(x)
+且 lim g(x) = lim h(x) = L，则lim f(x) = L
+
+公式：
+lim x->0 sinx / x = 1
+
+单侧极限：
+左侧极限：设f(x)定义在(c,a)上，c<a，如果当x在区间(c,a)内
+趋于a时，f(x)任意接近的趋于L，那么我们就说f在a有左侧极限：
+lim x->a⁻ f(x) = L
+右侧极限：设f(x)定义在(a,b)上，a<b，如果当x在区间(a,b)内
+趋于a时，f(x)任意接近的趋于L，那么我们就说f在a有右侧极限：
+lim x->a⁺ f(x) = L
+
+lim x->a f(x) = L ⇔ lim x->a⁻ f(x) = L & lim x->a⁺ f(x) = L
 
