@@ -680,7 +680,49 @@ int main(){
 广义表，一个结构体可能属于多个表，往往是循环结构，表尾指针指向表头
 
 
+//cursor.h
+#ifndef _CURSOR_H_
+#define SPACESIZE 1000
 
+typedef int PtrToNode;
+typedef PtrToNode List;
+typedef PtrToNode Position;
+typedef int ElementType;
+struct node{
+	ElementType element;
+	Position next;
+}
+
+struct node CursorSpace[SPACESIZE];
+
+//cursorSpace.c
+#include <cursor.h>
+//假设元素全部是正数
+void 
+initCursorSpace(struct node CursorSpace[], int SpaceSize){
+	int i;
+	for(i = 0; i < SpaceSize; i++){
+		CursorSpace[i].element = -1;
+		CursorSpace[i].next = i + 1;
+	}
+	CursorSpace[SpaceSize - 1].next = 0; 
+}
+
+Position
+CursorAlloc(void){
+	Position P;
+	
+	P = CursorSpace[0].next;
+	CursorSpace[0].next = CursorSpace[P].next;
+	
+	return P;
+}
+
+void
+FreeList(Position P){
+	CursorSpace[P].next = CursorSpace[0].next;
+	CursorSpace[0].next = p;
+}
 
 
 
