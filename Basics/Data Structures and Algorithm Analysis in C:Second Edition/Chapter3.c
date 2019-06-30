@@ -719,16 +719,7 @@ CursorAlloc(void){
 }
 
 void
-FreeList(Position P){
+CursorFree(Position P){
 	CursorSpace[P].next = CursorSpace[0].next;
 	CursorSpace[0].next = p;
 }
-
-
-
-
-
-
-
-
-
