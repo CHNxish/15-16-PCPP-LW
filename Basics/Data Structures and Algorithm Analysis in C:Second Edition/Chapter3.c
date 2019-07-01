@@ -954,4 +954,4 @@ ElementType TopAndPop(Stack S){
 ##
 
 
-Example 1 Of Stack ADT
+Example Of Stack ADT
