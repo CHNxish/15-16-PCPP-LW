@@ -526,6 +526,10 @@ MultPolynomial(const Polynomial Poly1, const Polynomial Poly2, Polynomial PolyPr
 	}
 }
 
+##
+
+
+##radixSort.c
 
 //对正数进行基数排序
 #include <stdio.h>
@@ -676,15 +680,20 @@ int main(){
 	return 0;
 }
 
+##
+
+
 多重表
 广义表，一个结构体可能属于多个表，往往是循环结构，表尾指针指向表头
 
 
-Cursor 游标
+Cursor 游标ADT
 当编程语言没有指针这一基本类型的时候，，可以利用数组模仿链式结构来写表ADT
 表的末端指向数组第一个元素，即下标为0的元素(一般保存着不会存在于存储元素的值)
 不好的地方，数组一开始大小就分配了，不易变动
-//cursor.h
+
+##cursor.h
+
 #ifndef _CURSOR_H_
 #define SPACESIZE 1000
 
@@ -699,7 +708,8 @@ struct node{
 
 struct node CursorSpace[SPACESIZE];
 
-//cursorSpace.c
+##cursorSpace.c
+
 #include <cursor.h>
 //假设元素全部是正数
 void 
@@ -727,3 +737,221 @@ CursorFree(Position P){
 	CursorSpace[P].next = CursorSpace[0].next;
 	CursorSpace[0].next = p;
 }
+
+##
+
+栈ADT
+栈又称先进后出表，一般操作就是Push，Pop，Top
+可以访问的元素只有栈顶的元素，非栈顶元素在设计时应该不能被访问
+
+##stack.h
+
+#ifndef _STACK_H_
+#define _STACK_H_
+
+struct node;
+typedef struct node *PtrToNode;
+typedef PtrToNode Stack;
+
+int IsEmpty(Stack S);
+Stack CreateStack(void);
+void DisposeStack(Stack S);
+void MakeEmpty(Stack S);
+void Push(ElementType X, Stack S);
+ElementType Top(Stack S);
+void Pop(Stack S);
+
+struct node{
+	ElementType element;
+	PtrToNode next;
+};
+
+#endif
+
+##
+
+##stack.c
+
+#include <stdlib.h>
+#include "falaterror.h"
+#include "stack.h"
+
+int IsEmpty(Stack S){
+	return S->next == NULL;
+}
+
+Stack CreateStack(void){
+	Stack S;
+	
+	S = (Stack)malloc(sizeof(struct node));
+	if(S == NULL)
+		FalatError("Out of space!");
+	S -> next == NULL;
+	MakeEmpty(S);
+	return P; 
+}
+
+void DisposeStack(Stack S){
+	while(!IsEmpty(S))
+		Pop(S);
+	free(S);
+}
+
+void MakeEmpty(Stack S){
+	if(S == NULL)
+		Error("Must use CreateStack first!");
+	else
+		while(!IsEmpty(S))
+			Pop(S);
+}
+
+void Push(ElementType X, Stack S){
+	PtrToNode TmpCell;
+	
+	TmpCell = (PtrToNode)malloc(sizeof(struct node));
+	if(TmpCell == NULL)
+		FalatError("Out of space!");
+	else{
+		TmpCell -> element = X;
+		TmpCell -> next = S ->next;
+		S -> next = TmpCell;
+	}
+}
+
+ElementType Top(Stack S){
+	if(!IsEmpty(S))
+		return S -> next -> element;
+	else{
+		Error("Empty Stack!");
+		return 0; /*Return value used to avoid warning*/
+	}
+}
+
+void Pop(Stack S){
+	PtrToNode FirstCell;
+
+	if(IsEmpty(S)){
+		Error("Empty Stack!");
+	}
+	else{
+		FirstCell = S -> next;
+		S -> next = S -> next -> next;
+		free(FirstCell);
+	}
+}
+
+##
+
+##stackRecord.h
+
+#ifndef _STACK_H_
+#define _STACK_H_
+
+struct StackRecord;
+typedef struct StackRecord *stack;
+
+int IsEmpty(Stack S);
+int IsFull(Stack S);
+Stack CreateStack(int MaxElements);
+void DisposeStack(Stack S);
+void MakeEmpty(Stack S);
+void Push(ElementType X, Stack S);
+ElementType Top(Stack S);
+void Pop(Stack S);
+ElementType TopAndPop(Stack S);
+
+#define EMPTY_TOS (-1)
+#define MIN_STACK_SIZE (5)
+
+struct StackRecord{
+	int Capacity;
+	int TopOfStack;
+	ElementType *Array;
+};
+
+#endif 
+
+##
+
+##stackRecord.c
+
+#include <stdlib.h>
+#include "falaterror.h"
+#include "stackRecord.h"
+
+int IsEmpty(Stack S){
+	return S -> TopOfStack == EMPTY_TOS;
+}
+
+int IsFull(Stack S){
+	return S -> TopOfStack == S -> Capacity - 1;
+}
+
+Stack CreateStack(int MaxElements){
+	Stack S;
+	
+	if(MaxElements < MIN_STACK_SIZE)
+		Error("Stack Size is too small!");
+	else{
+		S = (Stack)malloc(sizeof(struct StackRecord));
+		if(S == NULL)
+			FalatError("Out of space!");
+		
+		S -> Array = (ElementType *)malloc(sizeof(ElementType) * MaxElements);
+		if(S -> Array == NULL)
+			FalatError("Out of space!");
+		
+		S -> Capacity = MaxElements;
+		MakeEmpty(S);
+	}
+	
+	return S;
+}
+
+void DisposeStack(Stack S){
+	if(S != NULL){
+		free(S -> Array);
+		free(S);
+	}
+}
+
+void MakeEmpty(Stack S){
+	S -> TopOfStack = EMPTY_TOS;
+}
+
+void Push(ElementType X, Stack S){
+	if(IsFull(S))
+		Error("Full Stack!");
+	else
+		S -> Array[++ S -> TopOfStack] = X;
+}
+
+ElementType Top(Stack S){
+	if(!IsEmpty(S))
+		return S -> Array[TopOfStack];
+	else{
+		Error("Empty Stack!");
+		return 0; /*Return value used to avoid warning*/
+	}
+}
+
+void Pop(Stack S){
+	if(IsEmpty(S))
+		Error("Empty Stack!");
+	else
+		S -> TopStack--;
+}
+
+ElementType TopAndPop(Stack S){
+	if(!IsEmpty(S))
+		return S -> Array[TopOfStack--];
+	else{
+		Error("Empty Stack!");
+		return 0; /*Return value used to avoid warning*/
+	}
+}
+
+##
+
+
+Example 1 Of Stack ADT
