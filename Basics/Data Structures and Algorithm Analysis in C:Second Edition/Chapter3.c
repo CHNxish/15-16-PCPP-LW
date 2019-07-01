@@ -955,3 +955,153 @@ ElementType TopAndPop(Stack S){
 
 
 Example Of Stack ADT
+
+
+##characterMatch.c
+
+//平衡符号
+//仅作用于 [] () {}
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#define CHAR_OBJECT_SIZE (3)
+#define CODE_STRING_SIZE (100)
+#define Error(str) FalatError(str)
+#define FalatError(str) \
+fprintf(stderr, "%s\n", str),exit(1)
+
+struct node;
+typedef char ElementType;
+typedef struct node *PtrToNode;
+typedef PtrToNode Stack;
+
+struct node{
+	ElementType element;
+	PtrToNode next;
+};
+
+int IsEmpty(Stack S){
+	return S -> next == NULL;
+}
+
+void MakeEmpty(Stack S){
+	PtrToNode TmpCell;
+
+	while(!IsEmpty(S)){
+		TmpCell = S -> next;
+		S -> next = S -> next -> next;
+		free(TmpCell);
+	}
+}
+
+Stack CreateStack(void){
+	Stack S;
+	
+	S = (Stack)malloc(sizeof(struct node));
+	if(S == NULL)
+		FalatError("Out of space!");
+	S -> next = NULL;
+	MakeEmpty(S);
+	return S;
+}
+
+void Push(ElementType X, Stack S){
+	PtrToNode FirstCell;
+	
+	FirstCell = (PtrToNode)malloc(sizeof(struct node));
+	if(FirstCell == NULL){
+		FalatError("Out of space!");
+	}
+	else{
+		FirstCell -> element = X;
+		FirstCell -> next = S -> next;
+		S -> next = FirstCell;
+	}
+}
+
+ElementType Top(Stack S){
+	if(!IsEmpty(S)){
+		return S -> next -> element;
+	}
+	else{
+		Error("Empty Stack!");
+		return 0; /*Return value used to avoid warning*/
+	}
+}
+
+void Pop(Stack S){
+	PtrToNode TmpCell;
+
+	if(IsEmpty(S)){
+		Error("Empty Stack!");
+	}
+	else{
+		TmpCell = S -> next;
+		S -> next = S -> next -> next;
+		free(TmpCell);
+	}
+}
+
+void DisposeStack(Stack S){
+	while(!IsEmpty(S))
+		Pop(S);
+	free(S);
+}
+
+int judgeIsCharacterObject(char c){
+	int j;
+	const char LeftCharacterObject[CHAR_OBJECT_SIZE] = {'[', '(', '{'};
+	const char RightCharacterObject[CHAR_OBJECT_SIZE] = {']', ')', '}'};
+	
+	//左字符 返回 1 右字符 返回 2 没有 返回 0
+	for(j = 0; j < CHAR_OBJECT_SIZE; j++)
+		if(c == LeftCharacterObject[j])
+			return 1;
+		else if(c == RightCharacterObject[j])
+			return 2;
+		
+	return 0;
+}
+
+
+int main(int argc,char *argv[]){
+	int i, j;
+	Stack s;
+	char codeString[CODE_STRING_SIZE];
+	
+	s = CreateStack();
+	scanf("%s", codeString);
+	for(i = 0; codeString[i] != '\0'; i++){
+		//两个相关性字符之间在ascii表上的值差距为1或者2
+		switch( judgeIsCharacterObject(codeString[i]) ){
+			case 0:
+			break;
+			case 1:
+			Push(codeString[i], s);
+			break;
+			case 2:
+			if(!IsEmpty(s)){
+				if(abs(codeString[i] - Top(s)) <= 2)
+					Pop(s);
+				else{
+					DisposeStack(s);
+					Error("Character Mismatch!\n");
+				}
+			}
+			else{
+				DisposeStack(s);
+				Error("Character Mismatch!\n");
+			}
+			break;
+		}
+	}
+	
+	if(IsEmpty(s))
+		printf("Character Matching Successful!\n");
+	else
+		printf("Chararcter Mismatch!\n");
+	DisposeStack(s);
+	return 0;
+}
+
+##
