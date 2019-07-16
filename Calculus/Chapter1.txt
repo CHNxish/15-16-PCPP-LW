@@ -101,6 +101,9 @@ O(f(x)) 低阶无穷小或高阶无穷大
 当x->0时，存在的等价无穷小
 x ~ sinx ~ arcsinx ~ tanx ~ arctanx ~ eˣ-1 ~ ln(x+1)
 1-cosx ~ 1/2x²
+aˣ-1 ~ xlna
+ⁿ√(1+x) - 1 ~ 1/n x
+x - sinx ~ 1/6 x ³
 
 终极形态模型
 f的终极性态模型，当且仅当 lim x->∞ f(x) / g(x) = 1
