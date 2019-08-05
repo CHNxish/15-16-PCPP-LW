@@ -1,6 +1,7 @@
 #ifndef _LIST_ADT_H
 #define _LIST_ADT_H
 #define MAXSIZE 1000
+#define None -32768
 //定义ElemType为int
 typedef int ElemType;
 
