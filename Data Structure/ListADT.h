@@ -1,7 +1,6 @@
 #ifndef _LIST_ADT_H
 #define _LIST_ADT_H
 #define MAXSIZE 1000
-#include "Compare.h"
 //定义ElemType为int
 typedef int ElemType;
 
@@ -21,12 +20,15 @@ typedef struct DNode{
     struct DNode *next;
 }DoubleLinkList, *PtrDoubleLinkList;
 
-LinkList *InitList();
-void DestortList(PtrLinkList LP);
-void ClearList(PtrLinkList LP);
-int ListEmpty(LinkList L);
-int ListLength(LinkList L);
-ElemType GetElem(LinkList L, int Position);
-LinkList *LocateElem(LinkList L, ElemType )
+typedef PtrLinkList List;
+
+List InitList();
+void DestortList(List L);
+void ClearList(List L);
+int ListEmpty(List L);
+int ListLength(List L);
+ElemType GetElem(List L, int Position);
+LinkList *LocateElem(List L, ElemType x, int (*compare)(ElemType a, ElemType b));
+ElemType PriorElem(List L, ElemType current)
 
 #endif
