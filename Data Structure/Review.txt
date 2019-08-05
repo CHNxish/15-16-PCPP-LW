@@ -12,3 +12,84 @@
     2)链式结构
     3)索引结构
     4)散列结构
+
+1)List
+
+typedef struct{
+    ElemType data[MAXSIZE];
+    int length;
+}SqList, *PtrSqList;
+
+typedef struct LNode{
+    ElemType data;
+    struct LNode *next;
+}LinkList, *PtrLinkList;
+
+typedef struct DNode{
+    ElemType data;
+    struct DNode *next;
+}DoubleLinkList, *PtrDoubleLinkList;
+
+2)Stack
+
+typedef struct{
+    ElemType data[MAXSIZE];
+    int top;
+}SqStack, *PtrSqStack;
+
+typedef struct SNode{
+    ElemType data;
+    struct SNode *next;
+}LinkStack, *PtrLinkStack;
+
+3)Queue
+
+typedef struct{
+    ElemType data[MAXSIZE];
+    int front, rear;
+}SqQueue, *PtrSqQueue;
+
+typedef struct QNode{
+    ElemType data;
+    struct QNode *next;
+}QueueNode, *PtrQueueNode;
+
+typedef struct{
+    QueueNode *front;
+    QueueNode *rear;
+}LinkQueue, *PtrLinkQueue;
+
+4)String
+
+typedef struct{
+    char data[MAXSIZE];
+    int length;
+}SqString, *PtrSqString;
+
+typedef struct STNode{
+    char data;
+    struct STNode *next;
+}LinkString, *PtrLinkString;
+
+5)Tree
+//双亲表示法
+typedef struct{
+    ElemType data;
+    int parent;
+}ParentTree[MAXSIZE];
+//孩子表示法
+typedef struct TSNode{
+    ElemType data;
+    struct TSNode *sons[MAXSONS];
+}SonTree, *PtrSonTree;
+//孩子兄弟表示法
+typedef struct TSBNode{
+    ElemType data;
+    struct TSBNode *son;
+    struct TSBNode *brother;
+}SonBrotherTree, *PtrSonBrotherTree;
+
+6)Graph
+//邻接矩阵
+
+//邻接表
