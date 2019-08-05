@@ -22,8 +22,8 @@ typedef struct DNode{
 }DoubleLinkList, *PtrDoubleLinkList;
 
 LinkList *InitList();
-void DestortList(LinkList *LP);
-void ClearList(LinkList *LP);
+void DestortList(PtrLinkList LP);
+void ClearList(PtrLinkList LP);
 int ListEmpty(LinkList L);
 int ListLength(LinkList L);
 ElemType GetElem(LinkList L, int Position);
