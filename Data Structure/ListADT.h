@@ -1,7 +1,7 @@
 #ifndef _LIST_ADT_H
 #define _LIST_ADT_H
 #define MAXSIZE 1000
-
+#include "Compare.h"
 //定义ElemType为int
 typedef int ElemType;
 
@@ -27,6 +27,6 @@ void ClearList(LinkList *LP);
 int ListEmpty(LinkList L);
 int ListLength(LinkList L);
 ElemType GetElem(LinkList L, int Position);
-
+LinkList *LocateElem(LinkList L, ElemType )
 
 #endif
