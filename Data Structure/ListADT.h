@@ -29,6 +29,10 @@ int ListEmpty(List L);
 int ListLength(List L);
 ElemType GetElem(List L, int Position);
 LinkList *LocateElem(List L, ElemType x, int (*compare)(ElemType a, ElemType b));
-ElemType PriorElem(List L, ElemType current)
+ElemType PriorElem(List L, ElemType x);
+ElemType NextElem(List L, ElemType x);
+void ListInsert(List L, int position, ElemType x);
+ElemType ListDelete(List L, int position);
+//void ListTraverse(List L, void (*visit)());
 
 #endif
