@@ -6,7 +6,7 @@
 PtrSqList InitSqList(int maxElements){
     PtrSqList list;
 
-    if(maxElements < MinSqListSize)
+    if(maxElements < minSqListSize)
         Error("Sequence List size is too small!\n");
 
     list = (PtrSqList)malloc(sizeof(SqList));
