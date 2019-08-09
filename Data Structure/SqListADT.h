@@ -14,7 +14,7 @@ typedef struct{
 PtrSqList InitSqList(int maxSize);
 void MakeEmptySqList(PtrSqList list);
 int IsEmptySqList(PtrSqList list);
-int IsLastSqList(int position, PtrSqList list);
+int IsLastSqList(PtrSqList list, int position);
 int FindSqList(ElementType element, PtrSqList list);
 void DeleteNodeSqList(ElementType element, PtrSqList list);
 int FindPreviousSqList(ElementType element, PtrSqList list);
