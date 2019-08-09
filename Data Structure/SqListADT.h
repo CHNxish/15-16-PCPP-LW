@@ -1,6 +1,8 @@
 #ifndef _SQ_LIST_ADT_H_
 #define _SQ_LIST_ADT_H_
 
+#define NONE (-1) //不存在结点
+
 typedef int ElementType;
 typedef struct{
     int capacity;
