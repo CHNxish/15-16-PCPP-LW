@@ -9,7 +9,7 @@ typedef struct{
 }SqList, *PtrSqList;
 
 PtrSqList InitSqList(int maxSize);
-PtrSqList MakeEmptySqList(PtrSqList list);
+void MakeEmptySqList(PtrSqList list);
 int IsEmptySqList(PtrSqList list);
 int IsLastSqList(int position, PtrSqList list);
 int FindSqList(ElementType element, PtrSqList list);
