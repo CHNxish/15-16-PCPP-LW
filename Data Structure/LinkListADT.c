@@ -2,7 +2,7 @@
 #include "FalatError.h"
 #include "LinkListADT.h"
 
-//初始化链表的结点
+// 初始化链表的结点
 PtrLinkList InitLinkList(){
     PtrLinkList list;
     
@@ -14,7 +14,7 @@ PtrLinkList InitLinkList(){
     return list;
 }
 
-
+// 链表清空
 PtrLinkList MakeEmptyLinkList(PtrLinkList list){
     if(list == NULL)
         Error("Must use InitLinkList first!\n");
@@ -23,24 +23,30 @@ PtrLinkList MakeEmptyLinkList(PtrLinkList list){
             DeleteLinkList(list);
 }
 
-
+// 检查链表是否是空
 int IsEmptyLinkList(PtrLinkList list){
-
+    return list -> next == NULL;
 }
 
-
+// 检查该结点是否是最后一个结点
 PtrLinkList FindLinkList(ElementType element, PtrLinkList list){
-
+    return position -> next == NULL;
 }
 
-
+// 
 void DeleteNodeLinkList(ElementType element, PtrLinkList list){
+    PtrLinkList position;
+    
+    position = list -> next;
+    while(position != NULL && position -> data != element)
+        position = position -> next;
 
+    return position;
 }
 
-
+// 删除首个包含该元素的结点
 PtrLinkList FindPrevious(ElementType element, PtrLinkList list){
-
+    
 }
 
 
