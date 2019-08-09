@@ -17,7 +17,10 @@ void DeleteNodeSqList(ElementType element, PtrSqList list);
 int FindPreviousSqList(ElementType element, PtrSqList list);
 void InsertSqList(ElementType element, PtrSqList list, int position);
 void DeleteSqList(PtrSqList list);
-int HeaderSqList()
+int HeaderSqList(PtrSqList list);
+int FirstSqList(PtrSqList list);
+int AdvanceSqList(int position);
+ElementType Retrieve(int position);
 
 
 #endif
