@@ -14,5 +14,10 @@ PtrLinkList FindLinkList(ElementType element, PtrLinkList list);
 void DeleteNodeLinkList(ElementType element, PtrLinkList list);
 PtrLinkList FindPrevious(ElementType element, PtrLinkList list);
 void InsertLinkList(ElementType element, PtrLinkList list, PtrLinkList position);
+void DeleteLinkList(PtrLinkList list);
+PtrLinkList HeaderLinkList(PtrLinkList list);
+PtrLinkList FirstLinkList(PtrLinkList list);
+PtrLinkList AdvanceLinkList(PtrLinkList position);
+ElementType RetrieveLinkList(PtrLinkList list, PtrLinkList position);
 
 #endif
