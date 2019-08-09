@@ -22,7 +22,7 @@ void DeleteSqList(PtrSqList list);
 int HeaderSqList(PtrSqList list);
 int FirstSqList(PtrSqList list);
 int AdvanceSqList(int position);
-ElementType RetrieveSqList(int position);
+ElementType RetrieveSqList(int position, PtrSqList list);
 
 
 #endif
