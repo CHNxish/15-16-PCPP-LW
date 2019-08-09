@@ -20,7 +20,7 @@ void DeleteSqList(PtrSqList list);
 int HeaderSqList(PtrSqList list);
 int FirstSqList(PtrSqList list);
 int AdvanceSqList(int position);
-ElementType Retrieve(int position);
+ElementType RetrieveSqList(int position);
 
 
 #endif
