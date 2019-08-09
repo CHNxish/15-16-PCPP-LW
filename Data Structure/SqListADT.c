@@ -23,6 +23,8 @@ PtrSqList InitSqList(int maxElements){
 
 // 顺序表清空
 void MakeEmptySqList(PtrSqList list){
+    if(list == NULL)
+        Error("Must use InitSqList first!\n");
     list -> length = 0;
 }
 
