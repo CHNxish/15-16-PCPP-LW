@@ -10,6 +10,7 @@ typedef struct LNode{
 PtrLinkList InitLinkList();
 PtrLinkList MakeEmptyLinkList(PtrLinkList list);
 int IsEmptyLinkList(PtrLinkList list);
+int IsLastLinkList(PtrLinkList list, PtrLinkList position);
 PtrLinkList FindLinkList(ElementType element, PtrLinkList list);
 void DeleteNodeLinkList(ElementType element, PtrLinkList list);
 PtrLinkList FindPrevious(ElementType element, PtrLinkList list);
