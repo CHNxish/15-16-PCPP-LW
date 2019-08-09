@@ -34,7 +34,7 @@ int IsEmptySqList(PtrSqList list){
 }
 
 // 检查该结点是不是最后一个结点
-int IsLastSqList(int position, PtrSqList list){
+int IsLastSqList(PtrSqList list, int position){
     return position == list -> length - 1;
 }
 
