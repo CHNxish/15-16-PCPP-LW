@@ -2,6 +2,7 @@
 #define _SQ_LIST_ADT_H_
 
 #define NONE (-1) //不存在结点
+const int minSqListSize = 5;
 
 typedef int ElementType;
 typedef struct{
