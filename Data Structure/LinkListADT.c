@@ -29,8 +29,13 @@ int IsEmptyLinkList(PtrLinkList list){
 }
 
 // 检查该结点是否是最后一个结点
+int IsLastLinkList(PtrLinkList list, PtrLinkList position){
+    retutn position -> next == NULL;
+}
+
+// 
 PtrLinkList FindLinkList(ElementType element, PtrLinkList list){
-    return position -> next == NULL;
+    
 }
 
 // 
