@@ -48,4 +48,4 @@ lim [f(x) - f(x0)] = 0
 (uv)' = u'v + uv'
 当v为常函数时 (uv)' = (Cu)' = Cu'
 (uvw)' = u'vw + uv'w + uvw'
-(u/v)' = (u'v + uv') / v²
+(u/v)' = (u'v - uv') / v²
