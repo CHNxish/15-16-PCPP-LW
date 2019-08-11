@@ -30,7 +30,14 @@ int IsLastDoubleLinkList(PtrDoubleLinkList list, PtrDoubleLinkList position){
 }
 
 PtrDoubleLinkList FindDoubleLinkList(ElementType element, PtrDoubleLinkList list){
-    
+    PtrDoubleLinkList position;
+
+    position = list;
+    if(position == NULL)
+        return NULL
+    else{
+        while(position -> data != element && )
+    }
 }
 
 void DeleteNodeDoubleLinkList(ElementType element, PtrDoubleLinkList list);
