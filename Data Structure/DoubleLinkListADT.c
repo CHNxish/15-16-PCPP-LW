@@ -7,8 +7,8 @@ PtrDoubleLinkList InitDoubleLinkList(){
     list = (PtrDoubleLinkList)malloc(sizeof(DoubleLinkList));
     if(list == NULL)
         FalatError("Out of space!\n");
-    list -> prior = NULL;
-    list -> next = NULL;
+    list -> prior = list;
+    list -> next = list;
     MakeEmptyDoubleLinkList(list);
     return list;
 }
@@ -22,11 +22,17 @@ PtrDoubleLinkList MakeEmptyDoubleLinkList(PtrDoubleLinkList list){
 }
 
 int IsEmptyDoubleLinkList(PtrDoubleLinkList list){
+    return list -> next == list;
+}
+
+int IsLastDoubleLinkList(PtrDoubleLinkList list, PtrDoubleLinkList position){
+    return position -> next == list -> next;
+}
+
+PtrDoubleLinkList FindDoubleLinkList(ElementType element, PtrDoubleLinkList list){
     
 }
 
-int IsLastDoubleLinkList(PtrDoubleLinkList list, PtrDoubleLinkList position);
-PtrDoubleLinkList FindLinkList(ElementType element, PtrDoubleLinkList list);
 void DeleteNodeDoubleLinkList(ElementType element, PtrDoubleLinkList list);
 PtrDoubleLinkList FindPreviousDoubleLinkList(ElementType element, PtrDoubleLinkList list);
 void InsertDoubleLinkList(ElementType element, PtrDoubleLinkList list, PtrDoubleLinkList position);
