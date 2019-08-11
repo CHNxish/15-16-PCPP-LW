@@ -8,13 +8,13 @@ typedef struct DNode{
     struct DNode *next;
 }DoubleLinkList, *PtrDoubleLinkList;
 
-PtrLinkList InitLinkList();
-PtrLinkList MakeEmptyLinkList(PtrLinkList list);
-int IsEmptyLinkList(PtrLinkList list);
-int IsLastLinkList(PtrLinkList list, PtrLinkList position);
-PtrLinkList FindLinkList(ElementType element, PtrLinkList list);
-void DeleteNodeLinkList(ElementType element, PtrLinkList list);
-PtrLinkList FindPrevious(ElementType element, PtrLinkList list);
+PtrDoubleLinkList InitDoubleLinkList();
+PtrDoubleLinkList MakeEmptyDoubleLinkList(PtrDoubleLinkList list);
+int IsEmptyDoubleLinkList(PtrDoubleLinkList list);
+int IsLastDoubleLinkList(PtrDoubleLinkList list, PtrDoubleLinkList position);
+PtrDoubleLinkList FindLinkList(ElementType element, PtrDoubleLinkList list);
+void DeleteNodeDoubleLinkList(ElementType element, PtrDoubleLinkList list);
+PtrDoubleLinkList FindPreviousDouble(ElementType element, PtrLinkList list);
 void InsertLinkList(ElementType element, PtrLinkList list, PtrLinkList position);
 void DeleteLinkList(PtrLinkList list);
 PtrLinkList HeaderLinkList(PtrLinkList list);
