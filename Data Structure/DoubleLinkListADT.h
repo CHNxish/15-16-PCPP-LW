@@ -12,7 +12,7 @@ PtrDoubleLinkList InitDoubleLinkList();
 PtrDoubleLinkList MakeEmptyDoubleLinkList(PtrDoubleLinkList list);
 int IsEmptyDoubleLinkList(PtrDoubleLinkList list);
 int IsLastDoubleLinkList(PtrDoubleLinkList list, PtrDoubleLinkList position);
-PtrDoubleLinkList FindLinkList(ElementType element, PtrDoubleLinkList list);
+PtrDoubleLinkList FindDoubleLinkList(ElementType element, PtrDoubleLinkList list);
 void DeleteNodeDoubleLinkList(ElementType element, PtrDoubleLinkList list);
 PtrDoubleLinkList FindPreviousDouble(ElementType element, PtrLinkList list);
 void InsertLinkList(ElementType element, PtrLinkList list, PtrLinkList position);
