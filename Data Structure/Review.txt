@@ -30,6 +30,7 @@ typedef struct LNode{
 
 typedef struct DNode{
     ElementType data;
+    struct DNode *proir;
     struct DNode *next;
 }DoubleLinkList, *PtrDoubleLinkList;
 
