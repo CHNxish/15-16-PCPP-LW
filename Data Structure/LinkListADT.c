@@ -57,7 +57,7 @@ void DeleteNodeLinkList(ElementType element, PtrLinkList list){
 }
 
 // 找出首个包含该元素的前一结点
-PtrLinkList FindPrevious(ElementType element, PtrLinkList list){
+PtrLinkList FindPreviousLinkList(ElementType element, PtrLinkList list){
     PtrLinkList position;
 
     position = list;
