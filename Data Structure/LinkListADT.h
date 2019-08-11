@@ -3,7 +3,7 @@
 
 typedef int ElementType;
 typedef struct LNode{
-    ElemType data;
+    ElementType data;
     struct LNode *next;
 }LinkList, *PtrLinkList;
 
