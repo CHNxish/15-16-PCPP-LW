@@ -127,4 +127,5 @@ lim Δy / Δx = f'(x) -> Δy / Δx = f'(x) + α(α是x -> 0时的无穷小)
 
 当Δx -> 0时， lim Δx -> 0 Δy / dy = lim Δx -> 0 Δy / f'(x)Δx = 1 / f'(x) * lim x -> 0 Δy / Δx = 1
 则Δx -> 0时， Δy与dy是等价无穷小，则Δy = dy + o(dy)
-当d
+当f'(x) ≠ 0时，∆y = f(x + ∆x) - f(x)可用dy = f'(x)∆x表示，误差
+是o
