@@ -146,3 +146,4 @@ d(u - v) = (u' - v')dx = du - dv
 d(Cv) = Cdu
 d(uv) = (u'v + uv')dx = vdu + udv
 d(u / v) = [ (u'v - uv') / v^2 ]dx = (vdu - udv) / v^2
+y = f(u), u = g(x)且可导， dy = y'dx = f'(u)g'(x)dx = f'(u)dg(x) = f'(u)du
