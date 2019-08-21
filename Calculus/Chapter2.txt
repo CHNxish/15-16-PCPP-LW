@@ -147,3 +147,7 @@ d(Cv) = Cdu
 d(uv) = (u'v + uv')dx = vdu + udv
 d(u / v) = [ (u'v - uv') / v^2 ]dx = (vdu - udv) / v^2
 y = f(u), u = g(x)且可导， dy = y'dx = f'(u)g'(x)dx = f'(u)dg(x) = f'(u)du
+
+因为dy ≈ ∆y => f'(x)∆x ≈ f(x0 + ∆x) - f(x0)
+又因为x = x0 + ∆x，所以 f'(x0)(x - x0) ≈ f(x) - f(x0)
+f(x) ≈ f'(x0)(x - x0) + f(x0)
