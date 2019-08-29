@@ -1,0 +1,40 @@
+1）主语 + 动词
+2）主语 + 动词 + 宾语
+3）主语 + 动词 + 补语
+4）主语 + 动词 + 宾语 + 宾语
+5）主语 + 动词 + 宾语 + 补语
+
+一个完整的句子要能表达完整的意思
+基本句型分五种类型，每种类型都是由构成它们的动词来决定
+
+John Smith died in World War Two.
+主语  +   不及物动词  +  介词短语（可省略）
+
+John Smith killed three enemy soldiers.
+主语  +    及物动词  +  宾语
+
+The soup is too hot.
+主语  +  be动词  + 补语
+The dress looks pretty.
+The dog seems friendly.
+He become a teacher.
+
+I don't find the drug bitter.
+主语  +  动词  + 宾语  + 补语
+The food made me sick.
+Most people consider a nurse a good wife.
+
+I think therefore i am.
+无补语的be动词
+
+John's father gave him a dog.
+主语    +      动词+宾语 + 宾语
+John's father called him a dog.
+主语    +      动词+宾语 + 补语
+
+总结：
+不及物动词：在描述清楚句子的意思的情况下，只需要主语，而不需要其他任何东西，上面的介词短语可省略
+及物动词：需要主语，同时需要一个被怎么样的物体，才能描述清楚句子的意思
+be动词和连缀动词：这类动词在句子中并没有实意，所以需要一个补语来补充要描述的意思
+没有补语的be动词：在句中表示“存在”的意思
+当某些动词需要两个短语或形容词的时候，如果两个短语之间无联系，就是宾语+宾语形式，如果有联系，即是宾语+补语的形式
