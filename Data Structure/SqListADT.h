@@ -2,7 +2,6 @@
 #define _SQ_LIST_ADT_H_
 
 #define NONE (-1) //不存在结点
-const int minSqListSize = 5;
 
 typedef int ElementType;
 typedef struct{
@@ -11,7 +10,7 @@ typedef struct{
     ElementType *data;
 }SqList, *PtrSqList;
 
-PtrSqList InitSqList(int maxSize);
+PtrSqList InitSqList(int maxElements);
 void MakeEmptySqList(PtrSqList list);
 int IsEmptySqList(PtrSqList list);
 int IsLastSqList(PtrSqList list, int position);

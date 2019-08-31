@@ -51,8 +51,9 @@ typedef struct SNode{
 
 typedef struct{
     int capacity;
-    ElementType *data;
     int front, rear;
+    int size;
+    ElementType *data;
 }SqQueue, *PtrSqQueue;
 
 typedef struct QNode{

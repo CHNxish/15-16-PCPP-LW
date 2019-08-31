@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "SqListADT.h"
-#include "FalatError.h"
+#include "FatalError.h"
+const int minSqListSize = 5;
 
 // 初始化顺序表的结点
 PtrSqList InitSqList(int maxElements){
@@ -12,10 +13,10 @@ PtrSqList InitSqList(int maxElements){
     list = (PtrSqList)malloc(sizeof(SqList));
     if(list == NULL)
         FalatError("Out of space!\n");
-    list -> data = (ElementType *)malloc(sizeof(ElementType) * maxSize);
+    list -> data = (ElementType *)malloc(sizeof(ElementType) * maxElements);
     if(list -> data == NULL)
         FalatError("Ouf of space!\n");
-    list -> capacity = maxSize;
+    list -> capacity = maxElements;
     MakeEmptySqList(list);
 
     return list;
@@ -97,7 +98,10 @@ void InsertSqList(ElementType element, PtrSqList list, int position){
 
 // 删除顺序表
 void DeleteSqList(PtrSqList list){
-    list -> length = 0;
+    if(list != NULl){
+        free(list -> data);
+        free(list);
+    }
 }
 
 // 没有头结点，返回首结点，等同于FirstSqList

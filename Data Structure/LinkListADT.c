@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "FalatError.h"
+#include "FatalError.h"
 #include "LinkListADT.h"
 
 // 初始化链表的结点
@@ -8,7 +8,7 @@ PtrLinkList InitLinkList(){
     
     list = (PtrLinkList)malloc(sizeof(LinkList));
     if(list == NULL)
-        FalatError("Out of space!\n");
+        FatalError("Out of space!\n");
     list -> next = NULL;
     MakeEmptyLinkList(list);
     return list;
@@ -51,7 +51,7 @@ void DeleteNodeLinkList(ElementType element, PtrLinkList list){
     position = FindPreviousLinkList(element, list);
     if(!IsLastLinkList(position, list)){
         tmpCell = position -> next;
-        position = position -> next;
+        position -> next = position -> next -> next;
         free(tmpCell);
     }
 }
@@ -87,6 +87,7 @@ void DeleteLinkList(PtrLinkList list){
         position = position -> next;
         free(tmpCell);
     }
+    free(list);
 }
 
 // 返回头结点
