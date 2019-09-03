@@ -57,7 +57,7 @@ void ConcatSqString(PtrSqString string1, PtrSqString string2){
 	int count, size;
 
 	if(string1 -> capacity < string1 -> length + string2 -> length)
-		size = string1 -> capacity - string2 -> length;
+		size = string1 -> capacity - string1 -> length;
 	else{
 		size = string1 -> length + string2 -> length;
 	}
