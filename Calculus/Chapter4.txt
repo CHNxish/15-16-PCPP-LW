@@ -47,7 +47,8 @@ F'(x) = f(x)
 设f(u)具有原函数，u = φ(x)可导，则有换元公式
 ∫f[φ(x)]φ'(x)dx = ∫[f(u)du]
 
-
+对于(sinx)^2k+1 * (cosx)^n 或 (sinx)^n * (cosx)^2k+1 可以变换u = cosx 或u = sinx
+对于(sinx)^2k * (cosx)^2t利用(sinx)^2 = (1-cos2x)/2，(cosx)^2 = (1+cos2x)/2化成cos2x的多项式
 
 
 
