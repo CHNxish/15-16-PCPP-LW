@@ -23,13 +23,21 @@ F'(x) = f(x)
 ∫dF(x) = F(x) + C，因为微分运算和不定积分的运算是互逆的，所以∫与d连在一起可以抵消
 
 基本积分表
-∫kdx = kx + C(k,C是常数)     ∫x^µ dx = x^µ+1 / µ+1 + C(µ ≠ -1)
-∫dx/x = ln|x| + C           ∫dx/1+x^2 = arctanx + C
-∫dx/√1-x^2 = arcsinx + C    ∫cosx dx = sinx + C
-∫sinx dx = - cosx + C       ∫dx/(cosx)^2 = ∫(secx)^2dx = tanx + C
-∫dx/(sinx)^2 = ∫(cscx)^2dx = - cotx + C   ∫secxtanxdx = secx + C
-∫cscxcotxdx = - cscx + C    ∫e^xdx = e^x + C
-∫a^xdx = a^x / lna + C
+∫k dx = kx + C(k,C是常数)        ∫x^µ dx = (x^(µ+1) / µ+1) + C(µ ≠ -1)
+∫dx / x = ln|x| + C           
+∫dx / √(1-x^2) = arcsinx + C    ∫dx / (1+x^2) = arctanx + C
+∫sinx dx = - cosx + C           ∫cosx dx = sinx + C
+∫dx / (cosx)^2 = ∫(secx)^2 dx = tanx + C     ∫dx / (sinx)^2 = ∫(cscx)^2 dx = - cotx + C   
+∫secx tanx dx = secx + C        ∫cscx cotx dx = - cscx + C          
+∫tanx dx = -ln|cosx| + C        ∫cotx dx = ln|sinx| + C
+∫secx dx = ln|secx + tanx| + C  ∫cscx dx = ln|secx - cotx| + C  
+∫dx / (x^2 + a^2) = 1/a * arctan(x/a) + C
+∫dx / (x^2 - a^2) = 1/2a * ln|x-a/x+a| + C
+∫dx / √(a^2 - x^2) = arcsin(x/a) + C
+∫dx / √(x^2 + a^2) = ln(x + √(x^2 + a^2)) + C
+∫dx / √(x^2 - a^2) = ln|x + √(x^2 - a^2)| + C
+∫shx dx = chx + C           ∫chx dx = shx + C
+∫e^x dx = e^x + C           ∫a^x dx = a^x / lna + C
 
 不定积分的性质
 1）设函数f(x)及g(x)的原函数存在，则
