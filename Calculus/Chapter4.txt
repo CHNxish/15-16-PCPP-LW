@@ -30,7 +30,7 @@ F'(x) = f(x)
 ∫dx / (cosx)^2 = ∫(secx)^2 dx = tanx + C     ∫dx / (sinx)^2 = ∫(cscx)^2 dx = - cotx + C   
 ∫secx tanx dx = secx + C        ∫cscx cotx dx = - cscx + C          
 ∫tanx dx = -ln|cosx| + C        ∫cotx dx = ln|sinx| + C
-∫secx dx = ln|secx + tanx| + C  ∫cscx dx = ln|secx - cotx| + C  
+∫secx dx = ln|secx + tanx| + C  ∫cscx dx = ln|cscx - cotx| + C  
 ∫dx / (x^2 + a^2) = 1/a * arctan(x/a) + C
 ∫dx / (x^2 - a^2) = 1/2a * ln|x-a/x+a| + C
 ∫dx / √(a^2 - x^2) = arcsin(x/a) + C
@@ -62,19 +62,6 @@ F'(x) = f(x)
 2）第二类换元法
 设x = ψ(x)是单调的，可导的函数，并且ψ'(x) ≠ 0，又设f[ψ(x)]ψ'(x)具有原函数，则有换元公式
 ∫f(x)dx = ∫[f[ψ(t)ψ'(t)dt]]         (t = (ψ(x))^-1)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
