@@ -49,10 +49,11 @@ F'(x) = f(x)
 
 对于(sinx)^2k+1 * (cosx)^n 或 (sinx)^n * (cosx)^2k+1 可以变换u = cosx 或u = sinx
 对于(sinx)^2k * (cosx)^2t利用(sinx)^2 = (1-cos2x)/2，(cosx)^2 = (1+cos2x)/2化成cos2x的多项式
+对于(tanx)^n * (secx)^2k 或 (tanx)^2k-1 * (secx)^n 可以变换u = tanx 或u = secx
 
-
-
-
+2）第二类换元法
+设x = ψ(x)是单调的，可导的函数，并且ψ'(x) ≠ 0，又设f[ψ(x)]ψ'(x)具有原函数，则有换元公式
+∫f(x)dx = ∫[f[ψ(t)ψ'(t)dt]]         (t = (ψ(x))^-1)
 
 
 
