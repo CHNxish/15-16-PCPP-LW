@@ -30,3 +30,37 @@ F'(x) = f(x)
 ∫dx/(sinx)^2 = ∫(cscx)^2dx = - cotx + C   ∫secxtanxdx = secx + C
 ∫cscxcotxdx = - cscx + C    ∫e^xdx = e^x + C
 ∫a^xdx = a^x / lna + C
+
+不定积分的性质
+1）设函数f(x)及g(x)的原函数存在，则
+∫[f(x) + g(x)]dx = ∫f(x)dx + ∫g(x)dx
+
+[∫f(x)dx + ∫g(x)dx]' = [∫f(x)dx]' + [∫g(x)dx]' = f(x) + g(x)
+
+2)设函数f(x)的原函数存在，若k是非零常数，则
+∫kf(x)dx = k∫f(x)dx
+
+[k∫f(x)dx]' = k[∫f(x)dx]' = kf(x)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
