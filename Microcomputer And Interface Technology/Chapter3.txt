@@ -82,45 +82,43 @@ mov ax,[bx + di + 10H] ax = ds * 16 + bx + di + 10H
                     out dx,al(ax)
 
 2）算术运算指令
-算术运算指令
+    加减指令
+    add dst,src
+    sub dst,src
 
-加减指令
-add dst,src
-sub dst,src
+    带进位的加减指令
+    adc dst,src
+    sbb dst,src
 
-带进位的加减指令
-adc dst,src
-sbb dst,src
+    加1 减1指令
+    inc dst
+    dec dst
+    cf位不受影响
 
-加1 减1指令
-inc dst
-dec dst
-cf位不受影响
+    比较指令
+    cmp dst,src
+    结果不保留
 
-比较指令
-cmp dst,src
-结果不保留
+    求补指令
+    neg dst
+    dst <- 0-dst
 
-求补指令
-neg dst
-dst <- 0-dst
+    有符号数和无符号树
+    加减一样，乘除必须分开
 
-有符号数和无符号树
-加减一样，乘除必须分开
+    乘法运算
+    mul src
+    imul src
+    ax <- al*src
+    dx ax <- ax*src
+    dst必须是累加器(al,ax)可以不写出来
+    src必须是寄存器或存储器操作数
 
-乘法运算
-mul src
-imul src
-ax <- al*src
-dx ax <- ax*src
-dst必须是累加器(al,ax)可以不写出来
-src必须是寄存器或存储器操作数
-
-除法运算
-div src
-idiv src
-al <- ax/src ah
-ax <- dx ax / src dx
+    除法运算
+    div src
+    idiv src
+    al <- ax/src ah
+    ax <- dx ax / src dx
 
 3）逻辑运算指令
 
