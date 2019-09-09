@@ -76,9 +76,12 @@ F'(x) = f(x)
 3）分部积分法
 ∫uv'dx = uv - ∫u'vdx
 原 导 = 原 原 - 导 原
-总结：被积函数是幂函数和对数函数或幂函数和反三角函数函数的乘积，就可以用分布积分法
+总结：被积函数是幂函数，e^ax，lnax，三角函数，反三角函数函数的乘积，就用分部积分法
 
-
+幂函数:pn(x)
+∫pn(x)e^(ax)dx ∫pn(x)sin(ax)dx ∫pn(x)cos(ax)dx pn(x)不动
+∫pn(x)lnxdx    ∫pn(x)arctanxdx ∫pn(x)arcsinxdx pn(x)动
+∫e^(ax)sin(ax)dx ∫e^(ax)cos(ax)dx              都可以动，但是建议e^(ax)动
 
 
 
