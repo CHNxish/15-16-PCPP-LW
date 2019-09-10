@@ -13,9 +13,10 @@
 2）寄存器寻址：mov al,bl
 
 3）存储器寻址：
-直接寻址：mov ax,[1234H] 默认ds*16 + 1234H的物理地址的字给ax
+直接寻址：mov ax,[1234H]
+默认ds*16 + 1234H的物理地址的字给ax
 如果指定其他的段，要加上段超越前缀es:[1234H]
-如果没有[]，那么就变成对立即操作数的立即寻址
+如果没有[]，那么就变成对立即操作数的赋值
 可以用伪指令buf来代替[1234H]，且这个时候[]可以省略，也就是mov ax,buf（buf必须不是寄存器名）
 
 寄存器间接寻址：mov ax,[bx] 也就是把地址赋给寄存器，然后与段寄存器配合得到存储器中的值
@@ -41,30 +42,34 @@ mov ax,[bx + di + 10H] ax = ds * 16 + bx + di + 10H
 
 8086/8088指令系统包含六大功能
 1）数据传送指令：实现寄存器，存储器，立即数之间的数据传送
-    1)传送指令 mov dst,src
+    1)传送指令
+    mov dst,src
     如果无法判断是传字节，还是传字，可以加上byte ptr, word ptr
     mov byte ptr [1200H],10H 或 mov word ptr [1200H],10H
-    
+
         1)寄存器之间相互传送 mov al,dh
         2)寄存器，存储器之间相互传送 mov bx,[si + 2000H]
         3)立即数送寄存器，存储器 mov dl,'B'
         4)段寄存器与寄存器，寄存器相互传送
         段寄存器当目的操作数：cs不能用mov，其余段寄存器不能被直接数写入，需 mov ax,1234H mov ds,ax
         所有段寄存器都可以当源操作数 mov ax,cs
-    
+
     2)栈操作指令 由sp控制
-    push src [sp - 1][sp - 2]<-src sp<-sp-2
-    pop dst  dst<-[sp + 1][sp]  sp<-sp+2
-    
+    push src
+    [sp - 1][sp - 2]<-src sp<-sp-2
+
+    pop dst
+    dst<-[sp + 1][sp]  sp<-sp+2
+
     3)交换指令 除立即数，段寄存器，I/O端口外，皆可交换
     xchg dst,src
-    
+
     4)换码指令
     xlat al<-[bx + al]
 
 2)目的地址传送：专门用于传送地址码，可获取存储器操作数的偏移地址
     装入有效地址      lea dst,src  dst<-src（src的有效地址的传给dst）
-    装入ds寄存器      lds dst,src  通过ds与src求出实际地址，实际地址的四个字节传给dst，ds 
+    装入ds寄存器      lds dst,src  通过ds与src求出实际地址，实际地址的四个字节传给dst，ds
     dst<-[src] ds<-[src + 2]
     装入es寄存器      les dst,src
     dst<-[src] es<-[src + 2]
@@ -72,8 +77,8 @@ mov ax,[bx + di + 10H] ax = ds * 16 + bx + di + 10H
 3)标志位传送指令
     将F低8字节装入ah寄存器 lanf
     将ah内容装入F低8字节   sanf
-    将F内容压入堆栈      pushf
-    从堆栈弹出f内容      popf
+    将F内容压入堆栈        pushf
+    从堆栈弹出f内容        popf
 
 4)I/O数据传送：累加器(ax,al)与外设端口数据交换任务，外设端口数据交换只能通过累加器实现，其他寄存器都不行
     输入字节或字      in al(ax),port
@@ -112,7 +117,7 @@ mov ax,[bx + di + 10H] ax = ds * 16 + bx + di + 10H
     ax <- al*src
     dx ax <- ax*src
     dst必须是累加器(al,ax)可以不写出来
-    src必须是寄存器或存储器操作数
+    src必须是寄存器或存储器操作数，不能是立即数和段寄存器
 
     除法运算
     div src
@@ -120,9 +125,70 @@ mov ax,[bx + di + 10H] ax = ds * 16 + bx + di + 10H
     al <- ax/src ah
     ax <- dx ax / src dx
 
+    字节转换字指令
+    CBW
+    将al的D7位扩展到ah中，若al的D7=0，则ah=00h，若D7=1，则ah=FFH
+
+    字转换双字指令
+    CDW
+    将AX的D15位扩展到DX中，若ax的D15=0，则dx=0000h，若D15=1，则dx=FFFFH
+
+    压缩BCD码加法调整指令
+    DAA
+    它必须紧跟在指令ADD，ADC之后使用，将存于AL寄存器中的和数调整成两位压缩的
+    BCD码形式，仍然保存在AL中
+
+    压缩BCD码减法调整指令
+    DAS
+
+    ASCII码调整指令
+    AAA   加法调整
+    AAS   减法调整
+    AAM   乘法调整
+    AAD   除法调整
+
 3）逻辑运算指令
+    逻辑与指令
+    AND dst,src
+
+    逻辑或指令
+    OR dst,src
+
+    逻辑异或指令
+    XOR dst,src
+
+    逻辑非指令
+    NOT dst
+
+    测试指令
+    TEST dst,src 操作和AND类似，但是不保留操作结果，只影响标志寄存器
+
+    移位指令
+    SHL dst,cnt 逻辑左移
+    SAL dst,cnt 算术左移
+    SHR dst,cnt 逻辑右移
+    sar dst,cnt 算术右移
+    逻辑移动，当无符号数，算术移动，当有符号数
+    dst可以说寄存器，存储器操作数，不能是立即数，段寄存器
+    cnt若是1，可以用立即数1表示，如果不是1，必须将立即数传送给cl，然后使用cl
+
+    ROL dst,cnt 左移小循环
+    ROR dst,cnt 右移小循环
+    RCL dst,cnt 左移大循环
+    RCR dst,cnt 右移大循环
 
 4）串操作指令
+    源操作数串：DS默认段地址，SI默认偏移地址
+    目的操作数串：ES默认段地址，DI默认偏移地址
+    方向标志DF：规定了串操作的方向，如果DF=0，则从低地址到高地址，如果DF=1，则从高地址到低地址
+    CX：存放要处理的串的个数
+
+    串传送指令
+    movs dst,src
+    movsb
+    movsw
+    [di] <- [si] si<-si±1 di<-di±1
+    [di] <- [si] si<-si±2 di<-si±2
 
 5）程序控制指令
 
