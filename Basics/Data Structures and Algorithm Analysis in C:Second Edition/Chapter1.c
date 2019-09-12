@@ -90,5 +90,30 @@ void SolveHanoiProblem(int n,int a, int b, int c){
 }
 ##
 
+## 集合子集
+#include <stdio.h>
+#include <math.h>
+void PrintfSubset(char *set, int size);
+
+int main(void){
+	char set[SIZE] = {'a', 'b', 'c'};
+	PrintfSubset(char *set, int size);
+	return 0;
+}
+
+void PrintfSubset(char *set, int size){
+	int i, mark = 1, n = pow(2, size);
+	for(i = 0; i < n; i++){
+		int count = 0, j = i;
+		while(j){
+			if(j & mark) printf("%d ", set[count]);
+			count++;
+			j >> 1;
+		}
+		printf("\n");
+	}
+}
+##
+
 编码规范
 */
