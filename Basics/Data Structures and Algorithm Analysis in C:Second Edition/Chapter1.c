@@ -32,5 +32,36 @@ void printOut( unsigned int N , unsigned int k ){
 }
 ##
 
+## 递归置换生成程序
+#include <stdio.h>
+#define SIZE 4
+#define SWAP(x, y, z) ((z) = (x), (x) = (y), (y) = (z))
+void perm(char *list, int i, int n);
+
+int main(void){
+	char list[SIZE] = {'A', 'B', 'C', 'D'};
+	
+	perm(list, 0, SIZE - 1);
+	
+	return 0;
+}
+
+void perm(char *list, int i, int n){
+	int j, temp;
+	if(i == n){
+		for(j = 0; j <= n; j++) printf("%c", list[j]);
+		printf("   ");
+	}
+	else{
+		for(j = i; j <= n; j++){
+			SWAP(list[i], list[j], temp);
+			perm(list, i+1, n);
+			SWAP(list[i], list[j], temp);
+			if(i == 0) printf("\n");
+		}
+	}
+}
+##
+
 编码规范
 */
