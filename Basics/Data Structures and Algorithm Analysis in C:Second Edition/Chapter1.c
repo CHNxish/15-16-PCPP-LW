@@ -63,5 +63,32 @@ void perm(char *list, int i, int n){
 }
 ##
 
+##
+#include <stdio.h>
+void SolveHanoiProblem(int n, int a, int b, int c);
+void move(int src, int dst);
+
+int main(void){
+	SolveHanoiProblem(3, 'a', 'b', 'c');
+	
+	return 0;
+}
+
+void move(int src, int dst){
+	printf("%c -> %c\n", src, dst);
+}
+
+void SolveHanoiProblem(int n,int a, int b, int c){
+	if(n == 1){
+		move(a, c);
+	}
+	else{
+		SolveHanoiProblem(n - 1, a, c, b);
+		move(a, c);
+	    SolveHanoiProblem(n - 1, b, a, c);
+	}
+}
+##
+
 编码规范
 */
