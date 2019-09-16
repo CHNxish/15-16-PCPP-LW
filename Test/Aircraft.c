@@ -25,7 +25,8 @@ typedef enum {TYPE1, TYPE2} LType;
 typedef struct{
     LType lt;   // 飞机降落类型
     int symbol; // 飞机编号
-    int time;   // 时间
+    int caTime; // 可以等待时间
+    int time;   // 到来的时间
 }AircraftProperty;
 typedef AircraftProperty ElementType;
 typedef struct{
@@ -92,6 +93,14 @@ void DisposeSqEmpty(PtrSqQueue queue){
     }
 }
 
+/* 着落 起飞 */
+typedef struct comeQueue{   // 着落等待队列
+    PtrSqQueue cQueue1, cQueue2, cQueue3, cQueue4;
+}ComeQueue;
+typedef struct leaveQueue{  // 起飞等待队列
+    PtrSqQueue lQueue1, lQueue2, lQueue3;
+}LeaveQueue;
+
 /* 解决问题 */
 /*
 **问题分析：机场有3条跑道0，1，2， 2号主要用于起飞，不得已也可以着落
@@ -100,53 +109,74 @@ void DisposeSqEmpty(PtrSqQueue queue){
 */
 int main(void){
     /* 获取时间 */
-    int programTime, lTime, rTime, dAir;    // 程序运行时间 平均起飞时间 平均着落时间 坠毁飞机数目
+    int runTime = 0;
+    int programTime, over, lTime, rTime, dAir;    // 程序运行时间 飞机起飞降落成功数目 平均起飞时间 平均着落时间 坠毁飞机数目
     GetRange("Input running time of program: ", &programTime, 10000, 20000);
     
     /* 创建队列 */
-    struct comeQueue{   // 着落等待队列
-        PtrSqQueue cQueue1, cQueue2, cQueue3, cQueue4;
-    }
-    struct LeaveQueue{  // 起飞等待队列
-        PtrSqQueue lQueue1, lQueue2, lQueue3;
-    }
+    ComeQueue *cq;
+    LeaveQueue *lq;
     
-    comeQueue.cQueue1 = CreateSqQueue();
-    comeQueue.cQueue2 = CreateSqQueue();
-    comeQueue.cQueue3 = CreateSqQueue();
-    comeQueue.cQueue4 = CreateSqQueue();
-    leaveQueue.lQueue1 = CreateSqQueue();
-    leaveQueue.lQueue2 = CreateSqQueue();
-    leaveQueue.lQueue3 = CreateSqQueue();
+    cq -> cQueue1 = CreateSqQueue();
+    cq -> cQueue2 = CreateSqQueue();
+    cq -> cQueue3 = CreateSqQueue();
+    cq -> cQueue4 = CreateSqQueue();
+    lq -> lQueue1 = CreateSqQueue();
+    lq -> lQueue2 = CreateSqQueue();
+    lq -> lQueue3 = CreateSqQueue();
     
+    /* 程序运行：着落等待队列 -> 机场内 -> 起飞等待队列 */
+    int airNumber = 1;      // 飞机编号
+    int runway0 = 0, runway1 = 0, runway2 = 0;
     /* 循环结束 programTime = 0 */
-    ElementType element;    // 飞机属性
-    int AirNumber = 1;
-    
-    srand( (unsigned)time(NULL) );
-    while(programTime){
-        /* 假设着陆等待队列没满，1单位时间来1架飞机 */
-        element.lt = (LType)rand() % 2;
-        element.symbol = number++;
-        element.time = rand() % 6 + 5;
-        
-        AirCome(comeQueue, );
-        
-        AirLeave();
-        
-        programTime--;
+    while(runTime < programTime){
+        AirComeAndLeave(cq, lq, &over, &lTime, &rTime, &dAir, &airNumber, \
+                        &runway0, &runway1, &runway2, &runTime);
+        runTime++;
     }
     
     /* 销毁队列  */
-    DisposeSqEmpty(comeQueue.cQueue1);
-    DisposeSqEmpty(comeQueue.cQueue2);
-    DisposeSqEmpty(comeQueue.cQueue3);
-    DisposeSqEmpty(comeQueue.cQueue4);
-    DisposeSqEmpty(leaveQueue.lQueue1);
-    DisposeSqEmpty(leaveQueue.lQueue2);
-    DisposeSqEmpty(leaveQueue.lQueue3);
+    DisposeSqEmpty(cq -> cQueue1);
+    DisposeSqEmpty(cq -> cQueue2);
+    DisposeSqEmpty(cq -> cQueue3);
+    DisposeSqEmpty(cq -> cQueue4);
+    DisposeSqEmpty(lq -> lQueue1);
+    DisposeSqEmpty(lq -> lQueue2);
+    DisposeSqEmpty(lq -> lQueue3);
 
     return 0;
+}
+
+AirComeAndLeave(ComeQueue *cq, LeaveQueue *lq, int *over, \
+                int *lTime, int *rTime, int *dAir, int *airNumber, \
+                int *runway0, int *runway1, int *runway2, int *runTime){
+    ElementType element;    // 飞机属性
+    
+    /* 假设着陆等待队列没满，1单位时间来1架飞机 */
+    srand( (unsigned)time(NULL) );
+    element.lt = (LType)rand() % 2;
+    element.symbol = airNumber++;
+    element.time = rand() % 6 + 5;
+    
+    
+    if(element.lt == TYPE1){
+        if(IsEmptySqQueue(cq -> cQueue1)){
+            EnSqQueue(cq -> cQueue1, element);
+        }
+        else if(IsEmptySqQueue(cq) -> cQueue2){
+            EnSqQueue(cq -> cQueue2, element);
+        }
+    }
+    else{
+        if(IsEmptySqQueue(cq -> cQueue3)){
+            EnSqQueue(cq -> cQueue3, element);
+        }
+        else if(IsEmptySqQueue(cq) -> cQueue4){
+            EnSqQueue(cq -> cQueue4, element);
+        }
+    }
+    
+    if(runway)
 }
 
 int ScanfRange(char *str, int *integer, int min, int max){
@@ -159,3 +189,5 @@ int ScanfRange(char *str, int *integer, int min, int max){
     *integer = c;
     return c;
 }
+
+void AirCOmeAndLeave();
