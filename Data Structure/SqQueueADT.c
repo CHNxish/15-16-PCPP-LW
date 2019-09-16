@@ -35,8 +35,7 @@ int IsFullSqQueue(PtrSqQueue queue){
 // 删除顺序队列
 void DisposeSqQueue(PtrSqQueue queue){
 	if(queue != NULL){
-		while(!IsEmptySqQueue(queue))
-			DeSqQueue(queue);
+        free(queue -> data);
 		free(queue);
 	}
 }
