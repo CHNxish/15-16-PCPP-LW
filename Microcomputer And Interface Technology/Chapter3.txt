@@ -190,6 +190,32 @@ mov ax,[bx + di + 10H] ax = ds * 16 + bx + di + 10H
     [di] <- [si] si<-si±1 di<-di±1
     [di] <- [si] si<-si±2 di<-si±2
 
+    串比较指令
+    cmps dst,src
+    cmpsb
+    cmpsw
+    不保存指令结果，影响标志位
+    
+    串搜索指令
+    scas dst
+    scasb scasw
+    不保存指令结果，影响标志位
+    
+    读串指令
+    lods src
+    lodsb lodsw
+    写串指令
+    stos dst
+    stosb stosw
+    不影响标志位
+
+    无条件重复前缀
+    rep
+    相等重复前缀
+    repe repz
+    不相等重复前缀
+    repne repnz
+
 5）程序控制指令
 
 6）CPU控制指令
