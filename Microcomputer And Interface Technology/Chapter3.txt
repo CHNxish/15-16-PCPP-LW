@@ -216,6 +216,43 @@ mov ax,[bx + di + 10H] ax = ds * 16 + bx + di + 10H
     不相等重复前缀
     repne repnz
 
-5）程序控制指令
+5)程序控制指令
+    转移:段内转移 段间转移
+    1)无条件转移
+    jmp short 标号 8位段内转移
+    jmp near ptr 标号 16位段内转移
+    jmp far ptr 标号 段间直接转移
+    jmp word ptr opr 段内间接转移
+    jmp dword ptr opr 段间间接转移
+
+    段内调用
+    call near ptr 标号
+    call word ptr opr
+    段间调用
+    call far ptr 标号
+    call dword ptr opr
+
+    返回
+    ret
+
+    2)条件转移
+    jc jnc
+    jz jnz
+    jo jno
+    js jns
+    jp jnp
+    ja jae jb jbe
+    jg jge jl jle
+    3)循环控制
+    loop 标号
+    loope/loopz 标号
+    loopne/loopnz 标号
+    jcxz 标号 cx=0时
+
+    4)中断
+    int n (n = 0~255) 中断
+    into of = 1时中断
+    iret 中断返回
+
 
 6）CPU控制指令
