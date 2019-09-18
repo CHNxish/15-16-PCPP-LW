@@ -63,3 +63,6 @@ m(b-a) ≤ (a b)∫f(x)dx ≤ M(b-a)
 (-∞ ∞)∫f(x)dx = lim b->∞ (a b)∫f(x)dx + lim a->-∞ (a b)∫f(x)dx
 = lim b->∞ (c b)∫f(x)dx + lim a->∞ (a c)∫f(x)dx
 负极限到正极限的情况下，必须两个分式中都要收敛，一个发散就发散
+
+无界函数的反常积分
+当x = x0，时候，f(x) = ∞，则x称为瑕点
