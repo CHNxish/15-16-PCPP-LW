@@ -56,3 +56,8 @@ m(b-a) ≤ (a b)∫f(x)dx ≤ M(b-a)
 ((x b)∫f(x)dx)' = -f(x)
 
 (g(x1) g(x2))∫f(x)dx = ∫f(g(x2))dx - ∫f(g(x1))dx = F(b) - F(a)
+
+反常积分
+(a ∞)∫f(x)dx = lim b->∞ (a b)∫f(x)dx
+(-∞ b)∫f(x)dx = lim a->-∞ (a b)∫f(x)dx
+(-∞ ∞)∫f(x)dx = lim b->∞ (c b)∫f(x)dx + lim a->∞ (a c)∫f(x)dx
