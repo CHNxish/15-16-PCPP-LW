@@ -60,4 +60,6 @@ m(b-a) ≤ (a b)∫f(x)dx ≤ M(b-a)
 反常积分
 (a ∞)∫f(x)dx = lim b->∞ (a b)∫f(x)dx
 (-∞ b)∫f(x)dx = lim a->-∞ (a b)∫f(x)dx
-(-∞ ∞)∫f(x)dx = lim b->∞ (c b)∫f(x)dx + lim a->∞ (a c)∫f(x)dx
+(-∞ ∞)∫f(x)dx = lim b->∞ (a b)∫f(x)dx + lim a->-∞ (a b)∫f(x)dx
+= lim b->∞ (c b)∫f(x)dx + lim a->∞ (a c)∫f(x)dx
+负极限到正极限的情况下，必须两个分式中都要收敛，一个发散就发散
