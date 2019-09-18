@@ -26,11 +26,11 @@ F'(x) = f(x)
 ∫k dx = kx + C(k,C是常数)        ∫x^µ dx = (x^(µ+1) / µ+1) + C(µ ≠ -1)
 ∫dx / x = ln|x| + C           
 ∫dx / √(1-x^2) = arcsinx + C    ∫dx / (1+x^2) = arctanx + C
-∫sinx dx = - cosx + C           ∫cosx dx = sinx + C
-∫dx / (cosx)^2 = ∫(secx)^2 dx = tanx + C     ∫dx / (sinx)^2 = ∫(cscx)^2 dx = - cotx + C   
-∫secx tanx dx = secx + C        ∫cscx cotx dx = -cscx + C          
+∫sinx dx = - cosx + C           ∫cosx dx = sinx + C        
 ∫tanx dx = -ln|cosx| + C        ∫cotx dx = ln|sinx| + C
-∫secx dx = ln|secx + tanx| + C  ∫cscx dx = ln|cscx - cotx| + C  
+∫secx dx = ln|secx + tanx| + C  ∫cscx dx = ln|cscx - cotx| + C
+∫dx / (cosx)^2 = ∫(secx)^2 dx = tanx + C     ∫dx / (sinx)^2 = ∫(cscx)^2 dx = - cotx + C   
+∫secx tanx dx = secx + C        ∫cscx cotx dx = -cscx + C  
 ∫dx / (x^2 + a^2) = 1/a * arctan(x/a) + C
 ∫dx / (x^2 - a^2) = 1/2a * ln|x-a/x+a| + C
 ∫dx / √(a^2 - x^2) = arcsin(x/a) + C
