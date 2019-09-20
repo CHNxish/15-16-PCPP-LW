@@ -53,7 +53,7 @@ int main(){
     }
     else{
         printf("Start point(%d, %d) is infeasible!\n", iPos + 1, jPos + 1);
-        PrintMap(pMap, MAPSIZE);
+        //PrintMap(pMap, MAPSIZE);
     }
        
     return 0;
