@@ -256,3 +256,16 @@ mov ax,[bx + di + 10H] ax = ds * 16 + bx + di + 10H
 
 
 6）CPU控制指令
+    1）标志位操作
+    clc stc cmc
+    cf位 取0 取1 取反
+    cld std
+    df位 取0 取1
+    cli sti
+    if位 取0 取1
+
+    2）同步控制指令
+    esc wait lock
+
+    3）其他控制操作
+    hit 暂停 nop 空操作
