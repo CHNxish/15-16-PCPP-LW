@@ -30,3 +30,6 @@
 assume 段寄存器：段名
 org 数值
 $   地址计数器
+5)开始，结束
+name 模块名 title 标题
+end 标号
