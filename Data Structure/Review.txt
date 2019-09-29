@@ -85,17 +85,20 @@ typedef struct{
     ElementType data;
     int parent;
 }*ParentTree;
+
 //孩子表示法
-typedef struct TSNode{
+typedef struct TCNode{
     ElementType data;
-    struct TSNode *sons[MAXSONS];
-}SonTree, *PtrSonTree;
+    int childNumber;
+    struct TCNode **child;  // 多个孩子
+}ChildTree, *PtrChildTree;
+
 //孩子兄弟表示法
-typedef struct TSBNode{
+typedef struct TCSNode{
     ElementType data;
-    struct TSBNode *son;
-    struct TSBNode *brother;
-}SonBrotherTree, *PtrSonBrotherTree;
+    struct TSBNode *child;
+    struct TSBNode *sibling;
+}ChildSiblingTree, *PtrChildSiblingTree;
 
 6)Graph
 //邻接矩阵
@@ -105,5 +108,5 @@ typedef struct TSBNode{
 7)Cursor
 typedef struct CNode{
     ElementType *data;
-    int 
+    int
 }*SqCursor;
