@@ -102,8 +102,84 @@ last:   inc     si
         mov     count,dl
         mov     ah,02h
         int     21h
-        
+
         mov     ah,4ch
         int     21h
 Code    s
         end     start
+
+数据段中以string地址开始存放字符串，该字符串以'#'作为结尾
+1）只要有一个字符为奇，result为-1
+2）如果都是偶，result为-1
+
+Data    segment
+string  db      'This is A#'
+result  db      ?
+Data    ends
+
+Stack   segment stack
+
+Stack   ends
+
+Code    segment
+        assume  cs:Code,ds:Data
+        assume  ss:stack
+start:  mov     ax,Data
+        mov     ds,ax
+        mov     bx,offset string
+lop:    mov     al,[bx]
+        inc     bx
+        cmp     al,'#'
+        jz      done
+        test    al,01h
+        jnz     eror
+        jmp     lop
+done:   mov     dl,1
+        jmp     next
+eror:   mov     dl,-1
+next:   mov     result,dl
+        add     dl,30h
+        mov     ah,02h
+        int     21h
+
+        mov     ah,4ch
+        int     21h
+Code    ends
+        end     start
+
+数据段secon中有n个字符，请用冒泡法排序
+
+Data    segment
+secon	db		15,127,-10,48h,80h,-1
+n    	equ		$ - secon
+Data 	ends
+
+Stack 	segment stack
+
+Stack 	ends
+
+Code 	segment
+		assume 	cs:Code,ds:Data
+		assume  ss:Stack
+start:	mov		ax,data
+		mov 	ds,ax
+		mov		dx,n - 1
+lop:	mov 	cx,dx
+		mov		si,0
+		mov		ah,0	;交换标志
+next:	mov		al,secon[si]
+		cmp 	al,secon[si + 1]
+		jle		last
+		xchg	al,secon[si + 1]
+		xchg	al,secon[si]
+		mov		ah,01h
+last:	inc 	si
+		loop	next
+		dec		dx
+		or 		ah,ah
+		jnz		lop
+
+		mov		ah,09h
+		int 	21h
+Code 	ends
+		end 	start
