@@ -183,3 +183,30 @@ last:	inc 	si
 		int 	21h
 Code 	ends
 		end 	start
+
+name    proc    near
+push …
+
+pop  …
+name    endp
+
+dos终止
+mov    ah,xxh
+int    21h
+
+1)4ch 终止程序，返回dos
+2)01h 键盘输入字符存入al并回显
+3)07h 键盘输入字符存入al但不回显
+4)0ah 键盘输入字符串存入ds:dx缓冲区
+buf db 50
+    db ?
+    db 50dup(?)
+
+mov     ax,data
+mov     ds,ax
+lea     dx,buf
+mov     ah,0ah
+int     21h
+5)02h 输出dl中的字符
+6)05h 打印机中打印dl
+7)09h 输出ds:dx中字符串
