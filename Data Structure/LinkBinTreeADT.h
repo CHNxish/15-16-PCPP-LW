@@ -13,3 +13,11 @@ typedef struct TBCNode{
     struct TBCNode *lChild;
     struct TBCNode *rChild;
 }ChildBinTree, *PtrChildBinTree;
+
+// 线索二叉树
+typedef enum {LINK, THREAD} PointerThr;
+typedef struct TBTCNode{
+    ElementType data;
+    struct TBTCNode *lChild, *rChild;
+    PointerThr lTag, rTag;
+}ThreadChildBinTree, *PtrThreadChildBinTree;
