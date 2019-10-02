@@ -137,3 +137,19 @@ void LevelOrder(PtrChildBinTree tree){
             Queue[++rear] = Queue[front] -> rChild7yyy;
     }
 }
+
+/* 中序线索二叉树 */
+Status InOrderTraverseThr(PtrThreadChildBinTree tree, Status (*visit)(ElementType data)){
+    PtrThreadChildBinTree p;
+    
+    p = tree -> lChild;
+    while(p != tree){
+        while(p -> lTag == LINK) p = p -> lChild;
+        while(p -> rTag == Thread && p != tree){
+            visit(p -> data);
+            p = p -> rChild;
+        }
+        p = p -> rChild;
+    }
+    return TRUE;
+}
