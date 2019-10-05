@@ -101,9 +101,45 @@ typedef struct TCSNode{
 }ChildSiblingTree, *PtrChildSiblingTree;
 
 6)Graph
+#define INFINITY INF_MAX
+#define MAX_VERTEX_NUM 20
+typedef emum {DG, DN, UDG, UDN} GraphKind; /* 有向图 有向网
+typedef char *InfoType;
+typedef int ElementType;
+typedef ELementType VerTexType;
+无向图 无向网 */
 //邻接矩阵
+typedef struct MArcNode{
+    VRType adj;     /* 对于无权图为0，1；有权图为权值 */
+    InfoType info;  /* 与该弧相关的信息指针 */
+}MArcCell, AdjMatrix[MAX_VERTEX_NUM][MAX_VERTEX_NUM];
+typedef struct{
+    VerTexType vexs[MAX_VERTEX_NUM];
+    AdjMatrix arcs;
+    int verNum, arcNum;
+    GraphKind kind;
+}MGraph, *PtrMGraph;
 
 //邻接表
+typedef struct TArcNode{
+    int adjVex;     
+    struct TArcNode *nextArc;
+    InfoType info;  /* 与该弧相关的信息指针 */
+}TArcCell;
+typedef struct VNode{
+    VertexType data;
+    TArcCell *firstArc;
+}VerNode, AdjList[MAX_VERTEX_NUM];
+typedef struct{
+    AdjList vertices;
+    int vexNum, arcNum;
+    GraphKind kind;
+}ALGraph, *PtrALGraph;
+
+//十字链表表示法 (对于有向图)
+
+//邻接多重表 (对于无向图)
+
 
 7)Cursor
 typedef struct CNode{

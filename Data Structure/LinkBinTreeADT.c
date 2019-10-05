@@ -131,10 +131,12 @@ void LevelOrder(PtrChildBinTree tree){
     Queue[rear] = b;
     while(front != rear){
         Visit(Queue[++front] -> data);
-        if(Queue[front] -> lChild != NULL)
+        if(Queue[front] -> lChild != NULL){
             Queue[++rear] = Queue[front] -> lChild;
-        if(Queue[front] -> rChild != NULL
+        }
+        if(Queue[front] -> rChild != NULL){
             Queue[++rear] = Queue[front] -> rChild7yyy;
+        }
     }
 }
 
@@ -152,4 +154,19 @@ Status InOrderTraverseThr(PtrThreadChildBinTree tree, Status (*visit)(ElementTyp
         p = p -> rChild;
     }
     return TRUE;
+}
+
+/* 深度优先搜索遍历图 */
+void DFS(Graph graph, int v, BOOL visited[]){
+    visited[v] = TRUE;
+    Visit(v);
+    for(w = FirstAdjVex(graph, v); w != NULL; w = NextAdjVex(graph, v, w)){
+        if(!Visited[w]) DFS(graph, w);
+    }
+}
+
+void DFSTraverse(Graph graph, Status (*visit)(int v)){
+    for(v = 0; v < G.verNum; ++v)
+        visited[v] = FALSE;
+    for(v = 0; v < G.verNum; ++)
 }
