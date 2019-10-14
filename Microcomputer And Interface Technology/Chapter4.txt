@@ -150,39 +150,39 @@ end     start
 数据段secon中有n个字符，请用冒泡法排序
 
 Data    segment
-secon	db		15,127,-10,48h,80h,-1
-n    	equ		$ - secon
-Data 	ends
+secon   db      15,127,-10,48h,80h,-1
+n       equ     $ - secon
+Data    ends
 
-Stack 	segment stack
+Stack   segment stack
 
-Stack 	ends
+Stack   ends
 
-Code 	segment
-assume 	cs:Code,ds:Data
+Code    segment
+assume  cs:Code,ds:Data
 assume  ss:Stack
-start:	mov		ax,data
-mov 	ds,ax
-mov		dx,n - 1
-lop:	mov 	cx,dx
-mov		si,0
-mov		ah,0	;交换标志
-next:	mov		al,secon[si]()
-cmp 	al,secon[si + 1]()
-jle		last
-xchg	al,secon[si + 1]()
-xchg	al,secon[si]()
-mov		ah,01h
-last:	inc 	si
-loop	next
-dec		dx
-or 		ah,ah
-jnz		lop
+start:  mov     ax,data
+mov     ds,ax
+mov     dx,n - 1
+lop:    mov     cx,dx
+mov     si,0
+mov     ah,0    ;交换标志
+next:   mov     al,secon[si]()
+cmp     al,secon[si + 1]()
+jle     last
+xchg    al,secon[si + 1]()
+xchg    al,secon[si]()
+mov     ah,01h
+last:   inc     si
+loop    next
+dec     dx
+or      ah,ah
+jnz     lop
 
-mov		ah,09h
-int 	21h
-Code 	ends
-end 	start
+mov     ah,09h
+int     21h
+Code    ends
+end     start
 
 name    proc    near
 push …
@@ -194,14 +194,64 @@ dos终止
 mov    ah,xxh
 int    21h
 
+调用子程序
+
+Data segment
+one db -5,65,…,-32
+cnt1 due $ - one
+sum1 dw ?
+two db 10,-9,…,-1
+cnt2 equalized $ - two
+sum2 dw ?
+Data ends
+
+Stack segment stack
+top db 100 dup(?)
+Stack ends
+
+Code segment
+assume cs:Code,ds:Data
+assume ss:Stack
+sta:  mov ax,Data
+mov ds,ax
+mov ax, Stack
+mov ss,ax
+mov sp,offset top
+
+lea si,one
+mov cx,cnt1
+call addr
+mov sum1,ax
+
+lea si,two
+mov cx,cnt2
+call addr
+mov sum2,ax
+
+addr proc near
+push bx
+mov bx,0
+lop: mov al,[si]
+     cbw
+     add bx,ax
+     inc si
+     loop lop
+     mov ax,bx
+     pop bx
+     ret
+addr endp
+
+	hlt
+Code ends
+	end sta
+
+
+
 1)4ch 终止程序，返回dos
 2)01h 键盘输入字符存入al并回显
 3)07h 键盘输入字符存入al但不回显
 4)0ah 键盘输入字符串存入ds:dx缓冲区
-buf db 50
-db ?
-db 50dup(?)
-
+buf db 50dup(?)
 mov     ax,data
 mov     ds,ax
 lea     dx,buf
@@ -210,3 +260,4 @@ int     21h
 5)02h 输出dl中的字符
 6)05h 打印机中打印dl
 7)09h 输出ds:dx中字符串
+
