@@ -1,0 +1,34 @@
+java库
+java + javax
+
+java.lang 编译环境自带包
+java.util
+javax.swing
+
+char 双字节 boolean 布尔类型
+
+java io
+java.util.Scanner类 输入 System.in nextTypeName()方法
+System.out.print() 输出
+javax.swing.JOptionPane.showInputDialog()   返回值为String
+javax.swing.JOptionPane.showMessageDialog()
+javax.swing.JOptionPane.showConfirmDialog() 确定对话框
+返回值
+Yes按钮    JOptionPane.YES_OPTION     (0)
+No按钮     JOptionPane.No_OPTION      (1)
+Cancel按钮 JOptionPane.CANCEL_OPTION  (2)
+
+GMT时间
+System.currentTimeMillis() 返回值为long
+
+随机数
+Math.random() 返回值为double 0.0<= d <= 1.0
+Math.random() * (n - m) + m 生成大于等于m小于n的随机数
+
+java基本类型包装类
+Byte Short Character Integer Long Float Double Boolean
+Interger.parseInt(String s)
+
+方法
+public static main(String[] args){}
+main方法可以调用其他类中的类 可以调用同类中的类

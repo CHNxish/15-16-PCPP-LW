@@ -1,0 +1,28 @@
+char 单字节 wchar_t 宽字节 一般是2字节
+
+直接初始化 复制初始化
+std::string abc("abc");
+std::string abc = "abc";
+
+特殊的string初始化std::string abc = (number, char);
+
+const 从左到右修饰类型 const变量必须有值初始化
+
+引用 & 复合类型，只能是其他类型的引用，不能是引用的引用
+必须有值初始化，且表达式是个左值，const引用可以是右值
+
+const TypeName data = AnotherTypeName aData;
+aData通过隐式转换的字面值给data
+const TypeName &data = AnotherTypeName aData;
+创造TypeName temp = aData; 然后temp被data引用
+
+c++中枚举类型只能用枚举内的常量赋值，不能被int型赋值
+
+class默认private 用public声明才是public
+struct一定是public
+注意class和struct定义后要带";"
+
+数据结构应该由xxx.h和xxx.cpp构成
+xxx.h不应该出现定义，除类定义，const变量和inline函数
+xxx.cpp应该补充定义xxx.h中的数据结构
+所有步骤的执行应该在main.cpp（主文件）中执行
