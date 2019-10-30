@@ -76,3 +76,13 @@ Arrays.equals(arrayName1, arrayName2);
 长度不同，每个位置不同，都会返回false
 Arrays.fill(arrayName, fillValue); Arrays.fill(arrayName, left, right, fillValue);
 填充fillValue给数组
+Arrays类只能用于一维数组
+
+// TypeName[][] data = new TypeName[size1][size2];
+data.length 是(n - 1)维数组的个数
+data[k].length 是第k个(n - 2)维数组的个数
+
+锯齿数组 java中允许数组的长度不同
+TypeName[][] data = new TypeName[size1][];
+data[k] = new int[size2];
+
