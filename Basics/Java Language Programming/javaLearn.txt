@@ -32,3 +32,47 @@ Interger.parseInt(String s)
 方法
 public static main(String[] args){}
 main方法可以调用其他类中的类 可以调用同类中的类
+
+重载方法 方法名相同，参数列表不同
+当多个同名方法存在时，编译器会选择最匹配的方法来使用，
+如果找不到最合适的，就会产生歧义调用
+Java中不存在重载运算符，只有string类可以用
+
+Math类
+
+TypeName data = new TypeName;
+TypeName[] data = new TypeName[Size];
+ClassName data = new ClassName(para);
+
+char[] data = {....};
+System.out.println(data); // print data
+
+增强型for
+// TypeName[] data = new TypeName[Size];
+for(TypeName u : data){
+    // use u do something
+}
+
+数组长度 data.length
+
+数组复制
+for循环
+System.arraycopy(src, srcPos, dst, dstPos, length);
+clone方法
+
+java使用new后不需要delete，java有自动回收机制
+
+java方法可变长参数
+public static FuncName(TypeName... data);
+data被当作数组使用，且TypeName是最后一个变量的类型
+感觉只能传入相同类型的参数，没有c那么多功能，因为string和值类型同时传入没有办法区分
+
+java.util.Arrays 专门用于Array的类 数组下标输入值和返回值都是0开始
+Arrays.sort(arrayName); Arrays.sort(arrayName, left, right);
+整个数组排序 从left到right-1排序 
+Arrays.binarySearch(arrayName, key);
+数组必须先正序排列好，如果找到key返回下标，如果没有找到返回-(插入点下标 + 1)，反正是个负值
+Arrays.equals(arrayName1, arrayName2);
+长度不同，每个位置不同，都会返回false
+Arrays.fill(arrayName, fillValue); Arrays.fill(arrayName, left, right, fillValue);
+填充fillValue给数组
