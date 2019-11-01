@@ -86,3 +86,49 @@ data[k].length 是第k个(n - 2)维数组的个数
 TypeName[][] data = new TypeName[size1][];
 data[k] = new int[size2];
 
+面对对象编程（OOP）
+现实世界中可以明确标识的任意实体 - 对象
+状态 state 行为 behavior
+类定义不用在最后写";"  含有main方法的称为主类
+
+在java中除了基本类型外，全部都是引用类型
+基本类型赋值的时候，直接将对象的值赋给另一个对象
+无论是数组，类等等，如果没有new分配空间，默认值是null，分配空间后值是分配后的地址值，类似c++中的指针
+当一个引用类型给另一个相同引用类型赋值时，赋给的就是地址值，而另一个引用类型原本所指向的空间就会没用，而被java自动回收
+一个源文件中只能有一个主类(main-class)
+一个xxx.java文件中可以有多个类，但是被编译(javac)后，会产生多个xxx.class
+
+Java库中的类
+1)Data类 java.util.Date 1970.1.1开始算起  -- System.currentTimeMillis(): long
++Date()
++Date(elapseTime: long)
+
++toString(): String
++getTime(): long
++setTime(elapseTime: long): void
+
+2)Random类 java.util.Random  --  Math.rand(): double (0.0 <= returnValue < 1.0)
++Random() 种子是当前时间
++Random(seed: long)
+
++nextInt(): int
++nextInt(n: int): int (0 < returnvalue < n)
++nextLong(): long
++nextDouble(): double
++nextFloat(): float
++nextBoolean: boolean
+
+3)javax.swing.*类 JFrame JButtion JRadioButton JComboBox JList
+
+static 类中的静态变量，静态常量，静态方法
+static int data;
+final static int data;
+static int function(){}
+
+Java中的包
+package xxx.xxx; 生成目录
+import xxx.xxx;  导入目录
+
+javac -d . xxx.java 将xxx.java生成的xxx.class放在当前目录(.就是这个作用)
+jar cvf xxx.jar xxx jar是打包命令 c:创建jar文件 v:生成详细信息 f:指定包名 xxx.jar:包的名字 xxx:目录
+jar xvf xxx.jar
