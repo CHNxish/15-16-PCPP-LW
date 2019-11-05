@@ -132,3 +132,234 @@ import xxx.xxx;  导入目录
 javac -d . xxx.java 将xxx.java生成的xxx.class放在当前目录(.就是这个作用)
 jar cvf xxx.jar xxx jar是打包命令 c:创建jar文件 v:生成详细信息 f:指定包名 xxx.jar:包的名字 xxx:目录
 jar xvf xxx.jar
+manifest.mf
+
+私有修饰符private    将访问权限限定在它自己的类内
+默认修饰符（无修饰符） 将访问权限限定在包内
+公共修饰符public     没有限定权限
+
+private只能用在类的成员上，public可以用在类和类的成员上，局部变量不应该用private和public修饰符
+如果不希望类被构造，构造函数可以使用private私有化，函数可用static访问
+
+ClassName data = new ClassName[Size];
+for(int i = 0; i < data.length; i++){
+	data[i] = new ClassName();
+}
+
+String类
+String s = "Welcome to java!"; // 编译时就放入常量池中
+String s = new String("Welcome to java!"); // 运行时利用这个字符串在堆中初始化s
+
++equals(s1: string): boolean
++compareTo(s1: string): int
++length(): int
++charAt(index: int): char
++concat(s1: String): String
++substring(beginIndex: int, endIndex:int): String
++toLowerCase(): String
++toUpperCase(): String
++trim(): String
++replace(oldChar: char, newChar:char): String
++replaceFirst(oldString: String, newString: String): String
++replaceAll(oldString: String, newString:String): String
++split(delimiter: String): String[]
++indexOf(ch: char): int
++lastIndexOf(ch: char): int
+
+字符数组和字符串的转换
+char[] chars = "Java".toCharArray();
+String str = new String(new char[]{'J', 'a', 'v', 'a'});
+String str = String.valueOf(new char[]{'J', 'a', 'v', 'a'});
+
++valueOf(c: char): String
++valueOf(data: char[]): String
++valueOf(d: double): String
++valueOf(f: float): String
++valueOf(i: int): String
++valueOf(l: long): String
++valueOf(b: boolean): String
+
+Double.parseDouble(str: String): double
+Integer.parseInt(str: String): int
+
+String.format(format, item1, item2, ..., itemn)
+
+正则表达式
+java.util.regex类  和 String.matches()
+
+java中每个基本数据类型都有一个包装类
+Character Boolean Byte Short Integer Long Float Double
+
+StringBuilder StringBuffer
+两者都是可以被修改的字符串，StringBuilder速度大于StringBuffer，但是StringBuffer支持多线程，StringBulider支持单线程，类中成员函数一致
+
++StringBuilder()
++StringBuilder(capacity: int)
++StringBuilder(s: String)
+
++append(data: char[]): StringBuilder
++append(data: char[], offset: int, len: int): StringBuilder
++append(v: aPrimitiveType): StringBuilder
++append(s: String): StringBuilder
++delete(startIndex: int, endIndex: int): StringBuilder
++deleteCharAt(index: int): StringBuilder
++insert(index: int, data: char[], offset: int, len: int): StringBuilder
++insert(offset: int, data: char[]): StringBuilder
++replace(startIndex: int, endIndex: int, s: String): StringBuilder
++reverse(): StringBuilder
++setCharAt(index: int, ch: char): void
+
++toString(): String
++capacity(): int
++charAt(index: int): char
++length(): int
++setLength(newLength: int): void
++substring(startIndex: int, endIndex: int): String
++trimToSize(): void
+
+File类 一个File对象可以是文件或者目录 java.io.File 不包括读写
++File(pathname: String)
++File(parent: String, child: String)
++File(parent: File, child: String)
+
++exists(): boolean // 存在
++canRead(): boolean // 存在且可读
++canWrite(): boolean // 存在且可写
++isDirectory(): boolean // File类是目录
++isFile(): boolean // File类是文件
++getName(): String
++getPath(): String
++getParent(): String
++lastModified(): long // 最后一次修改时间，从UNIX时间
++length(): long // 目录或文件大小，不存在则为0
++lastFile(): File[] // 返回File对象目录下的所有文件
++createNewFile()
++mkdir()
++delete(): boolean // 删除
++renameTo(): boolean // 重命名
+
+PrintWriter类 java.io.PrintWriter
++PrintWriter(file: File)
++PrintWriter(filename: String)
++print(data: AllType): void
++println(data: AllType): void (比print多一个换行，windows是\r\n，UNIX是\n)
++close():void // 关闭
+
+Scanner类 java.util.Scanner
++Scanner(source: File)
++Scanner(source: String)
++hasNext(): boolean
++next(): String
++nextTypeName(): TypeName
++close() // 关闭
+
+String lineSeparator = System.getProperty("line.separator"); // 获取行分隔符
++useDelimiter(String regex); // 设置新的分隔符
+
+在构造PrintWriter和Scanner时，可能会抛出I/O异常，必须在方法旁边写
+example: public static void main(String[] args) throws Exception{}
+
+要使一个类是不可变的，那么必须满足
+1)所有数据域都是私有的
+2)没有修改器方法
+3)没有一个访问器方法，它会返回一个指向可变数据域的引用
+
+类中非static变量可用this.data的形式使用
+类中static变量可用ClassName.data的形式使用
+
+如果一个类中有多个构造方法，通常，无参或参数少的构造方法可以用this(参数表)调用参数多的构造方法
+
+类的抽象和封装
+
+聚集和组合
+
+/* Java语言程序设计：Teaching by example and learning by doing */
+设计一个类 1）类名 2）类中元素 3）类中方法 4）实现类 5）测试类
+example:Course class
+1)Course
+2)-courseName: String
+-students: String[]
+-numberOfStudents: int
+3)+Course(courseName: String)
++getCourseName(): String
++addStudent(student: String): void
++dropStudent(student: String): void
++getStudents(): String[]
++getNumberOfStudents(): int
+4)Course.java
+public class Course{
+	private String courseName;
+	private String[] students = new String[100];
+	private int numberOfStudents;
+
+	public Course(String courseName){
+		this.courseName = courseName;
+		this.numberOfStudents = 0;
+	}
+
+	/* 由于String不可变，所以不用担心引用值被修改问题 */
+	public String getCourseName(){
+		return courseName;
+	}
+
+	public void addStudent(String student){
+		students[numberOfStudents] = student;
+		numberOfStudents++;
+		System.our.println("Add is OK!");
+	}
+
+	public void dropStudent(String student){
+		int index;
+
+		for(index = 0; index < numberOfStudents; index++){
+			if(students[index].equals(student)){
+				break;
+			}
+		}
+
+		if(index == numberOfStudents){
+			System.out.println(courseName + " is no " + student);
+		}
+		else{
+			for(int i = index; i < numberOfStudents; i++){
+				students[i] = students[i + 1];
+			}
+			numberOfStudents--;
+
+			System.out.println("Drop is OK!");
+		}
+	}
+
+	public String[] getStudents(){
+		return students;
+	}
+
+	public int getNumberOfStudents(){
+		return numberOfStudents;
+	}
+}
+5)TestCourse.java
+public class TestCourse{
+	public static void main(String[] args){
+		Course course1 = new Course("Data Structures");
+		Course course2 = new Course("Database Systems");
+
+		course1.addStudent("Peter Jones");
+		course1.addStudent("Brian Smith");
+		course1.addStudent("Anne Kennedy");
+
+		course2.addStudent("Peter Jones");
+		course2.addStudent("Steve Smith");
+
+		System.out.prinln("Number of students in course1: "
+			+ course1.getNumberOfStudents());
+		String[] students = course1.getStudents();
+		for(int i = 0; i < course1.getNumberOfStudents(); i++){
+			System.out.println(students[i] + ", ");
+		}
+
+		System.out.println();
+		System.out.print("Number of students in course2: "
+			+ course2.getNumberOfStudents());
+	}
+}
