@@ -269,6 +269,8 @@ example: public static void main(String[] args) throws Exception{}
 
 如果一个类中有多个构造方法，通常，无参或参数少的构造方法可以用this(参数表)调用参数多的构造方法
 
+面向对象编程设计：封装 继承 多态
+
 类的抽象和封装
 
 聚集和组合
@@ -363,3 +365,63 @@ public class TestCourse{
 			+ course2.getNumberOfStudents());
 	}
 }
+
+继承 extends
+父类中的私有数据域在该类之外是不可被访问的
+java中不允许多重继承（几个类派生一个子类），java只允许单一继承
+父类中的数据域只能通过访问器/修改器使用
+父类中的构造方法和方法通过super使用
+构造方法链：子类的构造方法中，如果没有显式调用父类的构造方法，那么在构造方法中会在第一步隐式调用父类的无参构造方法
+最好能为每个类提供一个无参构造方法（如果需要的话），以便对该类进行扩展同时避免错误
+java不支持super.super，因为this和super是私有成员
+在java中父类和子类中出现同名成员函数，如果参数类型都相同，那么子类会覆盖父类的同名成员函数，如果参数类型不相同，会重载方法
+java中每个类都源于java.lang.Object类，如果定义一个类时没有显式继承某个类，那么隐式extends Object
+Object类中有个成员函数是toString()，它会返回ClassType@MemoryAddress
+因为基本源于Object，最好覆盖这个方法
+特殊使用：如果定义了一个对象data，那么System.out.println(data) <=> System.out.println(data.toString())
+
+多态 父类型的变量可以引用子类型的对象
+Object o = new GeometricObject();
+System.out.println(o.toString());
+当父类的引用的实例是个子类时，调用的函数，会从子类向父类的方法寻找，直到找到同名函数
+/* 匹配方法的签名和绑定方法的实现是两个对立的事情 */
+引用变量的声明类型决定了编译时匹配哪个方法，编译器会在编译时，根据参数类型，参数个数和参数顺序找到匹配的方法，一个方法可能在几个子类中都被实现
+java虚拟机在运行时动态绑定方法的实现，这是由变量的实际类型所决定的
+
+Object o = new Student(); // true
+Student s = (Student)o;   // true
+
+instanceof
+ClassName instanceof anotherClassName -> boolean
+Object myObject = new Circle();
+if(myObject instanceof Cirlce){
+	System.out.println("The circle is diameter is " + ((Circle)myObject).getDiameter());
+}
+
+在子类中，使用签名equals(SomeClassName obj)覆盖Object中的equals是个常见的错误，这样只会重载这个方法，应该使用equals(Object obj)，方法内用(SomeClassName)obj.data来比较
+
+java.util.ArrayList类 处理对象是Object 比普通数组更多的方法
++ArrayList()
++clear(): void
+
++add(o: Object):void
++add(index: int, o: Object): void
++set(index: int, o: Object): Object
++get(index: int): Object
++remove(o: Object): int
++remove(index: int): boolean
+
++isEmpty(): boolean
++size(): int
++contains(o: Object): boolean
++indexOf(o: Object): int
++lastIndexOf(o: Object): int
++toString(): String
+
+类中修饰符 同一个类可访问 同一个包可访问 在子类内可访问 在不同包内可访问
+public        true        true         true         true
+protected     true        true         true         false
+(default)     true        true         false        false
+private       true        false        false        false
+
+final 1)修饰变量是常量 2)修饰类是终极类(不能做父类)
