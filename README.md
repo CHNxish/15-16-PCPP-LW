@@ -10,4 +10,6 @@ All the study tasks are written in First-Idea.xlsx.
 If you're done,you input '√' of completion.
 
 Other files will hold the knowledge encountered during the learning process.
+
+You have no food for the computer.
 */

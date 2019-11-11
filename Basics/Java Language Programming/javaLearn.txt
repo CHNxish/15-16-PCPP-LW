@@ -392,7 +392,7 @@ Object o = new Student(); // true
 Student s = (Student)o;   // true
 
 instanceof
-ClassName instanceof anotherClassName -> boolean
+Object instanceof anotherClass -> boolean
 Object myObject = new Circle();
 if(myObject instanceof Cirlce){
 	System.out.println("The circle is diameter is " + ((Circle)myObject).getDiameter());
@@ -425,3 +425,212 @@ protected     true        true         true         false
 private       true        false        false        false
 
 final 1)修饰变量是常量 2)修饰类是终极类(不能做父类)
+
+异常处理
+try{
+	if(number2 == 0)
+		throw new ArithmeticException("Divisor cannot be zero");
+	System.out.println(number1 + " / " + number2 + " is " +
+		(number1 / number2));
+}
+catch(ArithmeticException ex){
+	System.out.println("Exception: an integer " + 
+		"cannot be divided by zero ");
+}
+System.out.println("Execution continues ...");
+
+异常处理最根本的优势就是将检测错误（由被调用方法完成）从处理错误（由调用方法完成）中分离出来
+如果方法抛出一个异常，那么这个异常会给调用者，由调用者处理这个异常。
+
+java API中定义的异常类
+Object <- Throwable <- Exception <- ClassNotFoundException
+                                 <- IOException
+                                 <- RuntimeException <- ArithmeticException
+                                                     <- NullPointerException
+                                                     <- IndexOutOfBoundsException
+                                                     <- IllegalArgumentEXception
+                                                     <- 更多其他类
+                                 <- 更多其他类
+                    <- Error <- LinkageError
+                             <- VirtualMachineError
+                             <- 更多其他类
+
+
+Throwable是所有异常的根，异常类主要分为系统错误，异常和运行时异常
+1)系统错误，Error类，由虚拟机抛出，很少发生，如果出现也做不了什么
+2)异常，Exception类，由程序和外部环境引起
+3)运行时异常,RuntimeException类，程序设计错误，如类型转换，数组越界
+Error和RuntimeException都是免检异常，而其他异常都是必检异常，意思是编译器强制程序员检查并处理它们
+
+声明异常  -> 抛出异常   -> 捕获异常
+被调用方法   被调用方法    调用方法
+throws Exception -> throw new Exception() -> try catch
+
+一个通用父类可以派生出各种异常类，如果一个catch块可以捕获一个父类的异常对象，那么它就能捕获那个父类的所有子类的异常对象
+
+java.lang.Throwable
++getMessage(): String
++getString(): String
++printStackTrace(): void        // 在控制台上打印
++getStackTrace(): StackTraceElement[] // methodName className lineNumber
+
+// TestException.java
+public class TestException{
+	public static void main(String[] args){
+		try{
+			System.out.println(sum(new int[]{1, 2, 3, 4, 5}));
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+			System.out.println("\n" + ex.getMessage());
+			System.out.println("\n" + ex.toString);
+
+			System.out.ptintln("\nTrace Info Obtained from getStackTrace");
+			StackTraceElement[] traceElements = ex.getStackTrace();
+			for(int i = 0; i < traceElements.length; i++){
+				System.out.println("method " + traceElements[i].getMethodName());
+				System.out.println("(" + traceElements[i].getClassName() + ":");
+				System.out.println(traceElements[i].getLineNumber() + ")");
+			}
+		}
+	}
+
+	private static int sum(int[] list){
+		int result;
+		for(int i = 0; i <= list.length; i++)
+			result += list[i];
+		return result;
+	}
+}
+
+finally
+1)在try-catch之后一个finally块 
+2)无论有没有异常，有没有被捕捉，即使有return语句，finally块都会被执行
+
+抽象类 基本不含有具体实例的类 abstract
+抽象类的构造方法是protected，需要被子类使用 抽象类中有抽象方法，只有声明，实现在子类中，而且要全部实现，不然也是抽象子类，方法不能是static的
+
+java.util.Calendar 抽象类
+#Calendar()
++get(field: int): int
++set(filed: int, value: int): void
++set(year: int, month: int, dayOfMonth: int): void
++getActualMaximum(field: int): int
++add(field: int, amount: int): void
++getTime(): java.util.Date
++setTime(date: java.util.Date): void
+Calendar类的域常量:YEAR,MONTH,DATE,HOUR,HOUR_OF_DAY,MINUTE,SECOND,
+DAY_OF_WEEK,DAY_OF_MONTH,DAY_OF_YEAR,WEEK_OF_MONTH,WEEK_OF_YEAR,AM_PM
+
+java.util.GregorianCalendar Calendar的子类
++GregorianCanlendar()
++GregorianCanlendar(year: int, month: int, dayOfMonth: int)
++GregorianCanlendar(year: int, month: int, dayOfMonth: int, hour: int, minute: int, second: int)
+
+接口 interface 和类相似的结构 只包含常量和抽象方法
+接口中的量都是public final static 方法都是public abstract
+instanceof对接口也有效 data instanceof InterfaceName
+
+Comparable 接口  java.lang.Comparable
+java.lang中String和Date类都是使用了Comparable接口定义compareTo(Object o)
+
+Max.java
+public class Max{
+	public static Comparable max(Comparable o1, Comparable o2){
+		if(o1.compareTo(o2) > 0)
+			reutn o1;
+		else
+			return o2;
+	}
+}
+
+ComparableRectangle.java
+public class ComparableRectangle extends Rectangle implements Comparable{
+	public ComparableRectangle(double width, double height){
+		super(width, height);
+	}
+
+	public int compareTo(Object o){
+		if(getArea() > (ComparableRectangle o).getArea())
+			return 1;
+		else if(getArea() < (ComparableRectangle o).getArea())
+			return -1;
+		else
+			return 0;
+	}
+}
+
+ActionListener 接口 监听器 java.awt.event.ActionListener
+public interface ActionListener{
+    // ActionEvent类来自java.awt.event中
+	public abstract void actionPerformed(ActionEvent e);
+}
+java GUI中当按钮(可点击的对象)被点击，将会出发一个事件，将会被监听器监听
+首先创建一个按钮 JButton jbt = new JButton();
+为监听器创造动作
+class ForJButton implements ActionListener{
+	public void actionPerformed(ActionEvent e){
+		// do something
+	}
+}
+将这个监听器的实例放入按钮中
+jbt.addActionListener(new ForJButton()); // void addActionListener(ActionListener a);
+
+Cloneable 接口 克隆 java.lang.Cloneable
+public interface Cloneable{
+}
+java.lang中Date，Calendar和ArrayList实现了Cloneable
+Object类中定义了clone方法 protected native Object clone() throws CloneNotSupportedException;
+自己定义的类中定义clone public Object clone() throws CloneNotSupportedException{
+	super.clone()
+}
+实现的时候 ClassName data2 = (ClassName)data1.clone();
+在Object复制的过程中是浅复制，复制结果是两个对象，对于数据域中的基本类型，直接复制值，如果是数据域中的类，那么复制的是引用
+数组也支持clone ArrayName[] data2 = data1.clone()
+
+基本类型可以用数组，包装类可以用java.util.ArrayList
+Object <- Boolean
+       <- Character
+       <- Number <- Double
+                 <- Float
+                 <- Long
+                 <- Integer
+                 <- Short
+                 <- Byte
+上面除了Object类外都implements Comparable compareTo()
+都复写了Object中的toString()和equals()
+
+java.lang.Number 抽象类
++byteValue(): byte
++shortValue(): short
++intValue(): int
++longValue(): long
++floatValue(): float
++doubleValue(): double
+
+java.lang.Integer
+-value: int
++MAX_VALUE: int
++MIN_VALUE: int
++Integer(value: int)
++Integer(s: String)
++valueOf(s: String): Integer
++valueOf(s: String, radix: int): Integer
++parseInt(s: String): int
++parseInt(s: String, radix: int): int
+
+java.lang.Double
+-value: double
++MAX_VALUE: double
++MIN_VALUE: double
++Double(value: double)
++Double(s: String)
++valueOf(s: String): Double
++valueOf(s: String, radix: int): Double
++parseDouble(s: String): double
++parseDouble(s: String, radix: int): double
+
+基本类型和包装类可以自动开箱和装箱
+
+java.math BigInteger和BigDecimal类 扩展于Number 实现Comparable接口
+add subtract multiple divide remainder

@@ -1,0 +1,127 @@
+Swing       javax.swing
+AWT         java.awt
+
+GUI API
+1)组建类
+2)容器类
+java.awt.Container
+javax.swing.JFrame
+javax.swing.JPanel
+javax.swing.JApplet
+javax.swing.JDialog
+3)辅助类
+java.awt.Graphics
+java.awt.Color
+java.awt.Font
+java.awt.FontMetrics
+java.awt.Dimension
+java.awt.LayouManager
+
+Object <- border
+       <- event
+       <- Dimension
+       <- Font
+       <- FontMetrics
+       <- Color
+       <- Graphics
+       <- Component <- LayoutManager
+                    <- Container <- Panel <- Applet <- JApplet
+                                 <- Window <- Frame <- JFrame
+                                           <- Dialog <- JDialog
+                                 <- JComponent <- JButton
+                                               <- JLabel
+                                               <- JTextField
+                                               <- JPanel
+                                               <- 更多其他类
+
+1)JFrame类 javax.swing.JFrame 框架
++JFrame()
++JFrame(title: String)
++setSize(width: int, height: int): void
++setLocation(x: int, y: int): void         // 设置左上角的位置
++setLocationRelativeTo(c: Component): void // 设置和特定组建的相关的框架位置
++setVisible(visible: boolean): void
++setDefaultCloseOperation(mode: int): void
++pack() : void                             // 自动设置框架大小和内部组件
++add(comp: Component): void
+
+调用setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);来告诉程序当框架关闭结束程序
+如果不使用，框架关闭后不结束程序，只能通过系统中的命令结束进程
+
+2)LayoutManager               布局管理器
+FlowLayout java.awt.FlowLayout
+FlowLayout.LEFT FlowLayout.CENTER FlowLayout.RIGHT 左对齐 居中 右对齐
+-alignment: int // 对齐方式
+-hgap: int      // 水平间隔
+-vgap: int      // 垂直间隔
++FlowLayout()
++FlowLayout(alignment: int)
++FlowLayout(alignment: int, hgap: int, vgap: int)
+
+GridLayout java.awt.GridLayout
+顺序从左到右，从上到下
+-rows: int
+-columns: int
+-hgap: int
+-vgap: int
++GridLayout()
++GridLayout(rows: int, columns: int)
++GridLayout(rows: int, columns: int, hgap: int, vgap: int)
+
+BorderLayout java.awt.BorderLayout
+BorderLayout.EAST SOUTH WEST NORTH CENTER
+-hgap: int
+-vgap: int
++BorderLayout()
++BorderLayout(hgap: int, vgap: int)
+添加组件的时候不同，frame.add(new JButton("East"), BorderLayout.EAST)
+
+setLayout();  Container类中
+
+布局管理器都有修改器，比如FlowLayout的setAlignment(int),setHgap(int),setVgap(int)
+
+3)JPanel类 javax.swing.JPanel 面板
+面板可以放在一个框架或者另一个面板中
+
+4)Color类 java.awt.Color 颜色
+颜色由红，绿，蓝三原色构成，也就是通常说的RGB
++Color(r: int, g: int, b: int)
+Color.BLACK BLUE CYAN DARK_GRAY GRAY GREEN LIGHT_GRAY MAGENTA ORANGE PINL RED WHITE YELLOW
+setBackground(); setForeground(); Component类中
+
+5)Font类 java.awt.Font 字体
++Font(String name, int style, int size)
+name: "SansSerif" "Serif" "Monospaced" "Dialog" "DialogInput"
+style: Font.PLAIN Font.BOLD Font.ITALIC Font.BOLD + Font.ITALIC
+setFont(); Component类中
+
+SwingGUI组件的公共特性
+1)java.awt.Component
+-font: java.awt.Font
+-background: java.awt.Color
+-foreground: java.awt.Color
+-preferredSize: java.awt.Dimension // Dimension类由width和height组成
+-visible: boolean
++getWidth(): int
++getHeight(): int
++getX(): int
++getY(): int
+
+2)java.awt.Container
++add(comp: Component): Component
++add(comp: Component, index: int): Component
++remove(comp: Component): void
++getLayout(): LayoutManager
++setLayout(l: LayoutManager): void
++paintComponents(g: Graphics): void
+
+3)javax.swing.JComponent
+-toolTipText: String
+-border: javax.swing.border.Border
+
+上面所有的private类型都有get和set方法
+
+6)ImageIcon类 javax.swing.ImageIcon 图标
+图标用来装饰组件，一般都很小，支持.gif,.jpg,.png
+ImageIcon icon = new ImageIcon("image/xxx.gif");
+JLabel jlbl = new JLabel(icon);
