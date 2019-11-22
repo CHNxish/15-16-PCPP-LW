@@ -1,0 +1,42 @@
+每个java应用程序都有一个在应用程序开始时执行的main方法，而applet没有main方法，依靠浏览器运行
+
+java.applet.Applet
+javax.swing.JApplet
+
+<applet
+	[codebase = applet_url]
+	code = classfilename.class
+	width = applet_viewing_width_in_pixels
+	height = applet_viewing_height_in_pixels
+	[archive = archivefile]
+	[vspace = vertical_margin]
+	[hspace = horizontal-margin]
+	[align = applet_alignment]
+	[alt = alternative_text]
+>
+</applet>
+
+applet安全限制 沙盒安全模型
+1.不允许applet对计算机的文件系统进行读取或写入
+2.不允许applet运行浏览器所在的计算机上的任何程序
+3.除了在服务器上存储applet之外，不允许applet同用户的计算机和其他任何计算机之间建立任何连接
+
+Loaded -> Created -> Initialized -> Started -> Stopped -> Destroyed
+init()
+start()
+stop()
+destroy()
+
+给applet传递字符串
+<param name = parametername value = stringvalue />
+public String getParameter(String parametename)
+
+URL Uniform Resource Locator 统一资源定位符
+指向本地机器或远程主机上某个资源的指示器
+java.net.URL url = this.getClass().getResource("image/us.gif");
+
+AudioClip java.applet.AudioClip 音频
+AudioClip audioClip = Applet.newAudioClip(url);
++play()
++loop()
++stop()

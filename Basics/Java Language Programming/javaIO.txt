@@ -1,0 +1,145 @@
+文本文件一般后缀为.txt，二进制文件一般后缀为.dat
+
+对于文本文件(text file)
+
+java.io.File
+File filename = new File("file path");
+
+java.io.PrintWriter
+PrintWriter output = new PrintWriter(filename, "utf-8");
+out.println("file content");
+out.close();
+
+java.util.Scanner;
+Scanner input = new Scanner(System.in);
+Scanner input = new Scanner(filename, "utf-8");
+String str = input.nextLine();
+input.close;
+
+二进制I/O
+java.io.*;
+Object <- InputStream <- FileInputStream
+                      <- FilterInputStream <- DataInputStream
+                                           <- BufferedInputStream
+                      <- ObjectInputStream
+       <- OutputStream <- FileOutputStream
+                       <- FilterOutputStream <- DataOutputStream
+                                             <- BufferedOutputStream
+                       <- ObjectOutputStream
+
+InputStream 抽象类
++read()              // 读取一个字节
++read(b: byte[]): int
++read(b: byte[], off: int, len: int): int
++available(): int    // 可读取的字节估计值
++close()
++skip(n: long): long // 丢弃n个字节
++markSupported(): boolean
++mark(readlimit: int): void
++reset()
+
+OutputStream 抽象类
++write(int b): void。// 输入的实际是(byte)b
++write(b: byte[]): void
++write(b: byte[], off: int, len: int): void
++close(): void
++flush(): void       // 刷新输出流，并迫使所有缓冲的输出字节写出
+
+java.io.IOException 异常
+
+FileInputStream
++FileInputStream(file: File)
++FileInputStream(filename: String)
+
+如果File对象不存在，将会发生java.io.FileNotFoundException异常
+
+FileOutputStream
++FileOutputStream(file: File)
++FileOutputStream(filename: String)
++FileOutputStream(file: File, append: boolean)
++FileOutputStream(filename: String, append: boolean)
+如果File对象不存在，将会新建文件，如果文件存在，将会删除原文件资料，如果是追加，需要设置参数
+
+filter stream 过滤器数据流
+
+DataInputStream extends FilterInputStream implements DataInput
+DataOutputStream extends FilterOutputStream implements DataOutput
+
+DataInput
++readBoolean(): boolean
++readByte(): byte
++readChar(): char
++readFloat(): float
++readDouble(): double
++readInt(): int
++readLong(): long
++readShort(): short
++readLine(): String
++readUTF(): String
+
+DataOutput
++writeBoolean(b: boolean): void
++writeByte(v: int): void
++writeBytes(s: String): void    // 单字节字符串
++writeChar(c: char): void
++writeChars(s: String): void
++writeFloat(v: float): void
++writeDouble(v: double): void
++writeInt(v: int): void
++writeLong(v: long): void
++writeShort(v: short): void
++writeUTF(s: String): void
+
+DataInputStream input = new DataInputStream(new FileInputStream("in.dat"));
+DataOutputStream output = new DataOutputStream(new FileOutputStream("out.dat"));
+
+如果读取中已经到文章末尾，会引发EOFException异常
+
+输入输出缓冲区提高读写性能
+BufferedInputStream
++BufferedInputStream(in: InputStream)
++BufferedInputStream(filename: String, bufferSize: int)
+
+BufferedOutputStream
++BufferedOutputStream(out: OutputStream)
++BufferedOutputStream(filename: String, bufferSize: int)
+
+ObjectInputStream extends InputStream implements ObjectStreamConstants, ObjectInput
+ObjectOutputStream extends OutputStream implements ObjectsStreamConstants, ObjectOutput
+
+ObjectInput 接口  是DataInput的子接口
++readObject(): Object
+ObjectOutput 接口  是DataOutput的子接口
++writeObject(o: Object): void
+
++ObjectInputStream(in: InputStream)
+
++ObjectOutputStream(out: OutputStream)
+
+ObjectInputStream对象使用readObject()时会出现ClassNotFoundException
+
+对象读写的时候，十分复杂，需要序列化Serializable
+一个对象如果需要使用ObjectInput/OutputStream时，需要使用Serializable接口实现类的序列化
+如果试图存储一个不支持Serializable接口的对象会引起NotSerializableException异常
+
+如果一个对象是Serializable的实例，但包含非序列化数据域，是不能序列化这个对象的，可以加上transient，不序列化这个数据
+如果是static的成员变量，将不序列化
+所有不序列化的数据，在反序列化的时候会赋默认初值
+当一个对象不止一次写入对象流，文件只保存一次副本，然后利用序列号起到多次写入的作用，读出时引用相同
+
+数组通过ObjectInput/OutputStream的时候，数组内每个元素都要实例化
+
+RandomAccessFile implements DataInput, DataOutput
++RandomAccessFile(file: File, mode: String)
++RandomAccessFile(name: String, mode: String)
++close(): void
++getFilePointer(): long
++length(): long                 // length 和 setLength 都是按照一个字节的计算
++read(): int
++read(b: byte[]): int
++read(b: byte[], off: int, len: int): int
++seek(pos: long): void
++setLength(newLength: long): void
++skipBytes(n: int): int
++write(b: byte[]): void
++write(b: byte[], off: int, len: int): void

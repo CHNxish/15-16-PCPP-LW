@@ -634,3 +634,24 @@ java.lang.Double
 
 java.math BigInteger和BigDecimal类 扩展于Number 实现Comparable接口
 add subtract multiple divide remainder
+
+内部类
+public class Test{
+	// do something
+	public class A{
+		// do something
+	}
+}
+编译后的文件OutClassName$InnerClassName.class
+内部类可以引用定义在它嵌套的外部类中的数据和方法
+如果内部类是非静态的
+OutClass outerObject = new OutClass();
+OutClass.InnerClass innerObject = outerObject.newInnerClass();
+如果内部类是静态的
+OUtClass.InnerClass innerObject = new OuterObject.InnerClass();
+
+匿名内部类
+new SuperClassName/InterfaceName(){
+	// do something
+}
+编译后的文件OutClassName$N.class

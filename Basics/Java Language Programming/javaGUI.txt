@@ -125,3 +125,206 @@ SwingGUI组件的公共特性
 图标用来装饰组件，一般都很小，支持.gif,.jpg,.png
 ImageIcon icon = new ImageIcon("image/xxx.gif");
 JLabel jlbl = new JLabel(icon);
+
+7)Graphics类 抽象类
++setColor(color: Color): void
++setFont(font: Font): void
++drawString(s: String, x: int, y: int ): void
++drawLine(x1: int, y1: int, x2: int, y2: int): void
++drawRect(x: int, y: int, w: int, h: int): void
++fillRect(x: int, y: int, w: int, h: int): void
++drawRoundRect(x: int, y: int, w: int, h: int, aw: int, ah: int): void
++fillRoundRect(x: int, y: int, w: int, h: int, aw: int, ah: int): void
++draw3DRect(x: int, y: int, w: int, h: int, raised: boolean): void
++fill3DRect(x: int, y: int, w: int, h: int, raised: boolean): void
++drawOval(x: int, y: int, w: int, h: int): void
++fillOVal(x: int, y: int, w: int, h: int): void
++drawArc(x: int, y: int, w: int, h: int, startAngle: int, arcAngle: int): void
++fillArc(x: int, y: int, w: int, h: int, startAngle: int, arcAngle: int): void
++drawPolygon(xPoints: int[], yPoints: int[], nPoints: int): void
++fillPolygon(xPoints: int[], yPoints: int[], nPoints: int): void
++drawPolygon(g: Polygon): void
++fillPolygon(g: Polygon): void
++drawPolyline(xPoints: int[], yPoints: int[], nPoints: int): void
+
+Graphics类是一个提供与设备无关的图形界面的抽象类，当任何使用需要显示组件的时候，jvm会自动在本地平台上面为该组件创建一个Graphics对象，然后传递这个对象调用paintComponent方法来画图
+protected void paintComponent(Graphics g);
+
+java.awt.Polygon
++xpoints: int[]
++ypoints: int[]
++npoints: int
++Polygon()
++Polygon(xpoints: int[], ypoints: int[], npoints: int)
++addPoint(x: int, y: int)
+
+FontMetrics类 抽象类 java.awt.FontMetrics
+在Graphics中有它的对象
+public FontMetrics getFontMetrics();          // 当前字体对象
+public FontMetrics getFontMetrics(Font font); // 指定font字体对象
+获取FontMetrics字体的属性
+public int getAscent()
+public int getDescent()
+public int getLending()
+public int getHeight()
+public int stringWidth(String str)
+
+java.awt.Image
+ImageIcon imageIcon = new ImageIcon("image/us.gif");
+Image image = imageIcon.getImage();
+
+javax.swing.Timer
++Timer(delay: int, listener: ActionListener())
+需要start和stop开始和暂停
+
+Graphics中的方法
++drawImage(image: Image, x: int, y: int, bgcolor: Color, observer: ImageObserver): void
++drawImage(image: Image, x: int, y: int, observer: ImageObserver): void
++drawImage(image: Image, x: int, y: int, width: int, height: int, observer: ImageObserver): void
++drawImage(image: Image, x: int, y: int, width: int, height: int, bgcolor: Color, observer: ImageObserver): void
+
+Component <- Container <- JComponent <- AbstractButton <- JButton
+                                                       <- JToggleButton <- JCheckBox
+                                                                        <- JRadioButton
+                                     <- JLabel
+                                     <- JTextComponent <- JTextArea
+                                                       <- JTextField <- JPasswordField
+                                     <- JComboBox
+                                     <- JList
+                                     <- JScrollBar
+                                     <- JSlider
+
+在javax.swing.SwingConstants接口中定义了很多常量
+水平 LEADING LEFT CENTER RIGHT TRAILING
+垂直 TOP CENTER BOTTOM
+
+javax.swing.AbstractButton
+-actionCommand: String        
+-text: String
+-icon: javax.swing.Icon
+-pressedIcon: javax.swing.Icon
+-rolloverIcon: javax.swing.Icon
+-mnemonic: int
+-horizontalAlignment: int
+-horizontalTextPosition: int
+-verticalAlignment: int
+-verticalTextPosition: int
+-borderPainted: boolean
+-iconTextGap: int
+-selected: boolean
+
+javax.swing.JButton
++JButton()
++JButton(icon: javax.swing.Icon)
++JButton(text: String)
++JButton(text: String, icon: Icon)
++addActionListener(listener: ActionListener): void
+
+setMnemonic(ch: char): void
+setToolTipText(s: String): void
+
+javax.swing.JToggleButton
+javax.swing.JCheckBox
++JCheckBox()
++JCheckBox(text: String)
++JCheckBox(text: String, selected: boolean)
++JCheckBox(icon: Icon)
++JCheckBox(text: String, icon: Icon, selected: boolean)
++addActionListener(listener: ActionListener): void
++addItemListener(listener: ItemListener): void
++isSelected(): boolean
+
+setForeground(color: Color): void
+setBackground(color: Color): void
+
+javax.swing.JRadioButton
++JRadioButton()
++JRadioButton(text: String)
++JRadioButton(text: String, selected: boolean)
++JRadioButton(icon: Icon)
++JRadioButton(text: String, icon: Icon)
++JRadioButton(text: String, icon: Icon, selected: boolean)
++addActionEvent(listener: ActionListener): void
++addItemListener(listener: ItemListener): void
+
+javax.swing.ButtonGroup绑定单选按钮的关系，但是显示还是显示在面板上
+
+javax.swing.JLabel
+-text: String
+-icon: javax.swing.Icon
+-horizontalAlignment: int
+-houizontalTextPosition: int
+-verticalAlignment: int
+-verticalTextPosition: int
+-iconTextGap: int
++JLabel()
++JLabel(icon: javax.swing.Icon)
++JLabel(icon: Icon, hAlignment:int)
++JLabel(text: String)
++JLabel(text: String, icon: Icon, hAlignment: int)
++JLabel(text: String, hAlignment: int)
+
+
+javax.swing.text.JTextComponent 抽象类
+-text: String
+-editable: boolean
+
+javax.swing.JTextField
+-columns: int
+-horizontalAlignment: int
++JTextField()
++JTextField(column: int)
++JTextField(text: String)
++JTextField(text: String, columns: int)
++addActionListener(listener: ActionListener): void
+
+setDocument PlainDocument
+
+javax.swing.JTextArea
+-columns: int
+-rows: int
+-tabSize: int
+-lineWrap: boolean
+-warpStyleWord: boolean
++JTextArea()
++JTextArea(rows: int, columns: int)
++JTextArea(text: String)
++JTextArea(text: String, rows: int, columns: int)
++append(s: String): void
++insert(s: String, pos: int): void
++replaceRange(s: String, start: int, end: int): void
++getLineCount(): int
+
+JScrollPane 保存文本行，实现滚动
+
+
+javax.swing.JComboBox
++JComboBox()
++JComboBox(items: Object[])
++addItem(item: Object): void
++getItemAt(index: int): Object
++getItemCount(): int
++getSelectedIndex(): int
++setSelectedIndex(index: int): void
++getSelectedItem(): Ojbect
++setSelectedItem(item: Object): void
++removeItem(anObject: Object): void
++removeItemAt(anIndex: int): void
++removeAllItems(): void
++addActionEvent(listener: ActionListener): void
++addItemListener(listener: ItemListener): void
+
+
+javax.swing.JList
+-selectedIndex: int
+-selectedIndeices: int[]
+-selectedValue: Object
+-visibleRowCount: int
+-selectionVackground: Color
+-selectionForeground: Color
+-selectionMode: int
++JList()
++JList(items: Object[])
++addListSelectionListener(listener: ListSelectionListener): void
+
+selectionMode中的值在javax.swing.ListSelectionModel

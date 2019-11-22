@@ -1,0 +1,122 @@
+java.util.EventObject
+EventObject <- AWTEvent <- ActionEvent
+                        <- AdjustmentEvent
+                        <- ItemEvent
+                        <- TextEvent
+                        <- ComponentEvent <- ContainerEvent
+                                          <- FocusEvent
+                                          <- PaintEvent
+                                          <- WindowEvent
+                                          <- InputEvent <- MouseEvent
+                                                        <- KeyEvent
+            <- ListSelectionEvent
+            <- ChangeEvent
+
+用户动作                             源对象                      触发事件类型
+点击按钮                             JButton                    ActionEvent
+在文本域按回车键                      JTextField                 ActionEvent
+选定一个新项                          JComboBox                 ItemEvent,ActionEvent
+选定（多）项                          JList                      ListSelectionEvent
+点击复选框                           JCheckBox                  ItemEvent,ActionEvent
+点击单选按钮                         JRadioButton               ItemEvent,ActionEvent
+选定菜单项                           JMenuItem                   ActionEvent
+移动滚动条                           JScrollBar                  AdjustmentEvent
+移动滚动条                           JSlider                     ChangeEvent
+窗口打开，关闭，最小化，还原或关闭中     Window                      WindowEvent
+按住，释放，点击，回车或退出鼠标        Component                   MouseEvent
+移动或拖动鼠标                        Component                  MouseEvent
+释放或按下键盘上的键回车或退出          Component                   KeyEvent
+从容器中添加或删除组件                 Container                   ContainerEvent
+组件移动，改变大小，隐藏或显示          Component                   ComponentEvent
+组件获取或失去焦点                    Component                   FocusEvent
+
+除了ListSelectionEvent和ChangeEvent外，所有事件类都在java.awt.event中
+它们两个在javax.swing.event中
+
+事件类					监听器接口				监听器方法
+ActionEvent             ActionListener          actionPerformed(ActionEvent)
+ItemEvent               ItemListener            itemStateChanged(ItemEvent)
+MouseEvent              MouseListener           mousePressed(MouseEvent)
+                                                mouseReleased(MouseEvent)
+                                                mouseEntered(MouseEvent)
+                                                mouseExited(MouseEvent)
+                                                mouseClicked(MouseEvent)
+                        MouseMotionListener     mouseDragged(MouseEvent)
+                                                mouseMoved(MouseEvent)
+KeyEvent                KeyListener             keyPressed(KeyEvent)
+WindowEvent             WindowListener          windowClosing(WindowEvent)
+                                                windowOpened(WindowEvent)
+                                                windowIconified(WindowEvent)
+                                                windowDeiconified(WindowEvent)
+                                                windowClosed(WindowEvent)
+                                                windowActivated(WindowEvent)
+                                                windowDeactivated(WindwoEvent)
+ContainerEvent          ContainerListener       componentAdded(ContainerEvent)
+                                                componentRemoved(ContainerEvent)
+ComponentEvent          ComponentListener       componentMoved(ComponentEvent)
+                                                componentHidden(ComponentEvnet)
+                                                componentResized(ComponentEvent)
+                                                componentShown(ComponentEvnet)
+FocusEvent              FocusEvent              focusGained(FocusEvent)
+                                                focusLost(FocusEvent)
+AdjustmentEvent         AdjustmentListener      adjustmentValueChange(AdjustmentEvent)
+ChangeEvent             ChangeListener          stateChanged(ChangeEvent)
+ListSelectionEvent      ListSelectionListener   valueChanged(ListSelectionEvent)
+
+适配器 对于接口中的抽象函数不用全部定义，如果没有定义会默认空程序体
+适配器                   接口
+WindowAdapter           WindowListener
+MouseAdapter            MouseListener
+MouseMotionAdapter      MouseMotionListener
+keyAdapter              KeyListener
+ContainerAdapter        ContainerListener
+ComponentAdapter        ComponentListener
+FocusAdapter            FocusListener
+
+java.awt.event.InputEvent 抽象类
++getWhen(): long
++isAltDown(): boolean
++isControlDown(): boolean
++isMetaDown(): boolean
++isShiftDOwn(): boolean
+
+java.awt.event.MouseEvent
++getButton(): int
++getClickCount(): int
++getPoint(): java.awt.Point
++getX(): int
++getY(): int
+
+java.awt.event.MouseListener 接口
++mousePressed(e: MouseEvent): void   // 按下鼠标
++mouseReleased(e: MouseEvent): void  // 释放鼠标
++mouseClicked(e: MouseEvent): void   // 按下或释放
++mouseEntered(e: MouseEvent): void   // 进入组件
++mouseExited(e: MouseEvent): void    // 退出组件
+
+java.awt.event.MouseMotionListener 接口
++mouseDragged(e: MouseEvent): void   // 按下并移动
++mouseMoved(e: MouseEvent): void     // 不按下移动
+
+java.awt.event.KeyEvent
++getKeyChar(): char                  // 与键相关的字符
++getKeyCode(): int                   // 与键相关的值
+
+java.awt.event.KeyListener 接口
++keyPressed(e: KeyEvent): void       // 按下键
++keyReleased(e: KeyEvent): void      // 释放键
++keyTyped(e: KeyEvent): void         // 按下且释放
+
+KeyEvent中的常量
+VK_HOME VK_END VK_PGUP VK_PGDN VK_UP VK_DOWN VK_LEFT VK_RIGHT VK_ESCAPE VK_TAB
+VK_CONTROL VK_SHIFT VK_BACK_SPACE VK_CAPS_LOCK VK_NUM_LOCK VK_ENTER VK_UNDEFINED
+VK_F1~VK_F12 VK_0~VK_9 VK_A~VK_Z
+
+KeyEvent如果使用在JPanel中，需要使用setFocusable(true)或requestFocus()
+
+javax.swing.Timer
++Timer(delay: int, listener: ActionListener)
++addActionListener()
++start()
++stop()
+setDelay(delay: int): void

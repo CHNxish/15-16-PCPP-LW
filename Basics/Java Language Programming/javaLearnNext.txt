@@ -1,0 +1,91 @@
+泛型 是指参数化类型的能力
+可以定义带泛型类型的类或方法，随后编译器会用具体的类型来替换它
+
+泛型可以看做是多态的特例，在编译时就可检查出程序的潜在隐患
+<T> 可以用E或T这样的单个大写字母来表示一个泛型
+泛型必须使用引用类型，而不能用基本类型
+ArrayList<String> list = new ArrayList<String>();
+
+泛型类
+GenericStack<E>
+-list: java.util.ArrayList<E>
++GenericStack()
++getSize(): int
++peek(): E
++pop(): E
++push(o: E): void
++isEmpty(): boolean
+
+public class GenericStack<E>{
+	private java.util.ArrayList<E> list = new java.util.ArrayList<E>();
+
+	public int getSize(){
+		return list.size();
+	}
+
+	public E peek(){
+	    return list.get(getSize() - 1);
+	}
+
+	public void push(E o){
+	    list.add(o);
+	}
+
+	public E pop(){
+	    E o = list.get(getSize() - 1);
+	    list.remove(getSize() - 1);
+	    return o;
+	}
+
+	public boolean isEmpty(){
+	    return list.isEmpty();
+	}
+}
+
+泛型方法
+public class GenericMethodDemo{
+	public static void main(String[] args){
+	    Integer[] integers = {1, 2, 3, 4, 5};
+	    String[] strings = {"London", "Paris", "New York", "Austin"};
+
+	    GenericMethodDemo.<Integer>print(integers);
+	    GenericMethodDemo.<String>print(strings);
+	}
+
+	public static <E> void print(E[] list){
+	    for(int i = 0; i < list.length; i++){
+	        System.out.print(list[i] + " ");
+	    }
+	    System.out.println();
+	}
+}
+泛型方法前必须使用类名或对象名
+
+受限的泛型方法
+<E extends ClassName>
+ClassName.<E>functionName(E o1, E o2);
+所有不受限的实际上等同于<E extends Object>
+
+ClassName object = new ClassName(); 等价于 ClassName<Object> object = new ClassName<Object>();
+似乎有点多态是泛型的特例的意思
+
+-Xlint:unchecked 运行时的不安全
+
+public class Max{
+	public static Comparable max(Comparable o1, Comparable o2){
+	    if(o1.compareTo(o2) > 0)
+	    	return o1;
+	    else
+	    	return o2;
+	}
+}
+修改成 -> 
+public class Max{
+	public static <E extends Comparable<E>> E max(E o1, Eo2){
+		if(o1.compareTo(o2) > 0)
+			return o1;
+		else
+			return o2;
+	}
+}
+
