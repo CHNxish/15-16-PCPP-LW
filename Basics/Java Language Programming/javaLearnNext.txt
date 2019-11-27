@@ -89,3 +89,233 @@ public class Max{
 	}
 }
 
+通配类型 ?
+? <=> ? extends Object
+? extends T
+? super T
+
+在编译中，若泛型类型确定是安全的，将会转换成原始类型
+
+泛型限制：
+1.不能使用new E()
+2.不能使用new E[]
+3.静态环境下不允许方法参数或方法内变量参数为泛型
+4.异常类不能是泛型 
+
+数据结构
+是以某种形式将数据组织在一起的集合 数据结构不仅存储数据，还支持访问和处理数据的操作
+在面向对象思想中，数据结构也被认为是容器对象container object
+
+Java集合框架支持两种类型的容器
+1.一种是为了存储一个元素集合，简称为集合collection
+2.另一种是为了存储键/值对，称为映射map
+
+Java集合框架中定义的所有接口和类都存储在java.util包中，且全部实现了java.lang.Cloneable和java.io.Serializable接口
+
+Collection
+1.Set    存储一组不重复的元素
+2.List   存储一个由元素构成的有序集合
+3.Queue  存储先进先出的对象
+                                                                  
+                   SortedSet <- NavigablSet                                            <-| TreeSet
+           <- Set <-|                                                    <- AbstractSet <- HashSet <-LinkedHashSet
+                                                 <- AbstractCollection  <-|                
+Collection <- List                                                       <- AbstractList <- Vector <- Stack
+                           										                         <- ArrayList
+                           									  <- AbstractSequentialList  <- LinkedList
+           <- Queue <- Deque                                                            <-|
+                    <- AbstractQueue                                               <- PriorityQueue
+
+Collection<E> 接口 和 AbstractCollection<E> 类
+Collection定义了所有集合的基本抽象方法，AbstractCollection实现了除iterator和size方法
+Clooection<E>
++add(o: E): boolean
++addAll(c: Collection<? extends E>): boolean
++clear(): void
++contains(o: Object): boolean
++containsAll(c: Collection<?>): boolean
++equals(o: Object): boolean
++hashCode():int
++isEmpty(): boolean
++iterator: Iterator<E>
++remove(o: Object): boolean
++removeAll(c: Collection<?>): boolean
++retainAll(c: Collection<?>): boolean
++size(): int
++toArray(): Object[]
+
+Iterator<E>
++hasNext(): boolean
++next(): E
++remove(): void
+
+散列集 HashSet<E> LinkedHashSet<E
++HashSet()
++HashSet(c: Collection<? extends E>)
++HashSet(initialCapacity: int)
++HashSet(initialCapacity: int, loadFactor: float) // 初始化容量 客座率
+
+比较器接口 Comparator
+java.lang.Comparable接口在Collection中不一定定义了，需要使用java.util.Comparator接口
++compare(element1: Object, element2: Object): int
++equals(element: Object): boolean
+
+List<E>
++add(index: int, element: E): boolean
++addAll(index: int, c: Collection<? extends E>): boolean
++get(index: int): E
++indexOf(element: Object): int
++lastIndexOf(element: Object): int
++listIterator(): ListIterator<E>
++listIterator(startIndex: int): ListIterator<E>
++remove(index: int): E
++set<index: int, element: E>: E
++subList(fromIndex:int, toIndex: int): List<E>
+
+ListIterator<E> implements Iterator<E>
++add(o: E): void
++hasPrevious(): boolean
++nextIndex():int
++previous(): E
++previousIndex(): int
++set(o: E):void
+
+ArrayList<E> 提取元素和在尾部插入或删除元素 效率高
++ArrayList()
++ArrayList(c: Collection<? extends E>)
++ArrayList(initialCapacity: int)
++trimToSize(): void
+
+LinkedList<E> 任意位置插入或删除元素 效率高
++LinkedList()
++LinkedList(c: Collection<? extends E>)
++addFirst(o: E): void
++addLast(o: E): void
++getFirst(): E
++getLast(): E
++removeFirst(): E
++removeLast(): E
+
+Arrays.asList(o1, o2, ..., on);
+
+Cellections类 为集合和图所用的类
++sort(list: List): void
++sort(list: List, c: Comparator): void
++binarySearch(list: List, key: Object): int
++binarySearch(list: List, key: Object, c: Comparator): int
++reverse(list: List): void
++reverseOrder(): Comparator
++shuffle(list: List): void
++shuffle(list: List, rmd: Random): void
++copy(des: List, src: List): void           // 浅复制，des长度需要大于等于src长度
++nCopies(n: int, o:Object): List
++fill(list: List, o: Object): void
++max(c: Collection): Object
++max(c: Collection,  c: Comparator): Object
++min(c: Collection): Object
++min(c: Collection,  c: Comparator): Object
++disjoint(c1: Collection, c2: Collection): boolean
++frequency(c: Collection, o: Object): int
+
++singleton(o: Object): Set
++singletonList(o: Object): List
++singletonMap(key: Object, value: Object): Map
++unmodifiedCollection(c: Collection): Collection
++unmodifiableList(list: List): List
++unmodifiableMap(m: Map): Map
++unmodifiableSet(s: Set): Set
++unmodifiableSortedMap(s: SortedMap): SortedMap
++unmodifiableSortedSet(s: SortedSet): SortedSet
+
+Vector<E>
++Vector()
++Vector(c: Collection<? extends E>)
++Vector(initialCapacity: int)
++Vector(initialCapacity: int, capacityIncr: int)
++addElement(o: E): void
++capacity(): int
++copyInto(anArray: Object[]): void
++elementAt(index: int): E
++elements(): Enumeration<E>
++ensureCapacity(): void
++firstElement(): E
++insertElementAt(o: E, index: int): void
++lastElement(): E
++removeAllElements(): void
++removeElement(o: Object): boolean
++removeElementAt(index: int): void
++setElementAt(index: int): void
++setSize(newSize: int): void
++trimToSize(): void
+
+Stack<E>
++Stack()
++empty(): boolean
++peek(): E
++pop(): E
++push(o: E): E
+search(o: Object): int
+
+Queue<E> 接口
++offer(element: E: boolean
++poll(): E
++remove(): E
++peek(): E
++element(): E
+
+PriorityQueue<E>
++PriorityQueue()
++PriorityQueue(initialCapacity: int)
++PriorityQueue(c: Collection<? extends E>)
++PriorityQueue(initialCapacity: int, comparator: Comparator<? super E>)
+
+     |- SortedMap <- NavigableMap                <-| TreeMap
+Map <-                             <- AbstractMap <- HashMap <- LinkedHashMap
+
+Map<K, V>
++clear(): void
++containsKey(key: Object): boolean
++containsValue(value: Object): boolean
++entrySet(): Set<Map.Entry<K, V>>
++isEmpty(): boolean
++keySet(): Set<K>
++put(Key: K, value: V): V
++putAll(m: Map<? extends K, ? extends V>): void
++remove(key: Object): V
++size(): int
++values(): Collection<V>
+
+Map.Entry<K, V>
++getKey(): K
++getValue(): V
++setValue(value: V): void
+
+HashMap<K, V>
++HashMap()
++HashMap(initialCapacity: int, loadFactor: float)
++HashMpa(m: Map<? extends K, ? extends V>)
+
+LinkedHashMap<K, V>
++linkedHashMap()
++LinkedHashMap(m: Map<? extends K, ? extends V>)
++LinkedHashMap(initialCapacity: int, loadFactor: float, accessOrder: boolean)
+
+SorderMap<K, V>
++firstKey(): K
++lastKey(): K
++comparator(): Comparator<> super K>
++headMap(toKey: K): SortedMap<K, V>
++tailMap(fromKey: K): SortedMap<K, V>
+
+NavigableMap<K, V>
++floorKey(key: K): K
++ceilingKey(key: K): K
++lowerKey(key: K): K
++higherKey(key: K): K
++pollFirstEntry(): Map.EntrySet<K, V>
++pollLastEntry(): Map.ExtrySet<K, V>
+
+TreeMap<K, V>
++TreeMap()
++TreeMap(m: Map<? extends K, ? extends V>)
++TreeMap(c: Comparator<? super K>)

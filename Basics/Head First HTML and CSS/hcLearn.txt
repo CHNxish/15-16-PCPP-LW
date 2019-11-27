@@ -32,18 +32,20 @@ html
 		title
 		style - type = "text/css"
 	body 
-		h1~h6                                     // 标签
-		p                                         // 段落
-		q                                         // 短引用
-		blockquote                                // 长引用
-		a - href = "directions.html"              // html链接
-		ol/ul                           	      // 有序或无序
-		li                                 	      // 列表
+		h1~h6                                        // 标签
+		p                                            // 段落
+		q                                            // 短引用
+		blockquote                                   // 长引用
+		a - href = "directions.html"                 // html链接
+		ol ul li                          	         // 有序或无序列表
 		dl/dt/dd
-		img - src = "love.gif"  alt width height  // 图片
-		br                                        // 换行
-		hr                                        // 水平线
-		em                                        // 斜体
+		img - src = "love.gif"  alt width height     // 图片
+		br                                           // 换行
+		hr                                           // 水平线
+		em                                           // 斜体
+		table thead tbody tfoot tr td                // 表格
+		form input textarea  select fatalist option  // 表单
+		map area                                     // 分区响应
 		code
 		time
 		strong
