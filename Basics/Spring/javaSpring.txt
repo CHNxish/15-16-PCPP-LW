@@ -1,0 +1,21 @@
+EJB 企业级JavaBean
+Spring 简化的Java EE开发的轻量级框架
+
+IoC Inversion of Control 控制反转(又称依赖注入)
+
+被注入对象 -> IoC Service Provider -> 被依赖对象
+
+1.构造方法注入
+public FXNewsProvider(IFXNewsListener newsListener, IFXNewsPersister newsPersister) {
+	this.newsListener    = newsListener;
+	this.newsPersistener = newsPersister;
+}
+
+setXXX()统称为setter方法 getXXX()统称为getter方法
+2.setter方法注入
+public void setNewsListener(IFXNewsListener newsListener) {
+	this.newsListener = newListener;
+}
+
+3.接口注入
+定义额外的接口满足类

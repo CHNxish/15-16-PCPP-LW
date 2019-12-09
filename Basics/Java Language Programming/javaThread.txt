@@ -1,0 +1,27 @@
+一个程序包含多个并发运行的任务 多线程 Runnable接口
+
+任务就是对象，java中任务必须用Runnable接口定义任务类，任务类需要用线程执行
+
+public class TaskClass implements Runnable{
+	public TaskClass(){
+
+	}
+
+	public void run(){
+
+	}
+}
+
+Thread thread = new Thread(new TaskClass());
+thread.stack();
+
+java.lang.Thread
++Thread()
++Thread(task: Runnable)
++start(): void
++isAlive(): boolean
++setPriority(p: int): void
++join(): void
++sleep(millis: long): void
++yield(): void
++interrupt(): void
