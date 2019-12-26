@@ -1,0 +1,26 @@
+标准库类型
+
+string类型支持长度可变的字符串
+class string
++string()                    // s == ""
++string(str: string)
++string(str: char*)
++string(n: int, c: char)
++empty(): bool
++size(): size_type
++getline(in: istream, str: string) // 获取一整行，ostream显示的字符不会读取
++at(n: size_type): char
+
+operator for string
+[n: size_type]: char
++: string
+=: string
+== != < <= > >=: bool
+
+vector类型
+class vector
++vector<T>()
++vector<T>(v: vector<T>)
++vector<T>
+
+cctype 库

@@ -1,2 +1,23 @@
 变量和基本类型
+
 bool char wchar_t short int long float double
+整形字面值 + U,L = unsigned, long
+L + 字符串字面值 = wchar_t
+
+直接初始化 复制初始化
+
+extern 声明的意义是给全平台使用，函数外的变量和函数默认extern
+至于对于全部变量和函数，什么时候声明，什么时候定义，要看初始化和函数在哪个文件中  
+
+非const引用只能绑定到与该引用同类型的对象
+const引用则可以绑定到不同但相关的类型的对象或绑定到右值
+
+const：c语言中就是普通的定量，在c++语言中，默认为文件的局部变量，所以c++中可以放在头文件中使用
+
+头文件中不能含有定义，除了定义类(或模版)，const变量和inline函数
+
+避免头文件的多重包含
+#ifndef HEADERFILENAME_H
+#define HEADERFILENAME_H
+// Definition of something
+#endif
