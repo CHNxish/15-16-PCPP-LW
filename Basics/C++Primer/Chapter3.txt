@@ -6,21 +6,59 @@ class string
 +string(str: string)
 +string(str: char*)
 +string(n: int, c: char)
++assign(str: string)
++assign(str: string, int index, int len)
++append(str: string)
++append(str: string, int index, int len)
++insert(int index, str: string)
++replace(int index, int len, str: string)
 +empty(): bool
 +size(): size_type
 +getline(in: istream, str: string) // 获取一整行，ostream显示的字符不会读取
 +at(n: size_type): char
++compare(str: string): int
++swap(str: string): void
++find(c: char, pos: int): int
++find(c: const char*, pos: int): int
++c_str(): char*
+
 
 operator for string
-[n: size_type]: char
+[n: string::size_type]: char
 +: string
 =: string
++=: string
 == != < <= > >=: bool
+
+iterator for string
+iterator const_iterator reverse_iterator const_reverse_iterator
+begin() end() rbegin() rend()
+
+sstream 头文件
+istringstream ostringstream
+
+cctype 头文件
 
 vector类型
 class vector
 +vector<T>()
 +vector<T>(v: vector<T>)
-+vector<T>
++vector<T>(n: int, i: T)
++empty(): bool
++size(): int
++push_back(i: T)
 
-cctype 库
+operator for vector
+[n: vector<T>::size_type]:: T
+=: vector<T>
+==: bool
+!= < <= > >=: bool
+
+iterator for vector
+iterator const_iterator
+begin() end()
+
+迭代器 标准库容器都支持iterator类型
+begin()和end()获取迭代器类型变量iter，*iter使用,iter++迭代，==或!=比较
+iter + n, iter - n, iter1 - iter2
+vector<int>::iterator iter = iver.begin() + iver.size() / 2
