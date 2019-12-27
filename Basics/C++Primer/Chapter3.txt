@@ -7,11 +7,11 @@ class string
 +string(str: char*)
 +string(n: int, c: char)
 +assign(str: string)
-+assign(str: string, int index, int len)
++assign(str: string, index: int, len: int)
 +append(str: string)
-+append(str: string, int index, int len)
-+insert(int index, str: string)
-+replace(int index, int len, str: string)
++append(str: string, index: int, len: int)
++insert(index: int, str: string)
++replace(index: int, len: int, str: string)
 +empty(): bool
 +size(): size_type
 +getline(in: istream, str: string) // 获取一整行，ostream显示的字符不会读取
@@ -29,6 +29,7 @@ operator for string
 =: string
 +=: string
 == != < <= > >=: bool
+<< >>
 
 iterator for string
 iterator const_iterator reverse_iterator const_reverse_iterator
@@ -47,6 +48,7 @@ class vector
 +empty(): bool
 +size(): int
 +push_back(i: T)
++clear()
 
 operator for vector
 [n: vector<T>::size_type]:: T
@@ -57,6 +59,26 @@ operator for vector
 iterator for vector
 iterator const_iterator
 begin() end()
+
+bitset类型
++bitset<n: int>()
++bitset<n: int>(u: unsigned long)
++bitset<n: int>(s: string)
++bitset<n: int>(s: string, index: int, len: int)
++any(): bool     // 是否有1
++none(): bool    // 是否没有1
++count(): int    // 1的个数
++size(): size_t
++test(n: int): bool // 是否是1
++set()           // 所有设置为1
++set(n: int)     // n位设置为1
++reset()         // 所有设置为0
++reset(n: int)   // n位设置为0
++to_ulong(): UL  // 返回unsigned long值
+
+operator for bitset
+[n: int]: bool
+<<
 
 迭代器 标准库容器都支持iterator类型
 begin()和end()获取迭代器类型变量iter，*iter使用,iter++迭代，==或!=比较
