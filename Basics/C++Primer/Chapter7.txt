@@ -1,0 +1,102 @@
+函数
+int gcd(int v1, int v2){
+    while(v2){
+        int temp = v2;
+        v2 = v1 % v2;
+        v1 = temp;
+    }
+    return v1;
+}
+
+从c语言背景转到c++的程序员习惯通过传递指针来实现对实参的访问
+在c++中，使用引用形参则更安全和更自然
+
+const引用： const string &
+指针引用： int *&
+
+指针引用可以，引用指针不行
+
+static, const 为修饰符
+*, & 为有特殊作用的符号
+在对于一个变量的时候，先明确类型，int，string等等，然后看修饰符作用在类型还是符号上，然后符号指明特殊作用
+const string &：理解为string，不可修改的const的string，这个不可修改的const的string的引用
+
+对于有迭代器的标准库容器，应该传递迭代器给函数，用于迭代
+如果标注库容器没有迭代器，传递引用给函数
+
+int (&arr)[10]; // arr is a reference to an array of 10 ints
+
+数组传递给函数的方法
+1）标准库规范
+void printValues(const int *begin, const int *end);
+2）显式传递表示数组大小的形参
+void printValues(const int ia[], size_t size);
+
+主函数参数
+1)int argc, char *argv[]
+2)int argc, char **argv
+
+函数返回值和return
+return-type : return expression;
+void : return;
+void返回值函数会隐式的在最后一行调用return;
+
+主函数返回值 EXIT_SUCCESS EXIT_FAILURE
+
+引用返回是左值
+函数的返回值是引用，那么就可以作为左值，但是引用不能指向临时变量（函数创建和运行中定义的变量）
+
+默认实参可以是值，也可以是表达式
+默认实参只能在声明或者定义一处书写，建议在头文件中的函数声明中书写
+
+inline 内联说明对于编译器来说只是一个建议，编译器可以忽略这个建议
+内联机制适用于优化小的，只有几行代码的而且经常被调用的函数
+大多数哦编译器不支持递归函数的内联，一个1200行的函数也不太可能被调用点内联展开
+
+this 在c++中是类的隐含指针，在java中是类的隐含引用
+
+常量成员函数 return-type function-name(arg1, arg2, ...) const { // do something }
+
+构造函数，初始化类
+如果构造函数内为空，那么成员变量中类会调用默认构造函数，成员变量中的内置类型没有初始化
+可以用构造函数的初始化列表或构造函数块中的语句，初始化成员变量
+
+任何c/c++程序中，只有一个main函数，且不能被重载
+java中可以调用main函数，可以理解为一种特殊的重载
+
+当文件中含有多个函数名相同的函数时，那么这些函数重载，函数形参表不同，但是返回值类型相同
+
+c++中，名字查找发生在类型检查之前
+
+重载确定的可能结果
+1.编译器找到与实参最佳匹配的函数，并生成调用该函数的代码
+2.找不到形参与函数调用的实参匹配的函数，在这种情况下，编译器将会给出编译错误信息
+3.找到多个与实参匹配的函数，但没有一个是明确的最佳选择，这种情况也是错误的，该调用具有二义性
+
+重载确定的步骤
+1）候选函数 候选函数与被调用函数同名
+2）可行函数 函数的形参个数与被调用的实参个数相同 每一个实参类型必须与对应的形参的类型匹配，或者可以隐式的转换
+3）最佳匹配(如果有的话)
+4）含有多个形参的重载确定
+  1）其每个实参的匹配都不劣于其他可行函数需要的匹配
+  2）至少有一个实参的匹配优于其他可行函数提供的匹配
+
+精准匹配
+类型提升
+标准转换
+类类型转换
+注：在重载确定中，实参枚举类型可以使用形参int类型，但是实参int类型不能使用形参枚举类型
+
+函数指针
+typedef bool (*cmpFcn)(const string &, const string &);
+bool lengthCompare(const string &, const string &);
+cmpFcn f1 = lengthCompare;   <=>   cmpFcn f1 = &lengthCompare;
+pf("hi", "bye");             <=>   (*pf)("h1", "bye");
+
+函数指针形参
+1)void useBigger(const string &, const string &, bool(const string &, const string &));
+2)void useBigger(const string &, const string &, bool (*)(const string &, const string &));
+
+返回值为函数指针的函数
+1)int (*ff(int))(int *, int);
+2)typedef int (*PF)(int *, int); PF ff(int);

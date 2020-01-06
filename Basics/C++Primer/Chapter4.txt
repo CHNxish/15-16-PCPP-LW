@@ -6,3 +6,24 @@
 1）指针可以不初始化，引用必须初始化
 2）指针可以指向其他变量，引用只能一直指向一个变量
 3）一个需要使用'*'符号，一个不需要
+
+char const * const p;
+第一个const修饰char，值不能修改
+第二个const修饰指针，指向的对象不能修改
+
+c++库中定义类型string，可以理解为char看待，而不用理解为char*这样的，被const修饰
+java除了内置类型，根据类定义的类型都是引用类型，当使用final修饰时，默认不能修改为其他引用类型，而不是不能修改值
+
+当动态分配内存时
+int *p = new int[5];
+可以用未定变量初始化
+len = func();
+int *p = new int[len];
+使用完成后记得删除
+del[] p;
+
+可以用数组初始化容器
+int a[] = {1, 2, 3, 4, 5};
+len = strlen(a);
+vector<int> ivec(a, len);
+vector<int> ivec(a+1, a+len);

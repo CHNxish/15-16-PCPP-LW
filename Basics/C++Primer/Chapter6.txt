@@ -1,0 +1,73 @@
+语句
+
+if - elseif - else
+switch - case - default
+while
+do - while
+break
+continue
+goto
+
+异常处理
+try{
+    // throw
+    program-statements
+}catch(exception-specifier){
+    handler-statements
+}catch(exception-specifier){
+    handler-statements
+} //...
+
+标准库异常类中都定义了what成员函数，返回c风格字符串
+注：这个设计非常好，由于string不是内置类型，所以可以避免stdexcept头文件中包含string头文件
+
+当异常处理多重包含时，寻找处理代码(catch块)的过程与函数调用链(函数中包含try块)刚好相反
+如果最终没有对应的catch块处理异常，程序会跳转到terminate的标准库函数中，该函数包含在exception头文件中，该函数依赖于系统，一般导致程序非正常退出
+
+标准异常
+1.exception头文件 exception类
+2.stdexcept头文件 定义了几个异常类
+runtime_error    运行时错误，仅在运行时才能检测到问题
+range_error      运行时错误，生成的结果超出了有意义的值域范围
+overflow_error   运行时错误，计算上溢
+underflow_error  运行时错误，计算下溢
+logic_error      逻辑错误，可在运行前检测到的问题
+domain_error     逻辑错误，参数的结果值不存在
+invalid_argument 逻辑错误，不合适的参数
+length_error     逻辑错误，试图生成一个超出该类型最大长度的对象
+out_of_range     逻辑错误，使用一个超出有效范围的值
+3.new头文件 bad_alloc类
+4.type_info头文件 bad_cast类型
+
+exception, bad_alloc, bad_cast类型只定义了默认构造函数
+其他类型只定义了一个使用string初始化式的构造函数
+异常类型只定义了一个what的成员函数，返回值为const char*
+
+预处理器调试
+#ifndef HEADER_FILE_NAME
+#define HEADER_FILE_NAME
+    // ...
+#endif
+
+#ifndef NDEBUG
+    // ...
+#endif
+
+__FILE__
+__LINE__
+__TIME__
+__DATE__
+
+编译器参数
+-DNDEBUG 定义NDEBUG宏
+-x language filename
+-x none filename
+-c 生成二进制目标代码文件
+-o 生成可执行文件
+-O0 -O1 -O2 -O3 优化等级
+-g 生成调试信息
+-static 禁止使用动态库
+-share 尽量使用动态库
+
+assert函数 当程序定义了NDEBUG，函数无效
+当没有定义NDEBUG时，如果assert(expr)中expr为true，则什么也不做，如果是false，则报错退出

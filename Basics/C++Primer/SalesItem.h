@@ -1,73 +1,32 @@
-#ifndef _SALES_ITEM_HPP_
-#define _SALES_ITEM_HPP_
+#ifndef _SALES_ITEM_H_
+#define _SALES_ITEM_H_
 
-#include <string>
 #include <iostream>
-using namespace std;
+#include <string>
 
-class SalesItem{
-    private:
-        string name;
-        int number;
-        double unitPrice;
+class SalesItem {
+public:
+    SalesItem(): units_sold(0), revenue(0.0) {}
+    ~SalesItem() {}
 
-    public:
-        SalesItem();
-        SalesItem(string name, int number, double unitPrice);   // 构造函数
-        ~SalesItem();                                           // 析构函数
-        SalesItem Add(SalesItem si1, SalesItem si2);            // +
-        friend istream &operator>>(istream &input, SalesItem &si){
-            input >> si.name >> si.number >> si.unitPrice;
-            return input;
-        }
-        void GetValue();                           // >>
-        void PutValue();                           // <<
-        void Assignment(SalesItem si2);        // =
-        bool IsSame(SalesItem si);                                // ==
+    double avg_price() const;
+    bool same_isbn(const SalesItem &rhs) const {
+        return isbn == rhs.isbn;
+    }
+
+    friend std::istream &operator>>(std::istream &in, SalesItem &s) {
+        in >> s.isbn >> s.units_sold >> s.revenue;
+        return in;
+    }
+    friend std::ostream &operator<<(std::ostream &out, SalesItem &s) {
+        out << s.isbn << " " << s.units_sold << " " << s.revenue << std::endl;
+        return out;
+    }
+
+private:
+    std::string isbn;
+    unsigned units_sold;
+    double revenue;
 };
-
-SalesItem::SalesItem(){
-    this -> name = "";
-    this -> number = -1;
-    this -> unitPrice = -1;
-}
-
-SalesItem::SalesItem(string name, int number, double unitPrice){
-    this -> name = name;
-    this -> number = number;
-    this -> unitPrice = unitPrice;
-}
-
-SalesItem::~SalesItem(){}
-
-SalesItem SalesItem::Add(SalesItem si1, SalesItem si2){
-	SalesItem siSum(si1.name, si1.number + si2.number, si1.unitPrice);
-
-    return siSum;
-}
-
-void SalesItem::GetValue(){
-    std::cin >> this -> name >> this -> number >> this -> unitPrice;
-}
-
-void SalesItem::PutValue(){
-    std::cout << this -> name << " " << this -> number << " " << this -> unitPrice * \
-    this -> number << " " << this -> unitPrice << std::endl;
-}
-
-void SalesItem::Assignment(SalesItem si){
-    this -> name = si.name;
-    this -> number = si.number;
-    this -> unitPrice = si.unitPrice;
-}
-
-bool SalesItem::IsSame(SalesItem si){
-    if(this -> name == si.name){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
 
 #endif

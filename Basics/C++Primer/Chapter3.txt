@@ -84,3 +84,15 @@ operator for bitset
 begin()和end()获取迭代器类型变量iter，*iter使用,iter++迭代，==或!=比较
 iter + n, iter - n, iter1 - iter2
 vector<int>::iterator iter = iver.begin() + iver.size() / 2
+
+char* to int
+atoi()
+
+int to char*
+sprintf()
+
+string to int
+stoi()
+
+int to string
+to_string()
