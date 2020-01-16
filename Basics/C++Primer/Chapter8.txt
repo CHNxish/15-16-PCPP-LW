@@ -1,0 +1,58 @@
+标准IO库
+
+iostream头文件 istream ostream iostream
+fstream头文件  ifstream ofstream fstream
+sstream头文件  istringstream ostringstream stringstream
+
+国际字符的支持 wchar_t
+头文件一样 类型和对象前加w iostream -> wiostream cout -> wcout
+
+条件状态(condition state) strm是类名 s是对象
+strm::iostate
+strm::goodbit
+strm::eofbit
+strm::failbit
+strm::badbit
+s.good(): bool
+s.eof(): bool
+s.fail(): bool
+s.bad(): bool
+s.clear()
+s.clear(flag: strm::iostate)
+s.setstate(falg: strm::iostate)
+s.rdstate(): strm::iostate
+
+输出缓冲区的管理
+1.程序正常结束，作为main返回工作的一部分，将清空所有缓冲区
+2.在一些不确定的时候，缓冲区可能已经满了，在这种情况下，缓冲区将会在写下一个值之前刷新
+3.用操纵符显式刷新缓冲区
+4.可将输出流和输入流关联(tie)起来
+
+操纵符：flush ends endl unitbuf nounitbuf
+输入输出流绑定：in.tie(&out) 对象in和对象out绑定 in.tie(0) 解除绑定
+
+fstream
++fstream()
++fstream(filename: char*) 不支持string
++open(filename: char*)
++close()
+
+文件模式
+in       打开文件做读操作
+out      打开文件做写操作
+app      在每次写之前找到文件尾
+trunc    打开文件时清空已存在的文件流
+ate      打开文件后立即将文件定位在文件尾
+binary   已二进制模式进行io操作
+
+sstream
++stringstream()
++stringstream(str: string)
++str(): string
++str(s: string): void
+
+ostringstream istringstream 实现数字字符串之间的转换
+ostringstream format_message;
+format_message << "Val: " << val << "\n";
+istringstream input_istring(format_message.str());
+input_istring >> temp >> val;
