@@ -25,6 +25,9 @@ C<T> c(n);       创建n个默认初始化值的元素
 1）赋值运算
 2）对象可以复制
 
+1）迭代器不支持引用
+2）对于容器中的部分函数，支持迭代器范围的，可以用同容器同类型，异容器同类型，数组同类型，来使用这些函数，应该是全部重载了
+
 常用迭代器运算
 *iter
 iter -> element
@@ -93,3 +96,32 @@ pop_back()
 pop_front() 适用于list和deque
 
 algorithm头文件 find函数
+find(b: iterator, e: iterator, t: value_type): iterator
+
+顺序容器的复制操作
+=
+swap(c: container)
+assign(b: iterator, e: iterator)
+assign(n: int, t: value_type)
+
+capacity(): container::size_type
+reserve(n: int):
+
+容器的选用
+vector 快速随机访问 尾插删元素
+deque 快速随机访问 首尾插删元素
+list 任何位置快速插删元素 
+
+string支持的函数
+substr(): string
+substr(pos: int): string
+substr(pos: int, n: int): string
+append(args: string)
+replace(pos: int, len: int, args: string)
+replace(b: iterator, e: iterator, args: string)
+find(args: string)
+rfind(args: string)
+find_first_of(args: string)
+find_last_of(args: string)
+find_first_not_of(args: string)
+find_last_not_of(args: string)
