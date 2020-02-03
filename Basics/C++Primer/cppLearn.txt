@@ -29,3 +29,10 @@ xxx.cpp应该补充定义xxx.h中的数据结构
 
 类或名字空间内的函数或变量要用“::”声明
 如果类定义了对象，那么用"."声明，this指针用"->"
+
+各平台宏定义
+windows:_WIN32 _WIN64
+macos, ios:__APPLE__
+linux:__linux__
+unix:__unix__
+android:__ANDROID__

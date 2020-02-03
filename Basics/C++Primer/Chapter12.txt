@@ -1,0 +1,36 @@
+类 定义自己的抽象数据类型(abstract data type)
+c++ (cplusplus) cpp (c with classes) cc
+
+类背后蕴涵的基本思想是数据抽象和封装
+
+object_name.member_function1().member_function2()
+可以通过return *this，函数返回类型的引用
+
+非const成员函数，this的类型是指向类类型的const指针
+const成员函数，this的类型是指向const类型的const指针
+
+class_type &member_function(args) {}
+const class_type &memeber_function(args) const {}
+
+可变成员变量 mutable 只能用于成员变量
+当类的对象是const或者成员函数是const时，如果成员变量被声明mutable，则可以被改变
+对于成员变量，const和mutable不可以修饰同一个变量
+
+构造函数初始化列表只在定义的时候使用，不在声明的时候使用
+
+构造函数初始化列表中成员变量的初始化顺序和成员变量声明的顺序一致
+
+类只要定义了一个构造函数，编译器也不会再生成默认构造函数
+
+类通常应该定义一个默认构造函数，如果不构造
+1）不能该类作为类型动态分配数组空间
+2）静态分配数组必须显式提供一个初始化式
+3）保存该类的容器，不能使用接受容器大小而没有同时提供一个元素初始化式的构造函数
+
+explicit 关键字 只用于类内部的构造函数声明上，在类外定义上不再重复它
+防止构造函数被隐式调用
+
+友元 friend 允许一个类将其非公有成员的访问权授予指定的函数或类
+
+static 成员变量或函数 static成员变量不是通过类的构造函数进行初始化，而是在定义时进行初始化
+static成员函数没有this指针

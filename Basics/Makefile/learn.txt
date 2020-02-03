@@ -1,0 +1,13 @@
+Makefile
+
+在文件中建立Makefile文件，通过make命令，将多个文件连接成一个可执行目标文件
+
+target: dependencies
+[tab]command
+
+all
+
+clean: rm
+
+变量声明 var = abc
+变量使用 $(var)

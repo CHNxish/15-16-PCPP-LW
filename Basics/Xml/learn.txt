@@ -1,0 +1,11 @@
+XML(Extensible Markup Language) 可扩展标记语言
+
+<?xml version="1.0"?>
+<MyXML>
+    <Title>
+        What is XML?
+            <Solution>
+                This's it!
+            </Solution>
+    </Title>
+</MyXML>

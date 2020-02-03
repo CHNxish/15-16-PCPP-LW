@@ -1,0 +1,68 @@
+关联容器
+map
+set 
+multimap
+multiset
+
+utility 头文件 pair 容器
+pair<T1, T2> p1
+pair<T1, T2> p1(v1, v2)
+make_pair(v1, v2)
+p1 < p2
+p1 == p2
+p.first
+p.second
+
+map容器
+map<k, v> m;
+map<k, v> m(m2);
+map<k, v> m(b, e);
+
+map定义的类型
+map<k, v>::key_type
+map<k, v>::mapped_type
+map<k, v>::value_type  实际上是pair<const k, v>
+
+第一次知道下标操作符返回左值
+
+在数组中，默认是不赋初值的，a[10]，这样的形式访问会出错
+在string中，如果subscriptValue >= string.size()，会超出范围报错
+在map中，如果map中没有键key，使用map[key]，会默认map.insert(pair<k, v>(key, default_value))，会默认初始化
+
+给map添加元素
+1）使用下标 [] word_count["Anna"] = 1
+如果没有这个键，插入这个键值对
+如果有这个键，修改值
+2）insert
+insert(e: map<k, v>::value_type): pair<map<k, v>::iterator, bool> bool表示是否添加元素
+insert(begin: map<k, v>::value_type::iterator, end:map<k, v>:;value_type::iterator): void
+insert(iter: map<k, v>::iterator, e:map<k, v>::value_type): map<k, v>::iterator
+
+在map中查找元素
+count(k: key_type): map<k, v>::size_type  0或1
+find(k: key_type): map<k, v>::iterator
+
+在map中删除元素
+erase(k: key_type): map<k, v>::size_type
+erase(p: map<k, v>::iterator): void
+erase(b: map<k, v>::iterator, e: map<k, v>::iterator): void
+
+set容器
+set容器只有键，没有值，没有mapped_type，其中value_type == key_type
+
+set<k> s;
+set<k> s(s2);
+set<k> s(b, e);
+
+在set中添加元素
+insert(k: key_value): pair<set<k>::iterator, bool>
+insert(b: iterator, e: iterator): void
+
+在set中查找元素
+count(k: key_value): map<k, v>::size_type 0或1
+find(k: key_value): set<k>::iterator
+
+multimap 和 multiset
+lower_bound(k: key_value): multimap<k, v>::iterator
+upper_bound(k: key_value): multimap<k, v>::iterator
+equal_range(k: key_value): pair<multimap<k, v>::iterator, multimap<k, v>::iterator>

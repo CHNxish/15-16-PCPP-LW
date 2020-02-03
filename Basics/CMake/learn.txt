@@ -1,0 +1,51 @@
+command(arg1 arg2 ...)                             # 运行命令
+command(arg1 $(val_name))                          # 使用变量
+
+set(var_name var_value)                            # 定义变量或者给已存在变量赋值
+
+# 工程配置部分
+cmake_minimum_required(VERSION num)                # CMake最低版本号
+project(cur_project_name)                          # 项目名称
+set(CMAKE_CXX_FLAGS "XXX")                         # 设置编译版本，如-std=c++11
+set(CMAKE_BUILD_TYPE "XXX")                        # 设置编译模式，如Debug/Release
+
+# 依赖执行部分
+find_package(std_lib_name VERSION REQUIRED)        # 引入外部依赖
+add_library(<name> [lib_type] source1)             # 生成库类型(动态，静态)
+include_directories($(std_lib_name_INCLUDE_DIRS))  # 指定include路径，放在add_executable前面
+add_executable(cur_project_name XXX.cpp)           # 指定生成目标
+target_link_libraries($(std_lib_name_LIBRARIES))   # 指定libraries路径，放在add_executable后面
+
+# 辅助部分
+function(function_name arg)                        # 定义一个函数
+add_subdirectory(dir)                              # 添加一个子目录
+aux_source_directory(. SRC_LIST)                   # 查找当前目录所有文件，并保存到SRC_LIST变量中
+foreach(one_dir $(SRC_LIST))
+    message($(one_dir))                            # 使用message进行打印
+endforeach(one_dir)
+
+# 其他部分
+
+
+# 判断控制部分
+if(expression)
+    command1(args)
+else(expression)
+    command2(args)
+endif(expression)
+
+while(condition)
+    command1(args)
+endwhile(condition)
+
+# expression
+if(var)
+if(NOT var)
+if(var1 AND var2)
+if(var1 OR var2)
+if(COMMAND cmd)                                    # cmd是否是命令
+if(EXISTS dir)                                     # 目录名存在
+if(EXISTD file)                                    # 文件名存在
+if(IS_DIRECTORY dirname)                           # 当dirname是目录
+if(file1 IS_NEWER_THAN file2)                      # 当file1比file2新，为真
+if(variable MATCHES regex)                         # 符合正则 

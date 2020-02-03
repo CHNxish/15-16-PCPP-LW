@@ -1,0 +1,47 @@
+泛型算法
+algorithm
+numeric
+
+只读算法
+accumulate(b: iterator, e: iterator, value: T): T
+find_first_of(it1: iterator, it2:iterator, it3: iterator, it4: iterator): iterator
+sort(b: iterator, e: iterator): void   // 快速排序
+sort(b: iterator, e: iterator, f: function_pointer): void
+stable_sort(b: iterator, e: iterator): void // 归并排序
+count_if(b:iterator, e: iterator, f: function_pointer): Container::size_type
+unique(b: iterator, e: iterator): iterator
+
+写入算法
+fill(b: iterator, e: iterator, value: T): void
+fill_n(b: iterator, n: int, value: T): void
+copy(b: iterator, e: iterator, inserter: back_inserter): void
+replace(b: iterator, e: iterator, ovalue: T, mvalue: T): void
+
+iterator 头文件
+1）迭代器 iterator
+2）反向迭代器 reverse_iterator
+3）插入迭代器 inserter front_inserter back_inserter
+4）iostream迭代器 istream_iterator ostream_iterator
+
+五种迭代器
+1）输入迭代器      读，不能写，只支持自增运算       ==, !=, *, ->, ++
+2）输出迭代器      写，不能读，只支持自增运算       *, ++
+3）前向迭代器      读和写，只支持自增运算          ==, !=, *, ->, ++
+4）双向迭代器      读和写，支持自增和自减运算       ==, !=, *, ->, ++, --
+5）随机访问迭代器  读和写，支持完整的迭代器算数运算  <, <=, >, >=, +, +=, -, -=, []
+string, vector, deque和指针是随机访问迭代器
+map, set, list是双向迭代器
+istream_iterator是输入迭代器
+ostream_iterator是输出迭代器
+
+泛型算法的结构
+1.算法分类
+只读算法
+写入算法
+赋值算法
+
+2.算法的形参模式
+alg(beg, end, other parms)
+alg(beg, end, dest, other parms)
+alg(beg, end, beg2, other parms)
+alg(beg, end, beg2, end2, other parms)
