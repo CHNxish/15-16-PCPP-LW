@@ -1,0 +1,46 @@
+面向对象编程
+数据抽象，继承和动态绑定(多态)
+
+基类(base class) 派生类(derived class)
+
+private 只能由基类的成员和友元访问
+protected 只能由基类或派生类的成员和友元访问
+public 任何作用域都可以访问
+
+在派生类中可以访问基类中protected成员变量，但是派生类中的函数不能通过形参为基类的变量访问protected成员变量
+
+派生列表
+class classname: access-label base-class
+
+virtual 虚函数
+一旦函数在基类中声明为虚函数，它就一直是虚函数，派生类无法改变该函数为虚函数这一事实
+
+覆盖虚函数机制
+BaseClass *baseptr = &derived;
+int n = baseptr->BaseClass::func();
+
+去除个别成员
+class Base {
+public:
+    int size();
+protected:
+    int n_;
+};
+class Derived: private Base {
+public:
+    using Base::size;
+private:
+    using Base::n_;
+};
+
+友元没有继承关系，当Base类是某函数或类的友元的时候，该函数或类不能访问Derived类的私有成员
+
+静态类型(static type) 在编译时可知的类型
+动态类型(dynamic type) 在运行时可知的类型
+
+对类所继承的成员的访问由基类中成员访问级别和派生类派生列表中使用的访问标号共同控制
+
+private和protected是实现继承
+public是接口继承
+
+继承和组合 (Is A) and (Has A)

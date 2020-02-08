@@ -10,10 +10,18 @@
 
 重载操作符设计
 1）不要重载具有内置含义的操作符
-2）大多数哦操作符对类对象没有意义
+2）大多数操作符对类对象没有意义
 3）如果一个类有算术操作符或位操作符，应该定义复合赋值操作符
 4）如果定义了==，应该定义!=，如果定义了<，应该定义<=，>, >=等等的相关操作符
 5）为类设计重载操作符时，必须选择将操作符设置为类成员还是普通非成员函数，往往没有选择，必须是成员函数
+
+运算符重载 定义为成员函数 or 非成员函数
+1.定义为成员函数
+赋值(=)，下标([])，函数调用(())，解引用(*)或成员访问箭头(->)
+重载的运算符会改变对象状态(如：复合赋值运算符(+=, -=, =, /= , %=等)，递增递减，正，负运算符)
+2.定义为非成员函数
+输入，输出运算符
+具有对称性的运算符，运算符对象可以转移到任意一端(如算术运算符+, - , *, /等，关系运算符==, !=, >, >=, <, <=等，位运算符)
 
 输入和输出操作符
 istream &operator>>(istream &in, ClassType &object);
@@ -21,4 +29,67 @@ istream &operator>>(istream &in, ClassType &object);
 ostream &operator<<(ostream &out, const ClassType &object);
 输出操作符通常所做格式化应该尽量少，使用" "或"\t"，不要用"\n"
 
-算术操作符和关系操作符
+算术操作符
+ClassType operator+(const ClassType &, const ClassType &);
+复合操作符
+ClassType &operator+=(const ClassType &);
+关系操作符
+inline bool operator==(const ClassType &, const ClassType &);
+
+下标操作符
+ElementType &operator[](const size_t);
+const ElementType &operator[](const size_t) const;
+
+解引用操作符
+ElementType &operator*();
+const ElementType &operator*() const;
+
+箭头操作符
+ElementType *operator->();
+const ElementType *operator->() const;
+eg:a->b() 如果a是个指针，且有成员函数b，则调用成员函数b；如果不是类指针，查看是否有重载箭头操作符，类似于a.operator->()->b()；否则出错；返回值必须最后返回指针
+
+自增操作符和自减操作符
+ClassType &operator++();
+ClassType &operator--();
+ClassType operator++(int);
+ClassType operator--(int);
+
+函数调用操作符
+T1 operator&()(T2);
+可以用于算法中的参数 eg: count_if(vec.begin(), vec.end(), ClassType())
+
+functional 头文件 标准库函数对象类型
+1.算术函数对象类型
+plus<Type>            +
+minus<Type>           -
+multiplies<Type>      *
+divides<Type>         /
+modulus<Type>         %
+negate<Type>          -
+2.关系函数对象类型
+equal_to<Type>        ==
+not_equal_to<Type>    !=
+greater<Type>         >
+greater_equal<Type>   >=
+less<Type>            <
+less_equal<Type>      <=
+3.逻辑函数对象类型
+logical_and<Type>     &&
+logical_or<Type>      |
+logical_not<Type>     !
+
+函数对象适配器
+绑定器(binder) bind1st bind2nd
+求反器(negator) not1 not2
+
+转换函数操作符
+operator type(); type可以是内置类型，类类型，类型别名，不能是数组或函数类型
+
+函数参数在形参的隐式转换上的二义性
+ClassX cx;
+int iobj = sc + 3;
+eg1:有一个重载的加操作符与ClassX和int相匹配
+eg2:存在转换，将cx和/或int值转换为定义了+的类型，如果是这样，表达式将使用转换，接着应用适当的加操作符
+eg3:既定义了转换操作符又定义了+的重载版本，该表达式具有二义性
+eg4:既没有定义转换又没有重载+可以使用，该表达式非法
