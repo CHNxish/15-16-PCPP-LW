@@ -22,7 +22,6 @@ class string
 +find(c: const char*, pos: int): int
 +c_str(): char*
 
-
 operator for string
 [n: string::size_type]: char
 +: string

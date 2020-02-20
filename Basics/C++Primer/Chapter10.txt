@@ -54,6 +54,9 @@ set<k> s;
 set<k> s(s2);
 set<k> s(b, e);
 
+由于set需要对于insert的元素进行排序
+set< int, less<int> > s;    // less template class in functional header file
+
 在set中添加元素
 insert(k: key_value): pair<set<k>::iterator, bool>
 insert(b: iterator, e: iterator): void

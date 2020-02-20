@@ -48,3 +48,97 @@ public是接口继承
 不要把基类的指针，引用，对象赋值给派生类
 派生类的指针或引用赋值给基类的指针或引用，当在使用的时候会考虑变量的真实类型
 派生类的对象赋值或初始化基类的对象，基类拷贝派生类的基类部分
+
+           用户代码        类中函数或友元        后代类
+private      No               Yes              No
+protected    No               Yes              Yes
+public       Yes              Yes              Yes
+
+Derived d;
+Base *p = &d;   // ok
+Derived *p = p; // error
+需要使用static_cast dynamic_cast
+
+派生类构造函数，复制构造函数，赋值操作符函数都必须显式使用基类的对应函数，不然会使用默认初始化或不修改
+派生类析构函数会自动调用基类析构函数
+类是基类，则基类的析构函数应该是虚函数，派生类也自动继承虚函数属性
+
+如果在构造函数或析构函数中调用虚函数，则运行的则是构造函数或析构函数自身类型定义的版本
+
+派生类中的变量和函数会屏蔽基类中相同的名字的变量和函数(函数原型不同也会屏蔽)，想要使用必须用Base::func()
+
+理解C++中继承层次的关键在于理解如果确定函数调用，确定函数调用遵循以下四个步骤：
+1.首先确定进行函数调用的对象，引用或指针的静态类型
+2.在该类中查找函数，如果找不到，就在直接基类中查找，如此循着类的继承链往上找，直到找到该函数或者查找完最后一个类，如果不能在类或其相关基类中找到该名字，则调用错误
+3.一旦找到该名字，就进行常规类型检查，查看如果给定找到的定义，该函数调用是否合法
+4.假定函数调用合法，编译器就生成代码，如果函数是虚函数且通过引用或指针调用，则编译器生成代码以确定根据对象的动态类型运行哪个函数版本，否则，编译器生成代码直接调用函数
+
+const类和非const类
+int return_value();
+const int return_value() const;
+
+纯虚函数
+return_type function_name() const = 0;
+含有或继承一个或多个纯虚函数的类是抽象基类，除了作为抽象基类的派生类的对象的组成部分，不能创建抽象类型的对象
+
+c++中面向对象编程中颇具讽刺意味的是，不能使用对象支持面向对象编程，必须使用指针或引用
+
+C++中句柄就是一个特殊用途的智能指针类
+// use counted handle class for the ItemBase hierarchy
+Class SalesItem {
+public:
+    // default constructor: unbound handle
+    SalesItem(): p_(0), use_(new std::size_t(1)) {}
+    // attaches a handle to a copy of the ItemBase object
+    SalesItem(const ItemBase &i): p_(item.clone()), use(new std::size_t(1)) {};
+    // copy control members to manage the use count and pointers
+    SalesItem(const SalesItem &i): p_(i.p_), use_(i.use_) { ++*use; }
+    ~SalesItem() { decr_use(); }
+    SalesItem &operator=(const SalesItem &rhs) {
+        ++*rhs.use_;
+        decr_use();
+        p_ = rhs.p_;
+        use_ = rhs.use_;
+        return *this;
+    }
+    // member access operators
+    const ItemBase *operator->() const { if (p) return p;
+        else throw std::logic_error("unbound SalesItem"); }
+    const ItemBase *operator*() const { if (p) return p;
+        else throw std::logic_error("unbound SalesItem"); }
+    // compare function
+    static bool compare(const SalesItem &, const SalesItem &);
+private:
+    ItemBase *p_;
+    std::size_t *use_;
+    void decr_use() { if (--*use == 0) { delete p; delete use; }}
+};
+
+inline bool SalesItem::compare(const SalesItem &lhs, const SalesItem &rhs) {
+    return lhs->book() < rhs->book();
+}
+
+Class Basket {
+    // type of the comparison function used to order the multiset
+    typedef bool(*comp)(const SalesItem &, const SalesItem &);
+public:
+    // make it easier to type the type of our set
+    typedef std::multiset<SalesItem, comp> set_type;
+    typedef set_type::size_type size_type;
+    typedef set_type::const_iterator const_iter;
+    Basket(): items_(compare) {}
+    void add_item(const SalesItem &item) { items_.insert(item); };
+    size_type size() const { return items_.size(); }
+    size_type size(const SalesItem &i) const { return items_.count(i); }
+    double total() const;    // sum of net prices for all items in the basket
+private:
+    set_type items_;
+};
+
+double Basket::total() const {
+    double sum = 0.0;    // holds the running total
+    for (const_iter iter = items_.begin(); iter != items_.end(); iter = items_.upper_bound(*iter)) {
+        sum += (*iter)->net_price(items_.count(*iter));
+    }
+    return sum;
+}
