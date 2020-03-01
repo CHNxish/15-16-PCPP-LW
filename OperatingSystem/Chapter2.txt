@@ -1,5 +1,30 @@
 进程管理
 
+进程(Process)：
+A program in execution
+区分进程：处理什么程序，什么数据，有什么状态
+
+从数据结构和算法来看进程
+
+new -> ready <-> running -> terminated
+         ↑ waiting ↓
+
+PCB 进程控制块(Process Control Block)
+process state + process number + program counter +
+registers + memory limits + list of open files + ...
+
+进程调度队列 Job Queue Ready Queue Device Queue
+进程一经创建，即在队列之间迁移，直到终止
+
+-> Ready Queue -------Scheduler--------->            CPU ->
+    ↑                                                 ↓
+    ↑ <- I/O <- I/O Queue <-          I/O Request  <- ↓
+    ↑                     <-   Time Slice Expired  <- ↓
+    ↑ <- Child Executes   <-         Fork A Child  <- ↓
+    ↑ <- Interrupt Occurs <- Wait For On Interrupt <- ↓
+
+进程上下文切换(Context Switch)
+
 前趋图(Precedence Graph)用于描述进程之间执行的前后关系，是一种有向无循环图(Directed Acyclic Graph)
 P1 -> P2 ->
    -> P3 -> P5 ->

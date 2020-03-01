@@ -1,5 +1,44 @@
 第一章 操作系统引论
 
+操作系统的定义：
+A program that acts as an intermediary between a user of a computer and the computer handware
+
+操作系统的目标：
+使用户方便地使用计算机
+使计算机硬件高效运行
+
+计算机系统的四个层次
+硬件<->操作系统<->软件<->用户
+
+现代计算机系统的特征
+1.多程序 multiprogramming
+  1.单用户系统有先天缺陷，无法让cpu和i/o设备同时处于运行状态
+  2.多程序思想让多个程序竞争使用cpu
+  3.作业调度器每次选择一个作业交给cpu执行
+  4.当某个作业被迫等待时，cpu执行另一个作业
+2.多任务 multitasking 分时系统 TimeSharing
+  进一步扩展多程序思想，使cpu更快捷地在作业之间切换，这样，作业总能及时得到cpu相应用户的交互操作，称为交互式计算
+3.cpu提供Dual-Mode机制 实现操作系统的自我保护
+  用户态(User Mode)和内核态(Kernel Mode)
+
+操作系统的服务功能
+  进程管理
+  内存管理
+  外存管理
+  大容量存储器管理
+  I/O设备管理
+
+操作系统的系统调用(System Calls)
+  用高级语言实现
+  程序通常以API使用，而不是直接使用系统调用
+  三大流行APIs，win32API，POSIXAPI，JavaAPI
+
+操作系统的结构
+  1.简单结构 MS-DOS
+  2.层次化方法 UNIX
+  3.微内核结构 MacOS(层次化+微内核)
+  4.模块(Modules) Solaris
+
 操作系统的目标
 1.有效性
 2.方便性
