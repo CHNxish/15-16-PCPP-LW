@@ -3,7 +3,7 @@ struct task_struct {
      unsigned long flags;  //Flage 是进程号,在调用fork()时给出
      int sigpending;    //进程上是否有待处理的信号
      mm_segment_t addr_limit; //进程地址空间,区分内核进程与普通进程在内存存放的位置不同
-     //0-0xBFFFFFFF for user-thead
+     //0-0xBFFFFFFF for user-thread
      //0-0xFFFFFFFF for kernel-thread
      
      
