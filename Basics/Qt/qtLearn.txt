@@ -1,0 +1,107 @@
+Qt 5.x for Desktop使用 windeployqt 路径 生成可执行文件夹
+
+RC_ICONS 设置软件图标
+
+Empty Qmake Project 创建 HelloWorld
+### HelloWorld.pro
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+SOURCES += \      // 自动生成
+    main.cpp      // 自动生成
+
+### main.cpp
+#include <QApplication>
+#include <QDialog>
+#include <QLabel>
+
+int main(int argc, char *argv[]) {
+    QApplication a(argc, argv);
+
+    QDialog w;
+    w.setWindowTitle(QString("Hello"));
+    w.resize(400, 300);
+
+    QLabel label(&w);
+    label.move(120, 120);
+    label.setText("Hello, World! Hello, QT!")
+    w.show();
+    return a.exec();
+}
+
+命令行编译程序
+1.编写代码(utf-8保存)
+2.使用Qt 5.x for Desktop软件中的qmake -project指令
+3.在*.pro文件最后写入greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+4.使用Qt 5.x for Desktop软件中的qmake指令
+5.使用mingw32-make工具完成自动编译
+
+注明：使用Qt设计师界面和全部自己用代码生成界面效果是相同的
+
+Empty Qmake Project 和 Qt Designer 创建 HelloWorld
+### HelloWorld.pro
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+SOURCES += \      // 自动生成
+    main.cpp      // 自动生成
+
+FORMS += \          // 自动生成
+    hellodialog.ui  // 自动生成
+
+### main.cpp
+#include "ui_hellodialog.h"
+
+int main(int argc, char *argv[]) {
+    QApplication a(argc, argv);
+
+    QDialog w;
+    
+    Ui::HelloDialog ui;
+    ui.setupUo(&w);
+    w.show();
+
+    return a.exec();
+}
+
+命令行通过Qt设计师编译程序
+1.复制可用的xxx.ui和main.cpp
+2.使用Qt 5.x for Desktop中的 uic -o ui_***.h ***.h 生成头文件
+3.使用Qt 5.x for Desktop软件中的qmake -project指令
+4.在*.pro文件最后写入greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+5.使用Qt 5.x for Desktop软件中的qmake指令
+6.使用mingw32-make工具完成自动编译
+
+Qt编程的三种方式
+1.仅仅使用代码，调用控件
+2.利用Designer，并在代码中使用UI
+3.将UI设计封装进自己的代码中
+
+# 标准 .pro 文件
+QT += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+CONFIG += c++11       # c++标准
+
+TARGET = ***          # 生成的目标文件名称
+TEMPLATE = app        # 使用app模版，表明是个应用程序
+
+SOURCES += ***        # 使用的源文件
+HEADERS += ***        # 使用的头文件
+FORMS += ***          # 使用的界面文件
+
+RC_ICONS = ***        # 使用的图标
+
+# 还有一些其他配置
+
+注明：core模块包含了Qt的核心功能，其他所有模块都依赖这个模块
+gui模块提供了窗口系统集成，事件处理，OpenGL，OpenGL ES集成，2D图形，图像，字体，文本等
+当使用qmake编译时，默认包含core和gui两个模块
+widgets模块提供了经典的用户界面的UI元素集合
+
+F1查看帮助
+
+程序调试  
+1.设置断点和F5开始调试
+2.QDebug头文件和qDebug函数
+qDebug("x: %d", x);                     # 无需头文件
+qDebug() << "geometry: " << geometry;   # 需要头文件
