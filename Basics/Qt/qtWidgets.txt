@@ -55,3 +55,163 @@ Qt::WindowMinimized
 包含框架：x(), y(), frameGeometry(), pos(), move()
 不包含框架：geometry(), width(), height(), rect(), size()
 注：geometry()和frameGeometry()函数返回QRect类型，pos()函数返回QPoint类型，size()函数返回QSize类型
+
+对话框 QDialog
+QDialog *dialog = new QDialog(widget);
+
+模态和非模态：模态对话框就是在没有关闭它之前，不能再于同一个应用程序的其他窗口进行交互
+1.show()函数                  非模态对话框
+2.exec()函数                  模态对话框，程序执行权进入对话框
+3.setModal(true)  show()      模态对话框，设置模态性为真
+4.setWindowModality() show()  设置模态性
+Qt::NonModal  Qt::WindowModal  Qt::Application
+
+信号和槽 signal and slot
+手动关联
+  1.创建槽
+  public slots:
+      void showChildDialog();
+  2.编写槽函数
+  3.建立信号与槽的关系 QObject类定义了connect函数
+  connect(ui->showChildButton, &QPushButton::clicked,
+          this, &MainWindow::showChildDialog);
+  发射信号的对象，发射的信号，接受信号的对象，需要执行的槽
+自动关联
+  1)如果是在Qt设计器中添加部件
+    1.修改objectName为showChildButton
+    2.创建槽
+      void on_showChildButton_clicked();
+    3.编写槽函数
+  2)如果不是在Qt设计器中添加部件
+    1.在setupUi()前定义部件，并使用setObjectName()修改名称
+    2.创建槽并编写槽函数
+
+QDialog的返回值 dialog.exec()
+1.对话框执行accept()    dialog.exec()返回QDialog::Accepted
+2.对话框执行reject()    dialog.exec()返回QDialog::Rejected
+
+标准对话框 Standard Dialogs (继承父类QDialog的对话框)
+1.颜色对话框 QColorDialog头文件
+  QColor color = QColorDialog(Qt::red, this, tr("颜色对话框"));
+2.文件对话框 QFileDialog头文件
+  QString fileName = QFileDialog::getOpenFileName(this, tr("文件对话框"), "/Users", tr("图片文件(*png *jpg);;文本文件(*txt)"));
+  QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("文件对话框"), "/Users", tr(图片文件(*png *jpg)));
+3.字体对话框 QFontDialog头文件
+  bool ok; QFont font = QFontDialog::getFont(&ok, this);
+4.输入对话框 QInputDialog头文件
+  bool ok; QStringList items;
+  // 获取字符串
+  QString string = QInputDialog::getText(this, tr("Title"), tr("Label"), QLineEdit::Normal, tr("value"), &ok);
+  // 获取整形
+  int value = QInputDialog::getInt(this, tr("Title"), tr("Label"), init_value, min_value, max_value, step_value, &ok);
+  // 获取双浮点数
+  double value = QInputDialog::getDouble(this, tr("Title"), tr("Label"), init_value, min_value, max_value, step_value, &ok);
+  // 选择条目
+  QString string = QInputDialog::getItem(this, tr("Title"), tr("Label"), items, init_state, editable, &ok);
+5.消息对话框 QMessageBox头文件
+  // 问题对话框
+  int ret = QMessageBox::question(this, tr("Question Dialog"), tr("Label"), QMessageBox::Yes, QMessageBox::No);
+  // 提示对话框
+  int ret = QMessageBox::information(this, tr("Information Dialog"), tr("Label"), QMessageBox::Ok);
+  // 警告对话框
+  int ret = QMessageBox::warning(this, tr("Warnning Dialog"), tr("Lable"), QMessageBox::Abort);
+  // 错误对话框
+  int ret = QMessageBox::critical(this, tr("Critical Dialog"), tr("Label"), QMessageBox::YesALL);
+  // 关于对话框
+  QMessageBox::about(this, tr("About Dialog"), tr("About"));
+6.进度对话框 QProgressDialog头文件
+  QProgressDialog dialog(tr("Label"), tr("button"), start_value, end_value, this);
+  dialog.setWindowTitle(); dialog.setWindowModality(), dialog.show();
+  for (int i = 0; i < end_value; ++i) {
+      dialog.setValue(i);
+      QCoreApplication::processEvents();  // 避免界面冻结
+      if (dialog.wasCanceled()) break;    // 按下取消按钮就中断
+  }
+  dialog.setValue(end_value);
+7.错误信息对话框 QErrorMessage头文件
+  QErrorMessage errorDialog(this);
+  errorDialog->setWindowTitle(); errorDialog->showMessage();
+8.向导对话框 QWizardPage头文件
+  QWizard wizard(this);
+  wizard.addPage(createPage());
+  wizard.exec();
+
+  QWizardPage *createPage() {
+      QWizardPage *page = new QWizardPage();
+      page->setTitle(tr("Label"));
+      return page;
+  }
+
+QFrame:带有边框的部件的基类 
+四个属性：边框形状 边框阴影 lineWidth midLineWidth
+frame->setFrameShape(QFrame::Box);
+frame->setFrameShadow(QFrame::Sunken);
+// 以上两个函数可以使用setFrameStyle(QFrame::Box | QFrame::Sunken);
+frame->setLineWidth(5);
+frame->setMidLineWidth(10);
+
+QFrame的子类
+1.标签 QLabel头文件
+  label.setFont(font);
+  QString str = label.fontMetrics().edidedText(string, Qt::ElideRight, 180);  // 根据标签的字体设置，设置文本
+    Qt::ElideLeft Qt::ElideRight Qt::ElideMiddle
+  label.setPixMap(QPixmap("icon.png"));
+  label.setMovie(QMovie("icon.gif"));
+2.液晶数字 QLCDNumber头文件
+  label.diaplay(123.45);
+3.部件栈 QStackedWidget头文件
+  需要使用QListWidget或者QComboBox中的currentRowChanged()信号绑定QStackedWidget中的setCurrentIndex()槽
+4.层叠窗口 QToolBox头文件
+
+QAbstractButton:按钮部件的抽象基类，提供了按钮的通用功能
+1.标准按钮 QPushButton头文件
+  pushButton.setText(tr("&nihao"));
+  pushButton.setIcon(QIcon("path"))
+  QMenu *menu = new QMenu(this);
+  menu->addAction(QIcon("path"), tr("Action"));
+  pushButton.setMenu(menu);
+2.复选框 QCheckBox头文件
+3.单选框按钮 QRadioButton头文件
+4.组合按钮框 QGroupBox头文件
+5.工具按钮 QToolButton头文件
+  toolButton.setText(tr("Color"));
+  toolMenu.addAction(tr("Red"));
+  toolMenu.addAction(tr("Green"));
+  toolButton.setMenu(toolMenu);
+  toolButton.ssetPopupMode(QToolButton::MenuButtonPopup);
+
+QLineEdit:单行文本编辑器
+  setEchoMode(QLineEdit::Normal);  // 显示模式
+  setInputMask("Mask");            // 输入掩码
+  setText();        输入内容
+  text();           输出文本内容
+  diaplayText();    输出显示内容
+
+  // 上一行输入回车，下一行获得焦点
+  void MainWindow::on_lineEdit1_returnPressed() {
+      ui->lineEdit2->setFocus();
+  }
+
+  // 输入验证
+  QValidator *validator = new QIntValidator(100, 999, this);
+  lineEdit.setValidator(validator);
+
+  // 自动补全
+  QStringList wordList;
+  wordList << "Qt" << "Qt Creator" << tr("你好");
+  QCompleter *completer = new QCompleter(wordList, this);
+  completer->setCaseSensitivity(Qt::CaseInsensitive); // 设置大小写不敏感
+  listEdit.setCompleter(completer);
+
+QAbstractSpinBox：提供一个数值设定框和一个行编辑器的抽象基类
+1.日期时间设定框 QDataTimeEdit类 QDataEdit类 QTimeEdit类
+  dateTimeEdit.setDateTime(QDateTime::currentDateTime());
+  dateTimeEdit.setDiaplyFormat(tr("yyyy:mm:dd ddd hh:mm:ss"));
+  dateTimeEdit.text(); // 返回文本
+  dateTimeEdit.dateTime(); // 返回QDateTime类型
+2.整数设定框 QSpinBox
+  spinBox.value();
+3.浮点数设定框 QDoubleSpinBox
+  doubleSpinBox.value();
+
+QAbstractSlider：滑块，提供区间内一个整数值的抽象基类

@@ -10,13 +10,13 @@ new -> ready <-> running -> terminated
          ↑ waiting ↓
 
 PCB 进程控制块(Process Control Block)
-process state + process number + program counter +
-registers + memory limits + list of open files + ...
+  process state + process number + program counter +
+  registers + memory limits + list of open files + ...
 
 进程调度队列 Job Queue Ready Queue Device Queue
 进程一经创建，即在队列之间迁移，直到终止
 
--> Ready Queue -------Scheduler--------->            CPU ->
+-> Ready Queue -------Scheduler--------->            CPU -> end
     ↑                                                 ↓
     ↑ <- I/O <- I/O Queue <-          I/O Request  <- ↓
     ↑                     <-   Time Slice Expired  <- ↓
@@ -40,23 +40,39 @@ registers + memory limits + list of open files + ...
     父进程终止子进程的执行(abort)
 
 进程间的合作
-独立进程不会影响其他进程的执行，也不被影响
-合作进程影响其他进程，或者受其他进程影响
-进程间合作式必须的，可以共享信息，加速执行任务，模块化，方便调用
+  独立进程不会影响其他进程的执行，也不被影响
+  合作进程影响其他进程，或者受其他进程影响
+  进程间合作式必须的，可以共享信息，加速执行任务，模块化，方便调用
 
 IPC(Interprocess Communication)
-进程间通信IPC，提供一套进程通信，进程同步的机制  消息系统 send receive
+  进程间通信IPC，提供一套进程通信，进程同步的机制  消息系统 send receive
 同步通信 异步通信
 
 CPU调度
-进程在执行中，总是在cpu密集型和I/O密集型交替运行，为了使CPU利用率最高，必须要CPU调度
+  进程在执行中，总是在cpu密集型和I/O密集型交替运行，为了使CPU利用率最高，必须要CPU调度
 调度器 Scheduler 需要调度器的时候
-执行 -> 等待
-执行 -> 就绪
-等待 -> 就绪
-进程终止
-抢占式 非抢占式调度
-FCFS 调度算法 first-come, first-served Scheduling
+  执行 -> 等待
+  执行 -> 就绪
+  等待 -> 就绪
+  进程终止
+抢占式调度：拥有CPU资源的进程被迫交出CPU资源
+非抢占式调度：拥有CPU资源的进程自愿交出CPU资源
+调度算法：
+  FCFS 先来先服务调度算法 first-come, first-served Scheduling
+  SJF 最短作业优先调度算法 Shortest-Job-First Scheduling
+  HRN 最高响应比调度算法 Highest response Ratio Next Scheduling
+  Priority Scheduling 优先权调度算法:优先权较低的就绪进程可能永远得不到资源
+       aging思想：就绪进程等在就绪队列里的时间，折算叠加到进程优先权，因此，等待在就绪队列里的进程，其优先权单调递增
+  Round Robin 轮转调度算法
+多层队列(Multilevel Queue)：把就绪队列拆分为几个队列，每个队列有其算法
+多层反馈队列(Multilevel FeedBack Queue)：进程可在多个队列中迁移
+
+实时(real-time)调度：
+  硬实时调度：调度机制能够确保一个关键任务在给定的时间点前完成
+  软实时调度：调度机制尽量给予关键任务最高优先级，尽量在预定时间点前完成
+
+线程(Thread)
+
 
 前趋图(Precedence Graph)用于描述进程之间执行的前后关系，是一种有向无循环图(Directed Acyclic Graph)
 P1 -> P2 ->

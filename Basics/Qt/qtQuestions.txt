@@ -1,0 +1,30 @@
+1.Qt部件的扁平化设计
+
+void setBtnQss(QPushButton *btn, QString normalColor, QString normalTextColor,
+               QString hoverColor, QString hoverTextColor, QString pressedColor,
+               QString pressedTextColor)
+{
+    QStringList qss;
+    qss.append(QString("QPushButton{border-style:none;padding:10px;border-radius:3px;color:%1;background:%2;%3}").arg(normalTextColor).arg(normalColor).arg(QString::fromLocal8Bit(" font-family:'微软雅黑';")));
+    qss.append(QString("QPushButton:hover{color:%1;background:%2;}").arg(hoverTextColor).arg(hoverColor));
+    qss.append(QString("QPushButton:pressed{color:%1;background:%2;}").arg(pressedTextColor).arg(pressedColor));
+    btn->setStyleSheet(qss.join(""));
+}
+
+void setTxtQss(QLineEdit *txt, QString normalColor, QString focusColor)
+{
+    QStringList qss;
+    qss.append(QString("QLineEdit{border-style:none;padding:6px;border-radius:2px;border:2px solid %1;}").arg(normalColor));
+    qss.append(QString("QLineEdit:focus{border:2px solid %1;}").arg(focusColor));
+    txt->setStyleSheet(qss.join(""));
+
+2.Qt的中文显示
+  QString::fromLocal8Bit("string");
+
+  Qt预言家 TRANSLATIONS ts文件
+
+3.获取焦点
+  QWidget::setFocus();
+
+4.设置窗口固定
+  QWidget::setFixedSize(400, 300);

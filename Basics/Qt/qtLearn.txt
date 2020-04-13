@@ -80,28 +80,56 @@ QT += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11       # c++标准
+CONFIG += c++11              # c++标准
 
-TARGET = ***          # 生成的目标文件名称
-TEMPLATE = app        # 使用app模版，表明是个应用程序
+TARGET = ***                 # 生成的目标文件名称
+TEMPLATE = app               # 使用app模版，表明是个应用程序
 
-SOURCES += ***        # 使用的源文件
-HEADERS += ***        # 使用的头文件
-FORMS += ***          # 使用的界面文件
+SOURCES += ***               # 使用的源文件
+HEADERS += ***               # 使用的头文件
+FORMS += ***                 # 使用的界面文件
 
-RC_ICONS = ***        # 使用的图标
+RC_ICONS = ***               # 使用的图标
+
+TRANSLATIONS = zh_CN.ts \    # 多语言
+               en_US.ts
 
 # 还有一些其他配置
+
+RESOURCES += resources.qrc   # 资源
 
 注明：core模块包含了Qt的核心功能，其他所有模块都依赖这个模块
 gui模块提供了窗口系统集成，事件处理，OpenGL，OpenGL ES集成，2D图形，图像，字体，文本等
 当使用qmake编译时，默认包含core和gui两个模块
 widgets模块提供了经典的用户界面的UI元素集合
 
-F1查看帮助
+# 头文件中语句
+QT_FORWARD_DECLARE_CLASS(QMenu)
+
+F1查看帮助 F2查看头文件
 
 程序调试  
 1.设置断点和F5开始调试
 2.QDebug头文件和qDebug函数
 qDebug("x: %d", x);                     # 无需头文件
 qDebug() << "geometry: " << geometry;   # 需要头文件
+
+定位器 Type to locate
+
+使用.qrc中的文件   ":/new/images/open.png"
+
+应用程序主窗口：
+  主窗口框架：
+    1.菜单栏(QMenuBar) 2.工具栏(QToolBar) 3.中心部件(Central Widget) 4.Dock部件(QDock Widget) 5.状态栏(QStatusBar)
+
+  建立菜单和行动(Menu And Action)
+  1.在Designer中建立
+    1.在menuBar中建立menu，并建立action
+    2.在Action Editor选中action修改相关信息
+    3.在代码界面使用toolBar中导入action
+  2.在代码界面建立
+    QMenu *editMenu = ui->menuBar->addMenu(tr("&Edit"));
+    QAction *actionOpen = editMenu->addAction(
+                QIcon(":/new/images/open.png"), tr("&Open File"));
+    actionOpen->setShortcut(QKeySequence("Ctrl+O"));
+    ui->toolBar->addAction(actionOpen);

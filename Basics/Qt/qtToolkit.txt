@@ -1,0 +1,86 @@
+1.部件属性栏
+  QLabel类：(Alignment)可以设置文本对齐属性
+
+  QLcdNumber类：smallDecimalPoint 是否显示小数点
+              digitCount 设置显示的数字的个数
+              mode 表示进制
+
+  QToolBox类：currentItemText 设置各层窗口文本
+
+  QPushButton类：checkable 拥有"选中"和"未选中"两种状态
+               flat属性 是否显示边框
+
+  QLineEdit类：echoMode 显示模式
+             inputMask 输入掩码 (只能通过代码使用)
+
+  QDataTimeEdit类：displayFormat 显示格式
+                  calendarPopup 日历弹出
+
+  QSpinBox类：prefix 前缀
+             suffix 后缀
+
+2.字体类
+  QFont头文件
+    font.setFamily("华文行楷");
+    font.setPointSize(10);
+    font.setBold(true);
+    font.setItalic(true);
+    label.setFont(font);
+
+  QFontMetrics头文件
+
+3.图像类
+  QPixmap头文件 png
+    label.setPixmap(QPixmap("path"));
+  QMovie头文件  gif
+    QMovie *movie = new QMovie("path");
+    label.setMovie(movie);
+    movie->start();
+  QIcon头文件 png
+    pushBtn.setIcon(QIcon("path"));
+
+4.其他类
+  QMenu类：菜单 给QPushButton类和QMenuBar类使用
+    QMenu *menu = new QMenu(this);
+    menu->addAction(QIcon("path"), tr("Action"));
+    pushButton.setMenu(menu);
+
+  QAction类：行动 给QWidget类使用
+    widget.addAction(tr("ACtion"));
+
+  QValidator类：验证器 给QLineEdit类使用
+    QValidator *validator = new QIntValidator(100, 999, this);
+    lineEdit.setValidator(validator);
+
+    QRegExp rx("-? \\d(1.3)");
+    QValidator *validator = new QRegExpValidator(rx, this);
+
+  QCompleter类：补全器 给QLineEdit类使用
+    QStringList wordList;
+    wordList << "Qt" << "Qt Creator" << tr("你好");
+    QCompleter *completer = new QCompleter(wordList, this);
+    completer->setCaseSensitivity(Qt::CaseInsensitive); // 设置大小写不敏感
+    listEdit.setCompleter(completer);
+
+  QActionGroup类：行动分组 给QMenuBar使用
+    QActionGroup *actionGroup = new QActionGroup(this);
+    QAction *actionLeft = actionGroup->addAction(tr("&Left"));
+    actionLeft->setCheckable(true);
+    QAction *actionRight = actionGroup->addAction(tr("&Right"));
+    actionRight->setCheckable(true);
+    QAction *actionCenter = actionGroup->addAction(tr("&Center"));
+    actionCenter->setCheckable(true);
+    actionLeft->setChecked(true);
+    editMenu->addSeparator();
+    editMenu->addAction(actionLeft);
+    editMenu->addAction(actionCenter);
+    editMenu->addAction(actionRight);
+
+5.数值类
+  QString类
+
+  QStringList类
+
+  QRegExp类
+
+  QDateTime类
