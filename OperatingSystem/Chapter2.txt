@@ -71,7 +71,308 @@ CPU调度
   硬实时调度：调度机制能够确保一个关键任务在给定的时间点前完成
   软实时调度：调度机制尽量给予关键任务最高优先级，尽量在预定时间点前完成
 
-线程(Thread)
+线程(Thread)：是操作系统能够进行运算调度的最小单位
+  user-level threads      用户级线程
+  kernel-level threads    内核级线程
+
+线程模型
+  many-to-one模型
+  one-to-one模型
+  many-to-many模型
+  two-level模型
+
+原子操作(Atomic operation)：原子操作是指不会被线程调度机制打断的操作；这种操作一旦开始，就一直运行到结束，中间不会有任何context switch(切换到另一个线程)
+
+race condition(竞争):The situation where several processes access and manipulate shared data concurrently. The final value of the shared data depends upon which process finishes last.
+若干进程并发访问并且操纵共享数据的特殊情形。共享数据的最终稳定值取决于最后完成操纵的那个进程
+
+临界区问题(The Critical-Section Problem)
+  假设n个进程竞相访问共享数据的情形
+  每个进程存在一段代码，称作为临界区，进程就是通过这段代码访问了共享数据(shared data)
+  其他代码段没有访问共享数据
+  这n个进程中，至少存在1个以上的进程修改了共享数据
+怎样确保，当有一个进程i正在其自己的临界区执行时，没有任何其他进程j也在它的临界区中执行
+
+临界区问题的解决方案：
+  互斥(Mutual Exclusion)：
+    如果进程P1正在其临界区执行，那么，其他任何进程均不允许在他们的临界区中
+  空闲让进(Progress)：
+    如果没有进程处于它的临界区，而且某些进程申请进入其临界区，那么只有那些不在remainder sections的进程，
+    才能参与能否进入临界区的选举，并且这个选举不允许无限期(indefinitely)推迟
+  有限等待(Bounded Waiting)：
+    某一进程从其提出请求，至它获准进入临界区的这段时间里，其他进程进入他们的临界区的次数存在上界
+
+Algorithm 1
+    int turn;
+    // for Pi                      for Pj
+    do {                           do { 
+        while (turn != i) ;            while (turn != j) ;
+        critical-section               critical-section
+        turn = j;                      turn = i;
+        remainder-section              remainder-section
+    } while (1);                   } while (1);
+
+Algorithm 2
+    boolean flag[2]; flag[0] = false; flag[1] = false;
+    // for Pi                      for Pj
+    do {                           do {
+        flag[i] = true;                flag[j] = true;
+        while (flag[j]) ;              while (flag[i]) ;
+        critical-section               critical-section
+        flag[i] = false;               flag[j] = false;
+        remainder-section              remainder-section
+    } while (1);                   } while (1);
+
+Algorithm 3: Peterson算法
+    int turn; 
+    boolean flag[2]; flag[0] = false; flag[1] = false;
+    // for Pi                            for Pj
+    do {                                 do { 
+        flag[i] = true;                      flag[j] = true;
+        turn = j;                            turn = i;
+        while (flag[j] && turn == j) ;       while (flag[i] && turn == i) ;
+        critical-section                     critical-section
+        flag[i] = false;                     flag[j] = false;
+        remainder-section                    remainder-section
+    } while (1);                         } while (1);
+
+Algorithm 4: Lamport面包房(Bakery)算法
+  // boolean choosing[n] = {false}; int number[n] = {0};
+  // (a, b) < (c, d), if a < c, or if a = c and b < d, the result is true
+    do {
+        choosing[i] = true;
+        number[i] = max(number[0], number[1], ..., number[n - 1]) + 1;
+        choosing[i] = false;
+        for (j = 0; i < n; j++) {
+            while (choosing[j]) ;
+            while (number[j] != 0 && ((number[j], j) < (number[i], i)));
+        }
+        critical-section
+        number[i] = 0;
+        remainder-section
+    } while (1);
+
+硬件指令解决临界区指令：提供硬件指令，体现原子操作(atomic)特征
+  一种是“测试并赋值”：test memory word and set value
+      boolean TestAndSet(boolean *target) {
+          boolean rv = *target;
+          *target = TRUE;
+          return rv;
+      }
+      // use TestAndSet
+      boolean lock = FALSE;    // lock为共享数据
+      while (TRUE) {
+          while (TestAndSet(&lock)) ;
+          critical-section
+          lock = FALSE;
+          remainder-section
+      }
+  一种是“交换内存内容”：swap contents of two memory words
+      void Swap(boolean *a, boolean *b) {
+          boolean temp = *a;
+          *a = *b;
+          *b = temp;
+      }
+      // use Swap
+      boolean key, lock = FALSE;    // lock为共享数据
+      while (TRUE) {
+          key = TRUE;
+          while (key == TRUE) 
+              Swap(&lock, &key);
+          critical-section
+          lock = FALSE;
+          remainder-section
+      }
+以上两种硬件指令不能满足“有限等待”，但是硬件是可以实现的
+
+信号量(Semaphore)：用户可以以最低的额外工作，解决临界区问题
+  信号量S是个整形变量
+  信号量S只允许两个标准操作：wait()和signal()
+  wait()和signal()是原子操作
+wait(S) {
+    value--;
+    if (value < 0) {
+        add the process to waiting queue
+        block();
+    }
+}
+
+signal(S) {
+    value++;
+    if (value <= 0) {
+        remove a process P from the waiting queue
+        wakeup(P);
+    }
+}
+
+// use wait and signal
+Semaphore S = 1;
+do {
+    wait(S);
+    critical-section
+    signal(S);
+    remainder-section
+} while (1);
+信号量同时可以解决进程同步问题
+
+经典同步问题(Classical Problems of Synchronization)
+  生产者-消费者问题(Producer-Consumer Problem)
+    unbounded-buffer 缓冲区的容量无限
+    bounded-buffer   缓冲区的容量有限
+      1.存在盲等待
+        数据 data
+          variables: buffer[](shared), in, out, counter(shared);  // shared说明共享
+          semaphore mutex(shared);
+          initially mutex = 1;
+        while (TRUE) {                    |    while (TRUE) {
+            * produce an item *           |        while (counter == 0) ;
+            while (counter == N) ;        |        nextConsumed = buffer[out];
+            buffer[in] = nextProduced;    |        out = (out + 1) % N;
+            in = (in + 1) % N;            |        wait(mutex);
+            wait(mutex);                  |        counter--;
+            counter++;                    |        signal(mutex);
+            signal(mutex);                |        * consume the item *
+        }                                 |    }
+      2.比较好的解决方法
+        数据 data
+          variables: buffer[](shared), in, out, counter(shared);  // shared说明共享
+          semaphore mutex(shared), full(shared), empty(shared);
+          initially mutex = 1, full = 0, empty = N;
+        Producer                          |    Consumer
+        wait(empty);                      |    wait(full)
+        wait(mutex)                       |    wait(mutex)
+        * produce an item *               |    * consume the item *
+        signal(mutex)                     |    signal(mutex)
+        signal(full)                      |    signal(empty)
+  读者-写者问题(Readers and Writers Problem)
+    1.读者进程不会被要求等待，除非已经有一个写者进程获准访问共享数据集
+      数据 data
+        variables: readcount;
+        semaphore mutex, wrt;
+        initially mutex = 1, wrt = 1, readcount = 0;
+      Reader                              |    Writer
+      while (true) {                      |    while (true) {
+          wait(mutex);                    |        wait(wrt);
+          readcount++;                    |        * writing is performed *
+          if (readcount == 1) wait(wrt);  |        signal(wrt);
+          signal(mutex);                  |    }
+          * reading is performed *        |
+          wait(mutex);                    |
+          readcount--;                    |
+          if (readcount == 0) signal(wrt);|
+          signal(mutex);                  |
+      }                                   |
+    2.写者进程不会被要求等待，除非已经有一个读者进程获准访问共享数据集
+    读锁(read lock), or 共享锁(share lock)
+    写锁(write lock), or 互斥锁(exclusive lock)
+  哲学家就餐问题(Dining-Philosophers Problem)
+
+死锁(Deadlock): two or more processes are waiting indefinitely for an event that can be
+caused by only one of the waiting processes
+饥饿(Starvation): indefinite blocking. A process may never be removed from the semaphore
+queue in which it is suspended
+
+死锁(Deadlock)：一组被阻塞进程的集合
+  集合中每个(进程)元素既占有一些资源，同时又等待另外一些资源
+  进程所等待的资源恰恰被集合中的另外某个(等待)进程占用
+
+  进程Pi使用资源遵循这样的流程：
+    申请资源
+    申请没被批准，则等待
+    申请获批准，则使用该资源
+    使用完毕后，释放资源
+
+  形成死锁的必要条件：
+    互斥(Mutual exclusion)：某种资源一次只允许一个进程访问
+    占有且等待(Hold and wait)：任一进程，它至少占有一个资源，同时又等待更多资源。而被等待的资源目前由其他进程占用
+    不可抢占(No preemption)：进程完成其任务后，才会资源释放其占用的资源
+    循环等待(Circular wait)：存在进程集合{P0, P1, ..., Pn}，这些进程均处于等待状态；进程P0等待使用的资源被进程P1占用，进程P1等待使用的资源被进程P2占用，依次类推，进程Pn等待使用的资源被进程P0占用
+
+  资源分配图是一种有向图，我们知道一个图G可以由结点集V以及边集E组成
+  在资源分配图中，结点集定义为V=P∪R，边集则是被定义为E={(Pi，Ri)}∪{(Ri，Pi)}
+
+  处理死锁问题的思路(三类方法和四种思路)：
+    操作系统确保死锁不会发生：
+      死锁预防(Deadlock Prevention)
+        任何情况下，保证四个条件不会同时满足
+        总结：代价太大，或者不太可行
+      死锁避免(Deadlock Avoidance)
+        安全状态：如果存在一个序列<P0, P1, ..., Pn>
+          进程Pi将申请的最大资源总量 < 当前可用资源 + 所有进程Pj占有的资源
+          Pj排在Pi前面
+        那么，称该系统处于"安全状态"
+        确保系统不进入非"安全状态"=>死锁避免
+        Dijkstra的银行家算法(Banker's Algorithm)
+          银行家算法的数据结构
+            令n = 进程总数，m = 资源类型总数
+            Available - 长度为m的矢量
+              availabel[j] = k 表示Rj类型的资源共有k个实例可用
+            Max - n*m矩阵
+              max[i, j] = k 表示进程Pi最多可申请k个Rj类型资源
+            Allocation - n*m矩阵
+              allocation[i, j] = k 表示进程Pi拥有Rj类型的资源k个
+            Need - n*m矩阵
+              need[i, j] = k 表示进程Pi还需要申请Rj类型的资源k个才能完成任务
+          安全状态判断算法Safety
+            1.令Work为长度为m的矢量，Finish为长度为n的矢量
+              初始化 Work = Available 
+                    Finish[i] = false for i = 0, 1, ..., n-1
+            2.选取满足如下条件的i
+              (a) Finish[i] = false
+              (b) Need(i) < Work
+              If 不存在这样的i， then go to step 4
+            3.Work = Work + Allocation(i)
+              Finish[i] = true
+              go to step 2
+            4.If 对于所有的i，Finish[i] == true，then系统安全，返回safe
+              Else 系统处于不安全状态，返回unsafe
+          银行家算法响应进程Pi的请求
+            定义Request矢量，Request(i)[j] = k表示进程Pi发出申请，申请Rj类型的资源k个
+            1.If Request(i) ≤ Need(i) go to step 2    // 开始时Need所要请求的数目可以认为是Max
+              Else 报错，出错原因是进程申请数超过了预报根数
+            2.If Request(i) ≤ Available(i) go to step 3
+              Else 否则，进程Pi等待，因为资源不够用
+            3.如进程Pi所愿，得到申请的资源，那么数据预先计算：
+              Available = Available - Request;
+              Allocation = Allocation + Request;
+              Need = Need - Request;
+            4.调用Safety算法
+              If 返回 safe => 不会死锁，资源如数分配给进程Pi
+              If 返回 unsafe => 进程Pi等待，数据结构恢复至调用算法前的值
+    操作系统可以发生死锁，但是死锁检测和死锁恢复：
+      死锁检测(Deadlock Detection)
+        死锁检测算法的数据结构
+          Available - 长度为m的矢量
+            availabel[j] = k 表示Rj类型的资源共有k个实例可用
+          Allocation - n*m矩阵
+            allocation[i, j] = k 表示进程Pi拥有Rj类型的资源k个
+          Request - n*m矩阵
+            行向量Request(i)[j] = k 表示进程Pi发出申请，申请Rj类型的资源k个
+        死锁检测算法
+          1.令Work为长度m的矢量，Finish为长度n的矢量
+            初始化 Work = Availabel
+                  For i = 1, 2, 3, ..., n, if Allocation(i) ≠ 0, then Finish[i] = false; otherwise, Finish[i] = true
+          2.选取满足一下条件的i
+            Finish[i] == false
+            Request(i) ≤ Work
+            If 不存在这样的i, then go to step 4
+          3.Work = Work + Allocation(i)
+            Finish[i] = true
+            go to step 2
+          4.If Finish[i] == false, for some i, 1 ≤ i ≤ n, then 系统处于死锁状态。而且进一步得出结论，if Finish[i] == false, then 进程Pi死锁了
+      死锁恢复(Recovery from Deadlock)
+        1.所有死锁进程全部杀死
+        2.每次只杀死一个死锁进程，直至系统脱离死锁状态
+          按照什么顺序杀死死锁进程？
+            进程优先级
+            进程已经占用了多长CPU时间，进程还需要多长CPU时间
+            进程占用资源的总数
+            进程还需要多少资源
+            杀死多少进程才能脱离死锁状态
+            交互进程还是批处理进程
+            .............
+        3.回退(Rollback) - 进程回滚至前面的安全状态，占有资源，申请资源均有变化
+    操作系统什么都不管(鸵鸟政策)
 
 
 前趋图(Precedence Graph)用于描述进程之间执行的前后关系，是一种有向无循环图(Directed Acyclic Graph)
