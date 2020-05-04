@@ -8,9 +8,9 @@
 
 磁盘 柱面 磁道 扇区
 磁盘调度算法：先来先服务调度算法 FCFS
-              最短寻道时间优先调度算法 SSTF
-              扫描调度算法 SCAN
-              循环扫描调度算法C-SCAN
-              LOOK C-LOOK
+            最短寻道时间优先调度算法 SSTF
+            扫描调度算法 SCAN
+            循环扫描调度算法C-SCAN
+            LOOK C-LOOK
 
- I/O方式：轮循 中断 DMA
+I/O方式：轮循 中断 DMA
